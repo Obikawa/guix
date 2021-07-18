@@ -1085,6 +1085,66 @@ and URL-safe UUIDs.  UUIDs are generated using the built-in Python @code{uuid}
 module and then similar looking characters are removed.")
     (license license:bsd-3)))
 
+; https://github.com/NixOS/nixpkgs/pull/118444/files
+(define-public pmbootstrap
+  (package
+    (name "pmbootstrap")
+    (version "1.40.0")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (pypi-uri "pmbootstrap" version))
+       (sha256
+        (base32
+         "1cxycx0wcgs5lhsfisdrvbvhd46i2baz0r7iixzngqv98h8lvzvg"))))
+    (build-system python-build-system)
+    (arguments
+     `(#:tests? #f
+       #:phases
+       (modify-phases %standard-phases
+         (add-after 'unpack 'replace-programs
+           (lambda* (#:key inputs #:allow-other-keys)
+             (substitute* "pmb/chroot/apk_static.py"
+               (("\"openssl\"") (string-append "\"" (assoc-ref inputs "openssl")
+                                               "/bin/openssl\"")))
+             (substitute* "pmb/config/__init__.py"
+               (("\"git\"") (string-append "\"" (assoc-ref inputs "git")
+                                           "/bin/git\""))
+               (("\"openssl\"") (string-append "\"" (assoc-ref inputs "openssl")
+                                               "/bin/openssl\""))
+               (("\"ps\"") (string-append "\"" (assoc-ref inputs "procps")
+                                          "/bin/ps\"")))))
+         (replace 'check
+           (lambda* (#:key tests? #:allow-other-keys)
+                                        ;(add-installed-pythonpath inputs outputs)
+             (when tests?
+               ;; To import pmb_test module
+               (setenv "PYTHONPATH"
+                       (string-append (assoc-ref %outputs "out") "/test/pmb_test:"
+                                      (getenv "PYTHONPATH")))
+               (invoke "pytest" "-vv"))))
+         ;; Circular dependency with pmbootstrap
+         (delete 'sanity-check))))
+    (native-inputs (list python-pytest python-pyopenssl))
+    (inputs (list git procps openssl))
+    (home-page "https://postmarketos.org")
+    (synopsis "Build and flash tool for postmarketOS")
+    (description
+     "Bootstrap program that abstracts everything in chroots and therefore
+basically runs on top of any Linux distribution. Features:
+@enumerate
+@item chroot setup (distro-independent QEMU user emulation
+@item clean chroot shutdown (umount) and zapping
+@item build software as packages
+@item cross-compile all armhf-packages
+@item effective caching out of the box (survives chroot zaps)
+@item installation targets
+@item flasher abstractions
+@item logging
+@item security
+@end enumerate")
+    (license license:gpl3+)))
+
 (define-public python-logwrap
   (package
     (name "python-logwrap")
