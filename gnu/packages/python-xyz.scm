@@ -15193,6 +15193,27 @@ simple, lightweight implementation.")
 (define-public python2-email-validator
   (package-with-python2 python-email-validator))
 
+(define-public python-emoji
+  (package
+    (name "python-emoji")
+    (version "0.6.0")
+    (source
+      (origin
+        (method url-fetch)
+        (uri (pypi-uri "emoji" version))
+        (sha256
+          (base32
+            "04dx4f43j2zc22zdkgrs6wc6pv51hbv4dhhvd48fzy28svwa8bg4"))))
+    (build-system python-build-system)
+    (native-inputs
+      `(("python-coverage" ,python-coverage)
+        ("python-coveralls" ,python-coveralls)
+        ("python-pytest" ,python-pytest)))
+    (home-page "https://github.com/carpedm20/emoji/")
+    (synopsis "Emoji for Python")
+    (description "Emoji for Python")
+    (license license:bsd-3)))
+
 (define-public python-ukpostcodeparser
   (package
     (name "python-ukpostcodeparser")
