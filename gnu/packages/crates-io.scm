@@ -28265,7 +28265,7 @@ with hyper.")
 (define-public rust-hyphenation-0.8
   (package
     (name "rust-hyphenation")
-    (version "0.8.0")
+    (version "0.8.3")
     (source
      (origin
        (method url-fetch)
@@ -28274,23 +28274,18 @@ with hyper.")
         (string-append name "-" version ".tar.gz"))
        (sha256
         (base32
-         "117h952d2zlpyqmy0kb49wb42rd3l5m5kl3ldfhgygv6lin09b2w"))))
+         "0cxnc9pda3hfzwxzf2a2xlj5xa4ydap4f661pniav90017df8mv8"))))
     (build-system cargo-build-system)
     (arguments
      `(#:skip-build?
        #t
        #:cargo-inputs
        (("rust-bincode" ,rust-bincode-1)
-        ("rust-bincode" ,rust-bincode-1)
         ("rust-fst" ,rust-fst-0.4)
-        ("rust-fst" ,rust-fst-0.4)
-        ("rust-hyphenation-commons"
-         ,rust-hyphenation-commons-0.8)
         ("rust-hyphenation-commons"
          ,rust-hyphenation-commons-0.8)
         ("rust-pocket-resources"
          ,rust-pocket-resources-0.3)
-        ("rust-serde" ,rust-serde-1)
         ("rust-serde" ,rust-serde-1)
         ("rust-unicode-normalization"
          ,rust-unicode-normalization-0.1))))
