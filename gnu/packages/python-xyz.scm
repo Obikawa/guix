@@ -20219,6 +20219,30 @@ file system events on Linux.")
 (define-public python2-pyinotify
   (package-with-python2 python-pyinotify))
 
+(define-public python-pyinstrument-cext
+  (package
+    (name "python-pyinstrument-cext")
+    (version "v0.2.4")
+    (source (origin
+            (method git-fetch)
+            (uri
+              (git-reference
+                (url "https://github.com/joerick/pyinstrument_cext")
+                (commit version)))
+            (file-name (git-file-name name version))
+            (sha256
+             (base32
+              "03s9rlsa0hy7qrq7ymaijrippzp2057lg60xi30ym2mmxa82k9gk"))))
+    (build-system python-build-system)
+    (native-inputs `(("python-nose" ,python-nose)))
+    (home-page
+      "https://github.com/joerick/pyinstrument_cext")
+    (synopsis
+      "CPython extension supporting pyinstrument")
+    (description
+      "A CPython extension supporting pyinstrument")
+    (license license:bsd-3)))
+
 ;; Ada parser uses this version.
 (define-public python2-quex-0.67.3
   (package
