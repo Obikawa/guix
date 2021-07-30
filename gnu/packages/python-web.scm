@@ -3749,6 +3749,32 @@ library for Python")
 (define-public python2-oauth2client
   (package-with-python2 python-oauth2client))
 
+(define-public python-octoprint-filecheck
+  (package
+    (name "python-octoprint-filecheck")
+    (version "2021.2.23")
+    (source
+      (origin
+        (method url-fetch)
+        (uri (pypi-uri "OctoPrint-FileCheck" version))
+        (sha256
+          (base32
+            "0bgvv6hvxa9qv0fs5dfr9wlbbjawxik8f2cid3h3czdhdhw46aqv"))))
+    (build-system python-build-system)
+    ; Fails due to octoprint not present <- I don't want to create a cylic dependency
+    ; TEST case: octoprint_file_check
+    (arguments
+      `(#:tests? #f))
+    (native-inputs
+      `(("python-pre-commit" ,python-pre-commit)))
+    (home-page
+      "https://github.com/OctoPrint/OctoPrint-FileCheck")
+    (synopsis
+      "Checks for common issues in uploaded files")
+    (description
+      "Checks for common issues in uploaded files")
+    (license license:agpl3)))
+
 (define-public python-octoprint-firmwarecheck
   (package
     (name "python-octoprint-firmwarecheck")
@@ -3774,7 +3800,7 @@ library for Python")
       "Checks for unsafe or broken printer firmwares")
     (description
       "Checks for unsafe or broken printer firmwares")
-    (license license:agpl-3)))
+    (license license:agpl3)))
 
 (define-public python-octoprint-pisupport
   (package
