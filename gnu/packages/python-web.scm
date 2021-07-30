@@ -3749,6 +3749,35 @@ library for Python")
 (define-public python2-oauth2client
   (package-with-python2 python-oauth2client))
 
+(define-public python-octoprint-pisupport
+  (package
+    (name "python-octoprint-pisupport")
+    (version "2021.3.26.post2")
+    (source
+      (origin
+        (method url-fetch)
+        (uri (pypi-uri "OctoPrint-PiSupport" version))
+        (sha256
+          (base32
+            "1ca40akw76aygdjksz6w2dixz0nd36rh6flb414hc0yj7scbjwr6"))))
+    (build-system python-build-system)
+    ; Fails due to octoprint not present <- I don't want to create a cylic dependency
+   (arguments
+     `(#:tests? #f))
+    (native-inputs
+      `(("python-ddt" ,python-ddt)
+        ("python-mock" ,python-mock)
+        ("python-flask" ,python-flask)
+        ("python-pre-commit" ,python-pre-commit)
+        ("python-pytest" ,python-pytest)))
+    (home-page
+      "https://github.com/OctoPrint/OctoPrint-PiSupport")
+    (synopsis
+      "Provides additional information about your Pi in the UI")
+    (description
+      "Provides additional information about your Pi in the UI")
+    (license license:agpl3)))
+
 (define-public python-flask-oidc
   (package
     (name "python-flask-oidc")
