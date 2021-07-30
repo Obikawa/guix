@@ -12,7 +12,7 @@
 ;;; Copyright © 2021, 2022 Zheng Junjie <873216071@qq.com>
 ;;; Copyright © 2021 Alexandru-Sergiu Marton <brown121407@posteo.ro>
 ;;; Copyright © 2021 Maxim Cournoyer <maxim.cournoyer@gmail.com>
-;;; Copyright © 2021 Petr Hodina <phodina@protonmail.com>
+;;; Copyright © 2021, 2022 Petr Hodina <phodina@protonmail.com>
 ;;; Copyright © 2021 jgart <jgart@dismail.de>
 ;;; Copyright © 2021 Nicolas Graves <ngraves@ngraves.fr>
 ;;; Copyright © 2022 Aleksandr Vityazev <avityazev@posteo.org>
@@ -67,6 +67,32 @@
   #:use-module (gnu packages version-control)
   #:use-module (gnu packages webkit)
   #:use-module (gnu packages xorg))
+
+(define-public abstreet
+(package
+  (name "abstreet")
+  (version "0.3.13")
+  (source (origin
+            (method git-fetch)
+            (uri
+	      (git-reference
+		(url "https://github.com/a-b-street/abstreet")
+		(commit (string-append "v" version))))
+            (sha256
+             (base32
+              "0nshkysbsgfc3pcma7c7w4qvp54250f1w54na4vxqvxq0nvpcbzy"))))
+  (build-system cargo-build-system)
+  (arguments
+    `(#:cargo-inputs
+      (("rust-geo-booleanop" ,rust-geo-booleanop-0.3)
+	   ("rust-contour" ,rust-contour-0.4))))
+  (synopsis "Traffic simulation game")
+  (description "This package provides a traffic simulation game exploring how
+small changes to a city affect the movement of drivers, cyclists, transit
+users, and pedestrians.  It works anywhere in the world, thanks
+to OpenStreetMap.")
+  (home-page "https://github.com/a-b-street/abstreet")
+  (license license:asl2.0)))
 
 (define-public agate
   (package
