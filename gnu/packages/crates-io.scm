@@ -36223,7 +36223,7 @@ general elements and for numerics.")
   (package
     (inherit rust-ndarray-0.15)
     (name "rust-ndarray")
-    (version "0.13.1")
+    (version "0.14.0")
     (source
      (origin
        (method url-fetch)
@@ -36232,7 +36232,7 @@ general elements and for numerics.")
         (string-append name "-" version ".tar.gz"))
        (sha256
         (base32
-         "02dbwj3b7d0cpy29nhw31n51h3cwm4s1q6narl7fwiigxh1xn1mc"))
+         "011wqzmrd9gpfcfvy1xfbskqfiahn96pmi2d0r9x34d682amq3bc"))
        (patches
         (search-patches "rust-ndarray-0.13-remove-blas-src.patch"))))
     (arguments
@@ -36254,7 +36254,7 @@ general elements and for numerics.")
 
 (define-public rust-ndarray-0.12
   (package
-    (inherit rust-ndarray-0.13)
+    (inherit rust-ndarray-0.14)
     (name "rust-ndarray")
     (version "0.12.1")
     (source
@@ -43314,7 +43314,7 @@ applications.")
         ("rust-hashbrown" ,rust-hashbrown-0.11)
         ("rust-itertools" ,rust-itertools-0.10)
         ("rust-lazy-static" ,rust-lazy-static-1)
-        ("rust-ndarray" ,rust-ndarray-0.13)
+        ("rust-ndarray" ,rust-ndarray-0.14)
         ("rust-num" ,rust-num-0.4)
         ("rust-num-cpus" ,rust-num-cpus-1)
         ("rust-parquet" ,rust-parquet-4)
