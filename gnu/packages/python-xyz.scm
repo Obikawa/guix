@@ -10215,6 +10215,26 @@ Unicode-aware.  It is not intended as an end-user tool.")
 (define-public python2-xlrd
   (package-with-python2 python-xlrd))
 
+(define-public python-immutabledict
+  (package
+    (name "python-immutabledict")
+    (version "2.1.0")
+    (source
+      (origin
+        (method url-fetch)
+        (uri (pypi-uri "immutabledict" version))
+        (sha256
+          (base32
+            "0ylnddj3x1zvak4fp69bk2c56k3zbfgrf2q5jk9kvlj61zrvhgv7"))))
+    (build-system python-build-system)
+    (home-page
+      "https://github.com/corenting/immutabledict")
+    (synopsis
+      "Immutable wrapper around dictionaries (a fork of frozendict)")
+    (description
+      "Immutable wrapper around dictionaries (a fork of frozendict)")
+    (license license:expat)))
+
 (define-public python-immutables
   (package
     (name "python-immutables")
