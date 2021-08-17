@@ -11,6 +11,7 @@
 ;;; Copyright © 2019 Ricardo Wurmus <rekado@elephly.net>
 ;;; Copyright © 2020 Maxim Cournoyer <maxim.cournoyer@gmail.com>
 ;;; Copyright © 2020 Sergey Trofimov <sarg@sarg.org.ru>
+;;; Copyright © 2021 Petr Hodina <phodina@protonmail.com>
 ;;;
 ;;; This file is part of GNU Guix.
 ;;;
@@ -916,6 +917,38 @@ safest way, on a file image.")
      "Androguard is a full Python tool to manipulate Android files.  It is
 useful for reverse engineering, analysis of Android applications and more.")
     (license license:asl2.0)))
+
+(define-public python-android-otp-extractor
+  (let ((commit "cf282c71b178faa893aacf70b46ba9a78e694c86")
+        (revision "1"))
+    (package
+      (name "python-android-otp-extractor")
+      (version commit)
+      (source
+       (origin
+         (method git-fetch)
+         (uri
+          (git-reference
+           (url "https://github.com/puddly/android-otp-extractor")
+           (commit version)))
+         (file-name (git-file-name name version))
+         (sha256
+          (base32
+           "05la9rms7vgzpgk0qhhwqzsdggdnakgppdpp1wm2pzcg7rn8yp21"))))
+      (build-system python-build-system)
+      (arguments
+       `(#:tests? #f))                  ; no tests
+      (propagated-inputs `(("adb" ,adb)
+                           ("python-cryptography" ,python-cryptography)
+                           ("python-coloredlogs" ,python-coloredlogs)))
+      (synopsis "Extracts OTP tokens from rooted Android devices")
+      (description "Many OTP apps don't support exporting or backing up their OTP
+secrets.  Switching apps would require you to regenerate all of your tokens,
+which can be tedious if you have a lot.  This application can extract your
+tokens from popular Android OTP apps and export them in a standard format
+or just display them as QR codes for easy importing.")
+      (home-page "https://github.com/puddly/android-otp-extractor")
+      (license license:gpl3))))
 
 (define-public fdroidserver
   (package
