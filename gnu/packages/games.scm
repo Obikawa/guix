@@ -11031,6 +11031,41 @@ not destroyed a building in your path, you will crash into it.
 This package is part of the KDE games module.")
     (license (list license:gpl2+ license:fdl1.2+))))
 
+(define-public gemrb
+  (package
+    (name "gemrb")
+    (version "0.9.0")
+    (source (origin
+              (method git-fetch)
+              (uri (git-reference
+                    (url "https://github.com/gemrb/gemrb")
+                    (commit (string-append "v" version))))
+              (file-name (git-file-name name version))
+              (sha256
+               (base32
+                "0ysv58l1kvnijgg1fbr765krpghhr9xjwk8wajbhj0ip7jw2w01c"))))
+    (build-system cmake-build-system)
+    (arguments
+     `(#:tests? #f))
+    (native-inputs `(("pkg-config" ,pkg-config)))
+    (inputs `(("sdl" ,(sdl-union (list sdl2
+                                       sdl2-image
+                                       sdl2-mixer)))
+              ("python" ,python)
+              ("openal" ,openal)
+              ("libpng" ,libpng)
+              ("freetype" ,freetype)
+              ("libiconv" ,libiconv)
+              ("libvorbis" ,libvorbis)
+              ("mesa" ,mesa)
+              ("glew" ,glew)))
+    (synopsis "Open-source implementation of Bioware’s 8 Infinity Engine")
+    (description "Game Engine Made with preRendered Background is a portable
+open-source reimplementation of the Infinity Engine that underpinned
+Baldur's Gate, Icewind Dale and Planescape: Torment.")
+    (home-page "https://gemrb.org/")
+    (license license:gpl2)))
+
 (define-public granatier
   (package
     (name "granatier")
