@@ -22936,7 +22936,7 @@ macOS API for file changes notifications")
 (define-public rust-fst-0.4
   (package
     (name "rust-fst")
-    (version "0.4.0")
+    (version "0.4.7")
     (source
       (origin
         (method url-fetch)
@@ -22945,7 +22945,7 @@ macOS API for file changes notifications")
          (string-append name "-" version ".tar.gz"))
         (sha256
          (base32
-          "0ybmdzkknhv1wx6ws86iyixfyzc04l4nm71b9va7953r1m3i6z1z"))))
+          "06mnksicgv9rp8b7w0ykkshf355l05zym3ygm74qr5z30ndmpf3s"))))
     (build-system cargo-build-system)
     (arguments
      `(#:skip-build? #t
