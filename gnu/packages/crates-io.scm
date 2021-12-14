@@ -47310,17 +47310,17 @@ random generic types.")
         (("rust-bincode" ,rust-bincode-1))))
     (license license:bsd-0)))
 
-(define-public rust-raw-cpuid-8
+(define-public rust-raw-cpuid-9
   (package
     (name "rust-raw-cpuid")
-    (version "8.1.2")
+    (version "9.1.1")
     (source
      (origin
        (method url-fetch)
        (uri (crate-uri "raw-cpuid" version))
        (file-name (string-append name "-" version ".tar.gz"))
        (sha256
-        (base32 "0wry932lx7gqyxn7w54mg61b7hiwywyir754jhfxiws3pnfpvpqz"))))
+        (base32 "01ijal85svh99hrzkad7zas4k60ssh0cs0d56s3jc94w1kwgccqp"))))
     (build-system cargo-build-system)
     (arguments
      `(#:cargo-inputs
@@ -47332,7 +47332,8 @@ random generic types.")
        #:cargo-development-inputs
        (("rust-core-affinity" ,rust-core-affinity-0.5)
         ("rust-libc" ,rust-libc-0.2)
-        ("rust-rustversion" ,rust-rustversion-0.1))))
+        ("rust-phf" ,rust-phf-0.9)
+        ("rust-rustversion" ,rust-rustversion-1))))
     (home-page "https://github.com/gz/rust-cpuid")
     (synopsis "Library to parse the x86 CPUID instruction, written in Rust")
     (description
@@ -47341,6 +47342,30 @@ written in Rust with no external dependencies.  The implementation closely
 resembles the Intel CPUID manual description.  The library does only depend on
 libcore.")
     (license license:expat)))
+
+(define-public rust-raw-cpuid-8
+  (package
+    (inherit rust-raw-cpuid-9)
+    (name "rust-raw-cpuid")
+    (version "8.1.2")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (crate-uri "raw-cpuid" version))
+       (file-name (string-append name "-" version ".tar.gz"))
+       (sha256
+        (base32 "0wry932lx7gqyxn7w54mg61b7hiwywyir754jhfxiws3pnfpvpqz"))))
+    (arguments
+     `(#:cargo-inputs
+       (("rust-bitflags" ,rust-bitflags-1)
+        ("rust-cc" ,rust-cc-1)
+        ("rust-rustc-version" ,rust-rustc-version-0.2)
+        ("rust-serde" ,rust-serde-1)
+        ("rust-serde-derive" ,rust-serde-derive-1))
+       #:cargo-development-inputs
+       (("rust-core-affinity" ,rust-core-affinity-0.5)
+        ("rust-libc" ,rust-libc-0.2)
+        ("rust-rustversion" ,rust-rustversion-0.1))))))
 
 (define-public rust-rawpointer-0.2
   (package
