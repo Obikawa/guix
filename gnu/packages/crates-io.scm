@@ -28233,7 +28233,7 @@ with hyper.")
 (define-public rust-hyphenation-0.8
   (package
     (name "rust-hyphenation")
-    (version "0.8.0")
+    (version "0.8.4")
     (source
      (origin
        (method url-fetch)
@@ -28242,7 +28242,7 @@ with hyper.")
         (string-append name "-" version ".tar.gz"))
        (sha256
         (base32
-         "117h952d2zlpyqmy0kb49wb42rd3l5m5kl3ldfhgygv6lin09b2w"))))
+         "1w2hib167vpz7jbg3zs92ifihj4akirlhb5509aib1df8i6dvx5w"))))
     (build-system cargo-build-system)
     (arguments
      `(#:skip-build?
