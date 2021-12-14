@@ -9558,17 +9558,17 @@ spreadsheet file.")
 canonical filesystem paths.")
     (license license:asl2.0)))
 
-(define-public rust-capnp-0.13
+(define-public rust-capnp-0.14
   (package
     (name "rust-capnp")
-    (version "0.13.6")
+    (version "0.14.4")
     (source
      (origin
        (method url-fetch)
        (uri (crate-uri "capnp" version))
        (file-name (string-append name "-" version ".tar.gz"))
        (sha256
-        (base32 "1bx2pj0ysmyd1ryd5s43m3c7n5k067x1aciqiiyg4kjswlcs6xjf"))))
+        (base32 "1lfy5ymj6barnw6p69zsdrhdcbamfrg3b244p27xwz6qs8mbb52h"))))
     (build-system cargo-build-system)
     (arguments
      `(#:cargo-inputs
@@ -9580,6 +9580,19 @@ canonical filesystem paths.")
     (description "This package provides a runtime library for Cap'n Proto data
 encoding.")
     (license license:expat)))
+
+(define-public rust-capnp-0.13
+  (package
+    (inherit rust-capnp-0.14)
+    (name "rust-capnp")
+    (version "0.13.6")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (crate-uri "capnp" version))
+       (file-name (string-append name "-" version ".tar.gz"))
+       (sha256
+        (base32 "1bx2pj0ysmyd1ryd5s43m3c7n5k067x1aciqiiyg4kjswlcs6xjf"))))))
 
 (define-public rust-capnp-0.10
   (package
