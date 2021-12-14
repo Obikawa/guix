@@ -3269,6 +3269,24 @@ coverage-guided, mutation-based fuzzers.")
 that runs on Argon2.")
     (license license:expat)))
 
+(define-public rust-array-init-2
+  (package
+    (name "rust-array-init")
+    (version "2.0.0")
+    (source
+     (origin
+       (method url-fetch)
+       (uri (crate-uri "array-init" version))
+       (file-name (string-append name "-" version ".tar.gz"))
+       (sha256
+        (base32 "1ilfd4hja0i8gjm4n2p29ydcsaicin3w54750bkcavqp49acqib9"))))
+    (build-system cargo-build-system)
+    (home-page "https://github.com/Manishearth/array-init/")
+    (synopsis "Safe wrapper for initializing fixed-size arrays")
+    (description "This package provides a safe wrapper for initializing
+fixed-size arrays")
+    (license (list license:expat license:asl2.0))))
+
 (define-public rust-array-macro-1
   (package
     (name "rust-array-macro")
