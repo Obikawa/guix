@@ -570,6 +570,48 @@ in JavaScript.")
     (home-page "https://wiki.gnome.org/Projects/Seed")
     (license license:lgpl2.0+)))
 
+(define-public squeekboard
+  (package
+    (name "squeekboard")
+    (version "1.19.0")
+    (source (origin
+              (method git-fetch)
+              (uri (git-reference
+                    (url "https://gitlab.gnome.org/World/Phosh/squeekboard")
+                    (commit (string-append "v" version))))
+              (sha256
+               (base32
+                "01fxcg7c7cr2xbywn1yhppqx9q8gy5yafl7gnfd3bmnl9z5smq8m"))))
+    (build-system cargo-build-system)
+    (arguments
+     (list #:modules `((ice-9 match) (ice-9 rdelim)
+                  ,@%cargo-build-system-modules)
+           #:cargo-inputs `(("rust-cairo-sys-rs" ,rust-cairo-sys-rs-0.9)
+                            ("rust-glib-sys" ,rust-glib-sys-0.9)
+                            ("rust-gtk-sys" ,rust-gtk-sys-0.9)
+                            ("rust-maplit" ,rust-maplit-1)
+                            ("rust-serde" ,rust-serde-1)
+                            ("rust-serde-yaml" ,rust-serde-yaml-0.8)
+                            ("rust-xkbcommon" ,rust-xkbcommon-0.5))
+           #:phases #~(modify-phases %standard-phases
+                        (add-after 'unpack 'cargo
+                          (lambda* _
+						  (let* ((cargo-in (call-with-input-file "Cargo.toml.in"
+                                     read-string))
+						         (cargo-dep (call-with-input-file "Cargo.deps"
+                                     read-string)))
+ (with-output-to-file "Cargo.toml"
+                   (lambda ()
+                     (display (string-append cargo-in cargo-dep))))
+                 (chmod "Cargo.toml" #o555)))))))
+    (native-inputs (list python wayland-protocols))
+    (inputs (list gtk dbus))
+    (home-page "https://gitlab.gnome.org/World/Phosh/squeekboard")
+    (synopsis "On-screen-keyboard input method for Wayland")
+    (description "This package provides an on-screen-keyboard input
+	method for Wayland.")
+    (license license:gpl3+)))
+
 (define-public libdmapsharing
   (package
     (name "libdmapsharing")
