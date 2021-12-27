@@ -562,6 +562,42 @@ in JavaScript.")
     (home-page "https://wiki.gnome.org/Projects/Seed")
     (license license:lgpl2.0+)))
 
+(define-public squeekboard
+  (package
+    (name "squeekboard")
+    (version "1.15.0")
+    (source
+     (origin
+       (method git-fetch)
+       (uri (git-reference
+	   (url "https://gitlab.gnome.org/World/Phosh/squeekboard")
+	   (commit (string-append "v" version))))
+       (sha256
+        (base32
+         "1xwvyda686gz7hkw8bw3yiypdd9b5d4lpa28mrimigq2b33biag9"))))
+    (build-system cargo-build-system)
+    (arguments
+	`(#:modules
+	  ((guix build cargo-build-system)
+	   (guix build utils)
+	   ((guix build gnu-build-system) #:prefix gnu:))
+      #:cargo-inputs
+       (("rust-ansi-term" ,rust-ansi-term-0.12)
+        ("rust-users" ,rust-users-0.11))
+       #:cargo-development-inputs
+       (("rust-boxxy" ,rust-boxxy-0.11))
+		#:phases
+		(modify-phases %standard-phases
+	   )))
+	(native-inputs (list wayland-protocols))
+    (inputs
+     (list gtk dbus))
+    (home-page "https://gitlab.gnome.org/World/Phosh/squeekboard")
+    (synopsis "On-screen-keyboard input method for Wayland")
+    (description "This package provides an on-screen-keyboard input
+	method for Wayland.")
+    (license license:gpl3+)))
+
 (define-public libdmapsharing
   (package
     (name "libdmapsharing")
