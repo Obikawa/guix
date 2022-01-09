@@ -11,6 +11,7 @@
 ;;; Copyright © 2019 Ricardo Wurmus <rekado@elephly.net>
 ;;; Copyright © 2020 Sergey Trofimov <sarg@sarg.org.ru>
 ;;; Copyright © 2021 Guillaume Le Vaillant <glv@posteo.net>
+;;; Copyright © 2022 Petr Hodina <phodina@protonmail.com>
 ;;;
 ;;; This file is part of GNU Guix.
 ;;;
@@ -31,16 +32,24 @@
   #:use-module (guix packages)
   #:use-module (guix download)
   #:use-module (guix gexp)
+  #:use-module (guix utils)
+  #:use-module (ice-9 match)
+  #:use-module (srfi srfi-1)
+  #:use-module (srfi srfi-26)
   #:use-module (guix git-download)
   #:use-module (guix build-system android-ndk)
   #:use-module (guix build-system gnu)
   #:use-module (guix build-system go)
   #:use-module (guix build-system python)
+  #:use-module (guix build-system copy)
   #:use-module (guix build-system trivial)
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module (gnu packages)
+  #:use-module (gnu packages base)
+  #:use-module (gnu packages bash)
   #:use-module (gnu packages check)
   #:use-module (gnu packages compression)
+  #:use-module (gnu packages cpio)
   #:use-module (gnu packages docker)
   #:use-module (gnu packages gcc)
   #:use-module (gnu packages gnupg)
@@ -1039,3 +1048,56 @@ Dalvik VM.  Their bytecode differs from the bytecode of normal Java
 applications.  Enjarify can translate the Dalvik bytecode back to equivalent
 Java bytecode, which simplifies the analysis of Android applications.")
     (license license:asl2.0)))
+
+(define-public pmos-installer
+  (let ((commit "827bc3a08317f7204e6994ec1b5375eca405014b")
+        (revision "1"))
+    (package
+      (name "pmos-installer")
+      (version (git-version "0.1" revision commit))
+      (source
+       (origin
+         (method git-fetch)
+         (uri (git-reference
+               (url "https://gitlab.com/sdm845-mainline/pmos-installer")
+               (recursive? #t)
+               (commit commit)))
+         (sha256
+          (base32
+           "0j8dmzg67938j7fpjgqqizkgf6n5k4mklny3vkdf9xihcyfr8xfj"))))
+      (build-system copy-build-system)
+      (arguments
+       `(#:install-plan '(("makeinstaller.sh" "bin/makeinstaller.sh")
+                          ("initrd"
+                           "initrd"))
+         #:phases
+         (modify-phases %standard-phases
+           (add-after 'install 'wrap-shellscript
+             (lambda* (#:key inputs outputs #:allow-other-keys)
+               (let ((out (assoc-ref outputs "out")))
+                 (substitute* (string-append out "/bin/makeinstaller.sh")
+                   ;; Typo in name
+                   ;; https://gitlab.com/sdm845-mainline/pmos-installer/-/issues/5
+                   (("vmlinuz-") "vmlinuz")
+                   ;; Path to initrd
+                   (("\"\\$\\(dirname \"\\$0\"\\)\"") (string-append out)))
+                 (wrap-program (string-append out "/bin/makeinstaller.sh")
+                   `("PATH" ":" prefix
+                     ,(append (map (lambda (dir)
+                                     (string-append (assoc-ref inputs dir) "/bin"))
+                                   '("coreutils"
+                                     "cpio"
+                                     "grep"
+                                     "zip"
+                                     "mkbootimg"
+                                     "pmbootstrap"
+                                     "sed"
+                                     "util-linux"
+                                     "which")))))))))))
+      (inputs (list bash-minimal coreutils pmbootstrap grep util-linux mkbootimg
+                    cpio zip sed which))
+      (home-page "https://gitlab.com/sdm845-mainline/pmos-installer")
+      (synopsis "Flashable installer for postmarketOS")
+      (description "This package provides a flashable installer for
+        postmarketOS.")
+      (license license:gpl3+))))
