@@ -24,6 +24,7 @@
 ;;; Copyright © 2021, 2022 Guillaume Le Vaillant <glv@posteo.net>
 ;;; Copyright © 2021 Nicolò Balzarotti <nicolo@nixo.xyz>
 ;;; Copyright © 2022 Foo Chuan Wei <chuanwei.foo@hotmail.com>
+;;; Copyright © 2022 Petr Hodina <phodina@protonmail.com>
 ;;;
 ;;; This file is part of GNU Guix.
 ;;;
@@ -57,6 +58,7 @@
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bison)
+  #:use-module (gnu packages check)
   #:use-module (gnu packages cmake)
   #:use-module (gnu packages compression)
   #:use-module (gnu packages cups)
@@ -2289,6 +2291,68 @@ top of the PyQt bindings for Qt.  PyQt-builder is used to build PyQt itself.")
     (description
      "Provides an abstraction layer on top of the various Qt bindings
 (PyQt5, PyQt4 and PySide) and additional custom QWidgets.")
+    (license license:expat)))
+
+(define-public qmqtt
+  (package
+    (name "qmqtt")
+    (version "1.0.0")
+    (source (origin
+              (method git-fetch)
+              (uri (git-reference
+                    (url "https://github.com/alex-spataru/qmqtt")
+                    (commit (string-append "v" version))))
+              (file-name (git-file-name name version))
+              (modules '((guix build utils) (ice-9 ftw)
+                         (srfi srfi-1)))
+              (snippet `(begin
+                          (delete-file-recursively "tests/gtest/gtest")))
+              (sha256
+               (base32
+                "1l96cssa9hjmabds9k9nzisxnzr3ndi3r82m3lgwq9ip94kz05nw"))))
+    (build-system cmake-build-system)
+    (arguments
+     `(#:phases (modify-phases %standard-phases
+                  (replace 'configure
+                    (lambda* (#:key outputs #:allow-other-keys)
+                      (invoke "qmake")))
+                  (replace 'install
+                    (lambda* (#:key outputs source #:allow-other-keys)
+                      (let* ((out (assoc-ref outputs "out")) (lib (string-append
+                                                                   out "/lib"))
+                             (include (string-append out "/include")))
+                        (mkdir-p lib)
+                        (mkdir-p include)
+                        (chdir "..") ;we were in dir tests
+                        (copy-recursively "lib" lib)
+                        (chdir "src/mqtt")
+                        (for-each (lambda (file)
+                                    (install-file (string-append file) include))
+                                  '("qmqtt_client.h" "qmqtt_frame.h"
+                                    "qmqtt_global.h"
+                                    "qmqtt.h"
+                                    "qmqtt_message.h"
+                                    "qmqtt_networkinterface.h"
+                                    "qmqtt_routedmessage.h"
+                                    "qmqtt_router.h"
+                                    "qmqtt_routesubscription.h"
+                                    "qmqtt_socketinterface.h"
+                                    "qmqtt_timerinterface.h"
+                                    "qmqtt_message.h")))))
+                  (replace 'check
+                    (lambda* (#:key tests? test-options parallel- +
+                              #:allow-other-keys)
+                      +
+                      (when tests?
+                        (chdir "tests")
+                        (substitute* "gtest/gtest.pro"
+                          (("gtest") ""))
+                        (invoke "qmake")))))))
+    (native-inputs (list googletest perl python))
+    (inputs (list qtbase-5 openssl qtwebsockets))
+    (home-page "https://github.com/alex-spataru/qmqtt")
+    (synopsis "MQTT Client")
+    (description "Provides an MQTT Client with SSL support and Websockets.")
     (license license:expat)))
 
 (define-public qscintilla
