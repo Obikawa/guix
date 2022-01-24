@@ -46,14 +46,43 @@
   #:use-module (gnu packages graphviz)
   #:use-module (gnu packages image)
   #:use-module (gnu packages imagemagick)
+  #:use-module (gnu packages linux)
+  #:use-module (gnu packages pulseaudio)
   #:use-module (gnu packages python)
   #:use-module (gnu packages python-build)
   #:use-module (gnu packages python-crypto)
   #:use-module (gnu packages python-web)
   #:use-module (gnu packages python-xyz)
+  #:use-module (gnu packages swig)
   #:use-module (gnu packages time)
   #:use-module (gnu packages python-science)
   #:use-module (gnu packages graph))
+
+(define-public python-pocketsphinx
+  (package
+    (name "python-pocketsphinx")
+    (version "0.1.15")
+    (source
+     (origin
+       (method git-fetch)
+       (uri (git-reference
+             (url "https://github.com/bambocher/pocketsphinx-python")
+             (recursive? #t)
+             (commit (string-append "v" version))))
+       (file-name (git-file-name name version))
+       (sha256
+        (base32
+         "18i1jw9138ldxigfcjz6rk9z2c2wc2ng2zdnkzippv45d5izkdz8"))))
+    (build-system python-build-system)
+    (native-inputs
+     (list python-pytest swig))
+    (propagated-inputs
+     (list pulseaudio alsa-lib))
+    (home-page "https://github.com/bambocher/pocketsphinx-python")
+    (synopsis "Python interface to CMU Sphinxbase and Pocketsphinx libraries")
+    (description "This package provides a Python interface to CMU Sphinxbase
+and Pocketsphinx libraries.")
+    (license license:bsd-3)))
 
 (define-public python-sphinx
   (package
@@ -97,7 +126,7 @@
            python-sphinxcontrib-serializinghtml))
     (native-inputs
      (list graphviz
-           imagemagick ;for "convert"
+           imagemagick                  ;for "convert"
            python-html5lib
            python-mock
            python-nose
