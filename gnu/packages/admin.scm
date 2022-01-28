@@ -45,7 +45,7 @@
 ;;; Copyright © 2021 Brice Waegeneire <brice@waegenei.re>
 ;;; Copyright © 2021 Maxim Cournoyer <maxim.cournoyer@gmail.com>
 ;;; Copyright © 2021 Maxime Devos <maximedevos@telenet.be>
-;;; Copyright © 2021 Petr Hodina <phodina@protonmail.com>
+;;; Copyright © 2021, 2022 Petr Hodina <phodina@protonmail.com>
 ;;; Copyright © 2021 Artyom V. Poptsov <poptsov.artyom@gmail.com>
 ;;;
 ;;; This file is part of GNU Guix.
@@ -65,6 +65,7 @@
 
 (define-module (gnu packages admin)
   #:use-module (guix build-system cmake)
+  #:use-module (guix build-system copy)
   #:use-module (guix build-system emacs)
   #:use-module (guix build-system glib-or-gtk)
   #:use-module (guix build-system gnu)
@@ -99,6 +100,7 @@
   #:use-module (gnu packages elf)
   #:use-module (gnu packages file)
   #:use-module (gnu packages flex)
+  #:use-module (gnu packages freedesktop)
   #:use-module (gnu packages gawk)
   #:use-module (gnu packages gettext)
   #:use-module (gnu packages gl)
@@ -132,6 +134,7 @@
   #:use-module (gnu packages pcre)
   #:use-module (gnu packages perl)
   #:use-module (gnu packages perl-check)
+  #:use-module (gnu packages php)
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages polkit)
   #:use-module (gnu packages popt)
@@ -714,6 +717,75 @@ memory, disks, network and processes.")
 memory, disks, network and processes.  It's a Python port and continuation of
 @command{bashtop}.")
     (license license:asl2.0)))
+
+(define-public phoronix-test-suite
+  (package
+    (name "phoronix-test-suite")
+    (version "10.8.1")
+    (source (origin
+              (method git-fetch)
+              (uri (git-reference
+                    (url
+                     "https://github.com/phoronix-test-suite/phoronix-test-suite")
+                    (commit (string-append "v" version))))
+              (file-name (git-file-name name version))
+              (sha256
+               (base32
+                "1x966b9chqvd2kpnw5dlx4146kl5v0j0080plr80mg1g63m9g594"))))
+    (build-system copy-build-system)
+    ;; php (php53, php70, php71, php7-symlinks, php7-meta, php-zts, php56)
+    ;; git (git-git, git-vfs, git-run-command-patch-git) (make)
+    ;; blas (openblas-lapack-git, openblas-git, blas-tmg, flexiblas, openblas-cblas-git, blis-cblas-openmp, blis-cblas, blas-git, armpl, blis, blis-git, openblas-lapack-static, atlas-lapack, openblas-lapack, openblas) (optional) – required for universe-cli test suite
+    ;; gcc-fortran (gccrs-fortran-git, gcc-fortran-multilib-git, gcc-fortran-git) (optional) – required for universe-cli test suite
+    ;; lapack (openblas-lapack-git, lapack-tmg, flexiblas, lapack-git, armpl, openblas-lapack-static, atlas-lapack, openblas-lapack) (optional) – required for universe-cli test suite
+    ;; mesa-demos (mesa-demos-git) (optional) – required for universe-cli test suite
+    ;; openmpi (openmpi-git, openmpi3, openmpi-gcc10) (optional) – required for universe-cli test suite
+    ;; php-gd (php53-gd, php-zts-gd, php56-gd) (optional)
+    ;; portaudio (portaudio-svn) (optional) – required for universe-cli test suite
+    ;; sqlite3 (sqlite-replication, sqlite-minimal-git, sqlite) (optional) – required when running a Phoromatic server.
+    ;; unzip (unzip-natspec) (optional) – required for universe-cli test suite
+    (inputs (list sed which xdg-utils))
+    (propagated-inputs (list php))
+    (arguments
+     `(#:install-plan '(("pts-core/external-test-dependencies/dependency-handlers/arch_dependency_handler.php"
+                         "usr/share/phoronix-test-suite/pts-core/external-test-dependencies/dependency-handlers/arch_dependency_handler.php")
+                        ("pts-core/external-test-dependencies/scripts/install-arch-packages.sh"
+                         "usr/share/phoronix-test-suite/pts-core/external-test-dependencies/scripts/install-arch-packages.sh")
+                        ("pts-core/external-test-dependencies/xml/arch-packages.xml"
+                         "usr/share/phoronix-test-suite/pts-core/external-test-dependencies/xml/arch-packages.xml")
+                        ("pts-core/external-test-dependencies/xml/generic-packages.xml"
+                         "usr/share/phoronix-test-suite/pts-core/external-test-dependencies/xml/generic-packages.xml"))
+       #:phases
+       (modify-phases %standard-phases
+         (add-before 'install 'executable-link
+           (lambda* (#:key outputs #:allow-other-keys)
+             (let* ((out (assoc-ref outputs "out")))
+			   (setenv "HOME" "/tmp")
+			   (invoke "./install-sh" (string-append out "/usr"))
+			   (mkdir-p (string-append out "/bin"))
+               (wrap-program
+                     (string-append out "/usr/bin/phoronix-test-suite")
+                   `("PATH" ":" prefix
+                     ,(map (lambda (dir)
+                             (string-append dir "/bin:"
+                                            dir "/sbin"))
+                           (list php sed which))))
+               (symlink (string-append out "/usr/bin/phoronix-test-suite")
+                        (string-append out "/bin/pts"))
+             (delete-file-recursively (string-append out
+			 "/usr/share/phoronix-test-suite/deploy"))
+             (with-directory-excursion
+              (string-append out
+			  "/usr/share/phoronix-test-suite/pts-core/external-test-dependencies")
+              (for-each (lambda (dir)
+                          (delete-file-recursively dir))
+                        (list "dependency-handlers" "scripts"
+						"xml")))))))))
+    (home-page "https://github.com/phoronix-test-suite/phoronix-test-suite")
+    (synopsis "Automated testing/benchmarking software")
+    (description "This package provides automated testing/benchmarking
+software.")
+    (license license:gpl3+)))
 
 (define-public pies
   (package
