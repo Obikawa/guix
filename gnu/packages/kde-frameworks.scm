@@ -67,6 +67,7 @@
   #:use-module (gnu packages libcanberra)
   #:use-module (gnu packages libreoffice)
   #:use-module (gnu packages linux)
+  #:use-module (gnu packages messaging)
   #:use-module (gnu packages mp3)
   #:use-module (gnu packages openbox)
   #:use-module (gnu packages pdf)
@@ -86,6 +87,28 @@
   #:use-module (gnu packages xml)
   #:use-module (gnu packages xorg)
   #:use-module (srfi srfi-1))
+
+(define-public plasma-phone-components
+  (package
+    (name "plasma-phone-components")
+    (version "5.23.4")
+    (source (origin
+              (method url-fetch)
+              (uri (string-append
+			  "https://download.kde.org/stable/plasma/" version
+			  "/plasma-phone-components-" version ".tar.xz"))
+              (sha256
+               (base32
+                "0ml5pyi90nlmx5550sf3x9263f8mypj4jmdskzabzhnz44ck8vy9"))))
+    (build-system cmake-build-system)
+	(native-inputs (list extra-cmake-modules pkg-config qttools))
+	(inputs (list qtbase-5 qtdeclarative kactivities kauth kbookmarks
+	kcodecs kcompletion kconfig kconfigwidgets kcoreaddons kdbusaddons kdeclarative ki18n kio kitemviews kjobwidgets knotifications kpackage kpeople kservice kwayland kwidgetsaddons kwindowsystem kxmlgui libphonenumber modemmanager-qt plasma-framework solid))
+    (home-page "https://www.plasma-mobile.org/")
+    (synopsis "Modules providing phone functionality for Plasma")
+    (description "This package provides user-friendly, privacy-enabling and
+	customizable platform for mobile devices.")
+    (license (list license:gpl3+ license:lgpl2.1+))))
 
 (define-public extra-cmake-modules
   (package
