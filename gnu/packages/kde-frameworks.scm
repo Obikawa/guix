@@ -87,7 +87,7 @@
 (define-public extra-cmake-modules
   (package
     (name "extra-cmake-modules")
-    (version "5.70.0")
+    (version "5.89.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -96,7 +96,7 @@
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "10c5xs5shk0dcshpdxg564ay5y8hgmvfvmlhmhjf0dy79kcah3c3"))))
+                "0bzhd6xcphrcnbg8ylx91rq5y3vvl3jfcgik19bvh8sr4ad25mrx"))))
     (build-system cmake-build-system)
     (native-inputs
      ;; Add test dependency, except on armhf where building it is too
@@ -104,13 +104,17 @@
      (if (and (not (%current-target-system))
               (string=? (%current-system) "armhf-linux"))
          '()
-         `(("qtbase" ,qtbase-5))))                ;for tests (needs qmake)
+         `(("qtbase" ,qtbase-5) ("appstream"
+		 ,appstream))))                ;for tests (needs qmake)
     (arguments
      `(#:tests? ,(not (null? (package-native-inputs this-package)))
        #:phases
        (modify-phases %standard-phases
          (add-after 'unpack 'fix-lib-path
            (lambda _
+		     ;; Fix tests case KDEFetchTranslations
+			 (substitute* "tests/KDEFetchTranslations/CMakeLists.txt"
+			 (("frameworks/") ""))
              ;; Always install into /lib and not into /lib64.
              (substitute* "kde-modules/KDEInstallDirs.cmake"
                (("\"lib64\"") "\"lib\"")
