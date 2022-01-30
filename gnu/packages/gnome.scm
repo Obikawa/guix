@@ -1337,7 +1337,8 @@ in particular in the GNOME desktop.")
   (package
     (name "phosh")
     (version "0.14.0")
-    (source (origin
+    (source
+	(origin
               (method git-fetch)
               (uri (git-reference
                     (url "https://gitlab.gnome.org/World/Phosh/phosh")
@@ -1354,6 +1355,7 @@ in particular in the GNOME desktop.")
                   (ice-9 match))
        #:imported-modules ((guix build glib-or-gtk-build-system)
                            ,@%meson-build-system-modules)
+	   #:configure-flags `("-Dsystemd=false")
        #:phases
        (modify-phases %standard-phases
          (add-after 'unpack 'get-libgnome-volume-control
