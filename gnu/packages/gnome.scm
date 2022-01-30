@@ -582,11 +582,14 @@ in JavaScript.")
 	   (guix build utils)
 	   ((guix build gnu-build-system) #:prefix gnu:))
       #:cargo-inputs
-       (("rust-ansi-term" ,rust-ansi-term-0.12)
-        ("rust-users" ,rust-users-0.11))
-       #:cargo-development-inputs
-       (("rust-boxxy" ,rust-boxxy-0.11))
-		#:phases
+       (("rust-cairo-sys-rs" ,rust-cairo-sys-rs-0.9)
+        ("rust-glib-sys" ,rust-glib-sys-0.10)
+		("rust-gtk-sys" ,rust-gtk-sys-0.9)
+		("rust-maplit" ,rust-maplit-1)
+		("rust-serde" ,rust-serde-1)
+		("rust-serde-yaml" ,rust-serde-yaml-0.8))
+		;("rust-xkbcommon" ,rust-xkbcommon)
+	#:phases
 		(modify-phases %standard-phases
 	   )))
 	(native-inputs (list wayland-protocols))
