@@ -3214,7 +3214,7 @@ descriptions for integrating actions from plugins.")
 (define-public kxmlrpcclient
   (package
     (name "kxmlrpcclient")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -3223,7 +3223,7 @@ descriptions for integrating actions from plugins.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "1cmfv2w9yfi8jhj5nawfz7kw8jbr1k5cr3n5xv3z59pg2vazsx8b"))))
+                "0mq2wgi4qnvscjdkis7jhs004k3s1b3wg0vijjai7xzy772kvclc"))))
     (build-system cmake-build-system)
     (propagated-inputs
      (list kio))
