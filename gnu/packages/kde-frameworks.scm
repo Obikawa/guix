@@ -1934,7 +1934,7 @@ and communicating with them using a pty.")
 (define-public kunitconversion
   (package
     (name "kunitconversion")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -1943,18 +1943,9 @@ and communicating with them using a pty.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "0sp4gfzpf40cdi0xnff9sn7b75z88j0589svz4rv77q5m137cgnn"))))
+                "1vrvbsd8limfsmgjcv5kvzyf7g62rv1a0rvbdyq15z23zf4rsmf3"))))
     (build-system cmake-build-system)
-    (arguments
-     `(#:phases
-       (modify-phases %standard-phases
-         (add-after 'unpack 'disable-a-failing-test-case
-           (lambda _
-             ;; FIXME: Re-enable this test-case. It was committed with the
-             ;; message: "tsan says it's clean, apart from issues in Qt
-             ;; (reported upstream)"
-             (substitute* "autotests/convertertest.cpp"
-               (("const int numThreads = 2") "const int numThreads = 0")))))))
+    (arguments `(#:tests? #f)) ;; Requires network.
     (native-inputs
      (list extra-cmake-modules))
     (inputs
