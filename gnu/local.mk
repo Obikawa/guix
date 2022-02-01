@@ -1355,7 +1355,6 @@ dist_patch_DATA =						\
   %D%/packages/patches/kiki-missing-includes.patch		\
   %D%/packages/patches/kiki-portability-64bit.patch		\
   %D%/packages/patches/kinit-kdeinit-extra_libs.patch		\
-  %D%/packages/patches/kinit-kdeinit-libpath.patch		\
   %D%/packages/patches/kio-search-smbd-on-PATH.patch		\
   %D%/packages/patches/kmail-Fix-missing-link-libraries.patch \
   %D%/packages/patches/kmod-module-directory.patch		\
