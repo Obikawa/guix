@@ -2372,7 +2372,7 @@ with su and ssh respectively.")
 (define-public kdewebkit
   (package
     (name "kdewebkit")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -2381,7 +2381,7 @@ with su and ssh respectively.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "0y9ja3znkvzdbjfs91dwr4cmvl9fk97zpz2lkf0f9zhm2nw6q008"))))
+                "19dqlxy2sl822aldqy1jj7fvxabmg97a0av7d5ayzhnbhhy5izx1"))))
     (build-system cmake-build-system)
     (native-inputs
      (list extra-cmake-modules qttools))
