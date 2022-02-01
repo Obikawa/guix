@@ -1477,7 +1477,7 @@ with other frameworks.")
 (define-public kauth
   (package
     (name "kauth")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -1486,7 +1486,7 @@ with other frameworks.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "0nmdz7ra3hpg0air4lfkzilv7cwx3zxs29k7sh8l3i1fs3qpjwxm"))))
+                "1g4i1prspcczpx25wvd8lgdk8c3my7kp3wv489gvcci40rl5z913"))))
     (build-system cmake-build-system)
     (native-inputs
      (list dbus extra-cmake-modules qttools))
@@ -1507,9 +1507,10 @@ with other frameworks.")
                (("@KAUTH_HELPER_INSTALL_ABSOLUTE_DIR@")
                 "${KDE_INSTALL_LIBEXECDIR}"))))
          (replace 'check
-           (lambda _
-             (setenv "DBUS_FATAL_WARNINGS" "0")
-             (invoke "dbus-launch" "ctest" "."))))))
+           (lambda* (#:key tests? #:allow-other-keys)
+             (when tests?
+               (setenv "DBUS_FATAL_WARNINGS" "0")
+               (invoke "dbus-launch" "ctest")))))))
     (home-page "https://community.kde.org/Frameworks")
     (synopsis "Execute actions as privileged user")
     (description "KAuth provides a convenient, system-integrated way to offload
