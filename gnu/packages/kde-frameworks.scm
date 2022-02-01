@@ -1028,7 +1028,7 @@ protocols used in KDE Plasma.")
 (define-public kwayland
   (package
     (name "kwayland")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -1037,20 +1037,21 @@ protocols used in KDE Plasma.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "0hrpbfzixjpnfy9q5x66q1fff0p7n80rrs127zzdv68pyi6456ry"))))
+                "0n7f4rx695q889j8g4sdpdi3jhk29z8zc4wrk5srs2diqi4y0qqi"))))
     (build-system cmake-build-system)
     (native-inputs
      (list extra-cmake-modules pkg-config))
     (inputs
-     (list qtbase-5 qtwayland wayland wayland-protocols))
+     (list qtbase-5 plasma-wayland-protocols qtwayland wayland wayland-protocols))
     (arguments
-     `(#:tests? #f ; FIXME tests require weston to run
-                   ; weston requires wayland flags in mesa
-       #:phases
+     `(#:phases
        (modify-phases %standard-phases
-         (add-before 'check 'check-setup
-           (lambda _
-             (setenv "XDG_RUNTIME_DIR" "/tmp")
+         (replace 'check
+           (lambda* (#:key tests? #:allow-other-keys)
+             (setenv "XDG_RUNTIME_DIR" (getcwd))
+             (setenv "QT_QPA_PLATFORM" "offscreen")
+             (when tests? ;; One test fails.
+               (invoke "ctest" "-E" "kwayland-testWaylandRegistry"))
              #t)))))
     (home-page "https://community.kde.org/Frameworks")
     (synopsis "Qt-style API to interact with the wayland client and server")
