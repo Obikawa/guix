@@ -2248,7 +2248,7 @@ their settings.")
 (define-public kdeclarative
   (package
     (name "kdeclarative")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -2257,7 +2257,7 @@ their settings.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "1vq9pkrb0zsphi2sfx7cyy1kb6pklzjkmqdf5202z8vydlkc4549"))))
+                "1z7zyj6pw2ym3izi19kpgy12mqpar6mbdbsn6jpxy36l6m3jld1y"))))
     (build-system cmake-build-system)
     (propagated-inputs
      (list kconfig kpackage))
@@ -2265,22 +2265,17 @@ their settings.")
      (list extra-cmake-modules pkg-config xorg-server-for-tests))
     (inputs
      (list kauth
-           kbookmarks
-           kcodecs
-           kcompletion
-           kconfigwidgets
            kcoreaddons
            kglobalaccel
            kguiaddons
            kiconthemes
            kio
-           kitemviews
            ki18n
            kjobwidgets
+           knotifications
            kservice
            kwidgetsaddons
            kwindowsystem
-           kxmlgui
            libepoxy
            qtbase-5
            qtdeclarative
