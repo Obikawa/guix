@@ -1724,7 +1724,7 @@ by applications to write metadata.")
 (define-public kimageformats
   (package
     (name "kimageformats")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -1733,7 +1733,7 @@ by applications to write metadata.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "0pk4b725wapzdxv1mm6ddqcl6z8ffcpr32i5vrhrin8awi5gx13s"))))
+                "0r3ihkly0hf20aqbn7b9171mzqjna078rksdp96z6f7f1qy99v1v"))))
     (build-system cmake-build-system)
     (native-inputs
      (list extra-cmake-modules pkg-config))
