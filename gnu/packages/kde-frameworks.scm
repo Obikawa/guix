@@ -552,7 +552,7 @@ propagate their changes to their respective configuration files.")
 (define-public kcoreaddons
   (package
     (name "kcoreaddons")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -561,39 +561,23 @@ propagate their changes to their respective configuration files.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "10a7zys3limsawl7lk9ggymk3msk2bp0y8hp0jmsvk3l405pd1ps"))))
+                "02m4h4r0kdy94zq8c6d2fhnd8qwrp4a0v5i4wf6khk4yf4fqy5kf"))))
     (build-system cmake-build-system)
     (native-inputs
      (list extra-cmake-modules qttools shared-mime-info
            ;; TODO: FAM: File alteration notification http://oss.sgi.com/projects/fam
-           xorg-server-for-tests)) ; for the tests
+           ))
     (inputs
      (list qtbase-5))
     (arguments
      `(#:phases
        (modify-phases %standard-phases
-         (add-before 'check 'blacklist-failing-test
-           (lambda _
-             ;; Blacklist failing tests.
-             (with-output-to-file "autotests/BLACKLIST"
-               (lambda _
-                 ;; FIXME: Make it pass.  Test failure caused by stout/stderr
-                 ;; being interleaved.
-                 (display "[test_channels]\n*\n")
-                 ;; This fails with ENOSPC because of too many inotify watches.
-                 (display "[benchNotifyWatcher]\n*\n")))
-             #t))
-         ;; See upstream commit ee424e9b62368485bba4193053cabb553a1d268e
-         (add-after 'unpack 'fix-broken-test
-           (lambda _
-             (substitute* "autotests/kdirwatch_unittest.cpp"
-               (("QVERIFY\\(waitForRecreationSignal\\(watch, existingFile\\)\\);" m)
-                (string-append m "\nwaitUntilNewSecond();")))
-             #t))
-         (add-before 'check 'check-setup
-           (lambda _
+         (replace 'check
+           (lambda* (#:key tests? #:allow-other-keys)
              (setenv "HOME" (getcwd))
              (setenv "TMPDIR" (getcwd))
+             (when tests? ;; kdirwatch test fails inconsistently. kprocesstest fails.
+               (invoke "ctest" "-E" "(kdirwatch_qfswatch_unittest|kprocesstest)"))
              #t)))))
     (home-page "https://community.kde.org/Frameworks")
     (synopsis "Qt addon library with a collection of non-GUI utilities")
