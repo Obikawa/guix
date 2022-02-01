@@ -1065,7 +1065,7 @@ represented by a QPoint or a QSize.")
 (define-public kwidgetsaddons
   (package
     (name "kwidgetsaddons")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -1074,7 +1074,7 @@ represented by a QPoint or a QSize.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "03l37lh219np7pqfa56r2v7n5s5xg4rjq005qng4b5izd95ri56j"))))
+                "1c17iq0q2w80p7v7k32db0pc5sbzqhvh0w5d145a1nkgr3nbnk6a"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules qttools xorg-server-for-tests))
@@ -1083,12 +1083,12 @@ represented by a QPoint or a QSize.")
     (arguments
      `(#:phases
        (modify-phases %standard-phases
-         (add-after 'unpack 'adjust-tests
-           (lambda _
-             ;; It is unclear why this test suddenly started failing.
-             (substitute* "autotests/kcolumnresizertest.cpp"
-               ((".*QCOMPARE.*") ""))
-             #t)))))
+         (replace 'check
+           (lambda* (#:key tests? #:allow-other-keys)
+             (when tests?
+               (setenv "XDG_CACHE_HOME" "/tmp/xdg-cache")
+               (invoke "ctest" "-E" "(ksqueezedtextlabelautotest|\
+kwidgetsaddons-kcolumnresizertest)")))))))
     (home-page "https://community.kde.org/Frameworks")
     (synopsis "Large set of desktop widgets")
     (description "Provided are action classes that can be added to toolbars or
