@@ -2627,7 +2627,7 @@ consumption.")
 (define-public kio
   (package
     (name "kio")
-    (version "5.70.1")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -2636,7 +2636,7 @@ consumption.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "1f33jdjjx6k1d5fab35x8xakc4ny9fyfrgkbib60xncc82lz2h5l"))
+                "0ds6465fyzjj2azwdghrkxr9wvih0m96lv4kp6syqwii8nv2w7rs"))
               (patches (search-patches "kio-search-smbd-on-PATH.patch"))))
     (build-system cmake-build-system)
     (propagated-inputs
@@ -2662,6 +2662,7 @@ consumption.")
        ("kcrash" ,kcrash)
        ("kdbusaddons" ,kdbusaddons)
        ("kdoctools" ,kdoctools)
+       ("kguiaddons" ,kguiaddons)
        ("kiconthemes" ,kiconthemes)
        ("ki18n" ,ki18n)
        ("knotifications" ,knotifications)
@@ -2673,10 +2674,11 @@ consumption.")
        ("qtbase" ,qtbase-5)
        ("qtscript" ,qtscript)
        ("qtx11extras" ,qtx11extras)
-       ("sonnet" ,sonnet)))
+       ("sonnet" ,sonnet)
+       ("util-linux:lib" ,util-linux "lib") ; libmount
+       ("zlib" ,zlib)))
     (arguments
-     `(#:tests? #f ; FIXME: 41/50 tests fail.
-       #:phases
+     `(#:phases
        (modify-phases %standard-phases
          (add-after 'unpack 'patch
            (lambda _
@@ -2685,12 +2687,31 @@ consumption.")
                (("(^\\s*qCWarning(KIOD_CATEGORY) << \"Error loading plugin:\")( << loader.errorString();)" _ a b)
                 (string-append a "<< name" b)))
              #t))
-         (add-before 'check 'check-setup
-           (lambda _
-             (setenv "HOME" (getcwd))
-             (setenv "XDG_RUNTIME_DIR" (getcwd))
-             ;; make Qt render "offscreen", required for tests
-             (setenv "QT_QPA_PLATFORM" "offscreen")
+         (replace 'check
+           (lambda* (#:key tests? #:allow-other-keys)
+             (when tests?
+               (setenv "HOME" (getcwd))
+               (setenv "XDG_RUNTIME_DIR" (getcwd))
+               (setenv "QT_QPA_PLATFORM" "offscreen")
+               (setenv "DBUS_FATAL_WARNINGS" "0")
+               (invoke "dbus-launch" "ctest"
+                       "-E" ; FIXME: 16/67 tests fail.
+                       (string-append "(kiocore-jobtest"
+                                      "|fileitemtest"
+                                      "|kiocore-ktcpsockettest"
+                                      "|kiocore-mimetypefinderjobtest"
+                                      "|kiocore-http_jobtest"
+                                      "|kiogui-openurljobtest"
+                                      "|applicationlauncherjob_forkingtest"
+                                      "|applicationlauncherjob_scopetest"
+                                      "|applicationlauncherjob_servicetest"
+                                      "|commandlauncherjob_forkingtest"
+                                      "|commandlauncherjob_scopetest"
+                                      "|commandlauncherjob_servicetest"
+                                      "|kiowidgets-kfileitemactionstest"
+                                      "|kiowidgets-kurifiltertest-colon-separator"
+                                      "|kiowidgets-kurifiltertest-space-separator"
+                                      "|kiofilewidgets-knewfilemenutest)")))
              #t))
          (add-after 'install 'add-symlinks
            ;; Some package(s) (e.g. bluedevil) refer to these service types by
@@ -2701,10 +2722,6 @@ consumption.")
                                         "/share/kservicetypes5/")))
                (symlink (string-append kst5 "kfileitemactionplugin.desktop")
                         (string-append kst5 "kfileitemaction-plugin.desktop"))))))))
-    ;;(replace 'check
-    ;;  (lambda _
-    ;;    (setenv "DBUS_FATAL_WARNINGS" "0")
-    ;;    (zero? (system* "dbus-launch" "ctest" ".")))))))
     (home-page "https://community.kde.org/Frameworks")
     (synopsis "Network transparent access to files and data")
     (description "This framework implements a lot of file management functions.
