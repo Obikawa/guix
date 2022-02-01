@@ -2125,7 +2125,7 @@ using the XBEL format.")
 (define-public kcmutils
   (package
     (name "kcmutils")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -2134,7 +2134,7 @@ using the XBEL format.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "08f4yr546brl1dppp0khvsw9ihmh9a7rp505913pdhi0sklaiimz"))))
+                "04crq3j48xwlvp047p3waqrv1gg5sv1950jh02w85q00yjjh0qxk"))))
     (build-system cmake-build-system)
     (propagated-inputs
      (list kconfigwidgets kservice))
@@ -2153,6 +2153,10 @@ using the XBEL format.")
                ;; print plugin name when loading fails
                (("^\\s*(qWarning\\(\\) << \"Error loading) (plugin:\")( << loader\\.errorString\\(\\);)" _ a b c)
                 (string-append a " KCM plugin\" << mod.service()->library() << \":\"" c)))
+             #t))
+         (add-before 'check 'check-setup
+           (lambda _
+             (setenv "QT_QPA_PLATFORM" "offscreen")
              #t)))))
     (inputs
      (list kauth
