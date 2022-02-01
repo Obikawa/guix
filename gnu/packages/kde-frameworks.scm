@@ -1349,7 +1349,7 @@ feel.")
 (define-public solid
   (package
     (name "solid")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -1358,15 +1358,16 @@ feel.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "0alng7ciw6xji0s2zrk8dsx1p0p9shrrfzl8wnkwygc5chnhysz7"))))
+                "10hk4mh426dhi7is5hxa1varn15ijzra5a420zk297pzkphvx0ip"))))
     (build-system cmake-build-system)
     (arguments
      `(#:phases
        (modify-phases %standard-phases
          (replace 'check
-           (lambda _
-             (setenv "DBUS_FATAL_WARNINGS" "0")
-             (invoke "dbus-launch" "ctest" "."))))))
+           (lambda* (#:key tests? #:allow-other-keys)
+             (when tests?
+               (setenv "DBUS_FATAL_WARNINGS" "0")
+               (invoke "dbus-launch" "ctest")))))))
     (native-inputs
      (list bison dbus extra-cmake-modules flex qttools))
     (inputs
