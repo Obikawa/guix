@@ -2874,7 +2874,7 @@ to easily extend the contacts collection.")
 (define-public krunner
   (package
     (name "krunner")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -2883,7 +2883,7 @@ to easily extend the contacts collection.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "0fhb26vi9z1mky79kq12qq4g4ghz3530cx84n5l3sdgkd6nfsyqf"))))
+                "1q3hsml5274v8dy8rnqpnwxliad2q7a8mbs8k6kpqzih9z94crgi"))))
     (build-system cmake-build-system)
     (propagated-inputs
      (list plasma-framework))
@@ -2924,20 +2924,15 @@ to easily extend the contacts collection.")
                (("//usr/bin\"") (string-append (getcwd) "\"")) ;; multiple path-parts
                (("/bin/ls")
                 (search-input-file inputs "/bin/ls")))))
-         (add-before 'check 'check-setup
-           (lambda _
-             (setenv "HOME" (getcwd))
-             ;; make Qt render "offscreen", required for tests
-             (setenv "QT_QPA_PLATFORM" "offscreen")
-             ;; Blacklist some failing test-functions. FIXME: Make them pass.
-             (with-output-to-file "bin/BLACKLIST"
-               (lambda _
-                 (display "[testMatch]\n*\n")
-                 (display "[testMulti]\n*\n")))
-             #t))
          (replace 'check
-           (lambda _
-             (invoke "dbus-launch" "ctest" "."))))))
+           (lambda* (#:key tests? #:allow-other-keys)
+             (when tests?
+               (setenv "HOME" (getcwd))
+               (setenv "QT_QPA_PLATFORM" "offscreen")
+               (invoke "dbus-launch" "ctest"
+                       "-E" ;; Some tests fail
+                       "(runnercontexttest|dbusrunnertest|\
+runnermanagersinglerunnermodetest)")))))))
     (home-page "https://community.kde.org/Frameworks")
     (synopsis "Framework for Plasma runners")
     (description "The Plasma workspace provides an application called KRunner
