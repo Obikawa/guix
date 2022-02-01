@@ -2310,7 +2310,7 @@ started on demand.")
 (define-public kdesignerplugin
   (package
     (name "kdesignerplugin")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -2319,7 +2319,7 @@ started on demand.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "0dr6gcag2yzx8fvxis4x403jrcisywds95cywmiyz3pb5727cak2"))))
+                "18gsy8f32hjadzjnavi3dsknc6hflcnfpr0107lwfc735fd2x2iq"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules qttools))
@@ -2327,20 +2327,7 @@ started on demand.")
      (list kconfig
            kcoreaddons
            kdoctools
-           qtbase-5
-           ;; optional:
-           kcompletion
-           kconfigwidgets
-           kiconthemes
-           kitemviews
-           kio
-           kplotting
-           ktextwidgets
-           kdewebkit
-           kwidgetsaddons
-           kxmlgui
-           qtwebkit
-           sonnet))
+           qtbase-5))
     (home-page "https://community.kde.org/Frameworks")
     (synopsis "Integrating KDE frameworks widgets with Qt Designer")
     (description "This framework provides plugins for Qt Designer that allow it
