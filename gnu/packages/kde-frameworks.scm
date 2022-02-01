@@ -2278,7 +2278,7 @@ that offer bindings to some of the Frameworks.")
 (define-public kded
   (package
     (name "kded")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -2287,7 +2287,7 @@ that offer bindings to some of the Frameworks.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "0zqd33vy4ny7g9as3bhd75qi1chz1nlqq133pgw8kjanvghwwnk9"))))
+                "094g6p87nd5cxcars71315w6zrxjgiw2080p6cf6g72ww54k7sps"))))
     (build-system cmake-build-system)
     (native-inputs
      (list extra-cmake-modules))
@@ -2297,7 +2297,6 @@ that offer bindings to some of the Frameworks.")
            kcrash
            kdbusaddons
            kdoctools
-           kinit
            kservice
            qtbase-5))
     (home-page "https://community.kde.org/Frameworks")
