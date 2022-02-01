@@ -1546,7 +1546,7 @@ integrated it into your application's other widgets.")
 (define-public kcontacts
   (package
     (name "kcontacts")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -1555,7 +1555,7 @@ integrated it into your application's other widgets.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "182ma11z3kqxq3cwy7kwprfqkb9bcmn44w7k9vixbid4pv5wa0lb"))))
+                "0vv2136da5a6lwdj2x38jx2qwrk96hgn8iwaad4yynvc2csx6dim"))))
     (build-system cmake-build-system)
     (native-inputs
      (list extra-cmake-modules xorg-server)) ; for the tests
@@ -1563,19 +1563,24 @@ integrated it into your application's other widgets.")
      (list qtbase-5))
     (propagated-inputs
      (list ;; As required by KF5ContactsConfig.cmake.
-           kcodecs kconfig kcoreaddons ki18n))
+          iso-codes kcodecs kconfig kcoreaddons ki18n))
     (arguments
      `(#:phases
        (modify-phases %standard-phases
-         (add-before 'check 'start-xorg-server
-           (lambda* (#:key inputs #:allow-other-keys)
+         (replace 'check
+           (lambda* (#:key tests? #:allow-other-keys)
              ;; The test suite requires a running X server.
              ;; Xvfb doesn't have proper glx support and needs a pixeldepth
              ;; of 24 bit to avoid "libGL error: failed to load driver: swrast"
              ;;                    "Could not initialize GLX"
-             (system "Xvfb :1 -screen 0 640x480x24 &")
-             (setenv "DISPLAY" ":1")
+             (when tests?
+               (setenv "HOME" (getcwd))
+               (system "Xvfb :1 -screen 0 640x480x24 &")
+               (setenv "DISPLAY" ":1")
+               (invoke "ctest" "-E" "kcontacts-addresstest"))
              #t)))))
+;;Actual   (address.formattedAddress(QStringLiteral("Jim Knopf"))): "Jim Knopf\nLummerlandstr. 1\n12345 Lummerstadt\n\nGERMANY"
+;;Expected (result)                                               : "Jim Knopf\nLummerlandstr. 1\n12345 Lummerstadt\n\nGERMANIA"
     (home-page "https://community.kde.org/Frameworks")
     (synopsis "API for contacts/address book data following the vCard standard")
     (description "This library provides a vCard data model, vCard
