@@ -2945,7 +2945,7 @@ typed.")
 (define-public kservice
   (package
     (name "kservice")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -2954,17 +2954,16 @@ typed.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "0g49p5331f7dl46rvi43akmjm1jx70w9797j6d17jy7z9s9sqikw"))))
+                "121y8bbq3m4pv5m9pj753v2nk914216a86ksmdqbgffw217qckdd"))))
     (build-system cmake-build-system)
     (propagated-inputs
      (list kconfig kcoreaddons))
     (native-inputs
-     (list bison extra-cmake-modules flex))
+     (list bison extra-cmake-modules flex shared-mime-info))
     (inputs
      (list kcrash kdbusaddons kdoctools ki18n qtbase-5))
     (arguments
-     `(#:tests? #f ; FIXME: 6/10 tests fail.
-       #:phases
+     `(#:phases
        (modify-phases %standard-phases
          (add-after 'unpack 'patch
            ;; Adopted from NixOS' patches "qdiriterator-follow-symlinks" and
@@ -2980,12 +2979,13 @@ typed.")
                (("^\\s*QString resolved = QDir\\(dir\\)\\.canonicalPath\\(\\);")
                 "QString resolved = QDir::cleanPath(dir);"))
              #t))
-         (add-before 'check 'check-setup
-           (lambda _
-             (setenv "HOME" (getcwd))
-             ;; make Qt render "offscreen", required for tests
-             (setenv "QT_QPA_PLATFORM" "offscreen")
-             #t)))))
+         (replace 'check
+           (lambda* (#:key tests? #:allow-other-keys)
+             (when tests?
+               (setenv "HOME" (getcwd))
+               (setenv "QT_QPA_PLATFORM" "offscreen")
+               ;; Disable failing tests.
+               (invoke "ctest" "-E" "(kautostarttest|ksycocatest)")))))))
     (home-page "https://community.kde.org/Frameworks")
     (synopsis "Plugin framework for desktop services")
     (description "KService provides a plugin framework for handling desktop
