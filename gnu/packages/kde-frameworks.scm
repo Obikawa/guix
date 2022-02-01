@@ -1194,7 +1194,7 @@ messages.")
 (define-public networkmanager-qt
   (package
     (name "networkmanager-qt")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -1203,7 +1203,7 @@ messages.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "1h2kdw5vs7mn3n7bvqwm36a48ra9iap6384kanz14zjbankj04c1"))))
+                "0i9wvrxbkbil21zndiq4cmnldbqsrdp9gnhmp2ns78xdih8wysa7"))))
     (build-system cmake-build-system)
     (native-inputs
      (list extra-cmake-modules dbus pkg-config))
@@ -1217,9 +1217,10 @@ messages.")
      `(#:phases
        (modify-phases %standard-phases
          (replace 'check
-           (lambda _
-             (setenv "DBUS_FATAL_WARNINGS" "0")
-             (invoke "dbus-launch" "ctest" "."))))))
+           (lambda* (#:key tests? #:allow-other-keys)
+             (when tests?
+               (setenv "DBUS_FATAL_WARNINGS" "0")
+               (invoke "dbus-launch" "ctest")))))))
     (home-page "https://community.kde.org/Frameworks")
     (synopsis "Qt wrapper for NetworkManager DBus API")
     (description "NetworkManagerQt provides access to all NetworkManager
