@@ -950,7 +950,7 @@ pixel units.")
 (define-public ksyntaxhighlighting
   (package
     (name "ksyntaxhighlighting")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -959,7 +959,7 @@ pixel units.")
                     "syntax-highlighting-" version ".tar.xz"))
               (sha256
                (base32
-                "12jn7lqsp86329spai7n1n8i65nwhxh8gp33wkq543h7w3i2a3jb"))))
+                "19mckdfdxb5i26y75cgmda91s864jbh1wmf98bv8xa1iqxwkwj5z"))))
     (build-system cmake-build-system)
     (native-inputs
      (list extra-cmake-modules perl qttools
@@ -974,9 +974,6 @@ pixel units.")
            (lambda _
              ;; revert the patch-shebang phase on scripts which are
              ;; in fact test data
-             (substitute* '("autotests/input/test.bash"
-                            "autotests/folding/test.bash.fold")
-               (((which "bash")) "/bin/bash"))
              (substitute* '("autotests/input/highlight.sh"
                             "autotests/folding/highlight.sh.fold")
                (((which "sh")) " /bin/sh")) ;; space in front!
