@@ -1849,7 +1849,7 @@ covers feedback and persistent events.")
 (define-public kpackage
   (package
     (name "kpackage")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -1858,11 +1858,7 @@ covers feedback and persistent events.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "03rp7p7i8ihz5wg58gjs638jk7xbszknfiy2j3r979snc57g95mv"))
-              ;; Default to: external paths/symlinks can be followed by a
-              ;; package
-              (patches (search-patches "kpackage-allow-external-paths.patch"
-                                       "kpackage-fix-KF5PackageMacros.cmake.patch"))))
+                "1rig9aws8530sav0pmginqmdcrnz10qjbxfc5lw6mmb3sfig53z0"))))
     (build-system cmake-build-system)
     (native-inputs
      (list extra-cmake-modules))
@@ -1878,9 +1874,10 @@ covers feedback and persistent events.")
        (modify-phases %standard-phases
          (add-after 'unpack 'patch
            (lambda _
+             (substitute* "src/kpackage/package.cpp"
+               (("externalPaths.false.") "externalPaths(true)"))
              ;; Make QDirIterator follow symlinks
-             (substitute* '("src/kpackage/packageloader.cpp"
-                            "src/kpackage/private/packagejobthread.cpp")
+             (substitute* '("src/kpackage/packageloader.cpp")
                (("^\\s*(const QDirIterator::IteratorFlags flags = QDirIterator::Subdirectories)(;)" _ a b)
                 (string-append a " | QDirIterator::FollowSymlinks" b))
                (("^\\s*(QDirIterator it\\(.*, QDirIterator::Subdirectories)(\\);)" _ a b)
