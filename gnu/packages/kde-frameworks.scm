@@ -64,6 +64,7 @@
   #:use-module (gnu packages iso-codes)
   #:use-module (gnu packages kerberos)
   #:use-module (gnu packages kde-plasma)
+  #:use-module (gnu packages libcanberra)
   #:use-module (gnu packages libreoffice)
   #:use-module (gnu packages linux)
   #:use-module (gnu packages mp3)
@@ -1803,7 +1804,7 @@ asynchronous jobs.")
 (define-public knotifications
   (package
     (name "knotifications")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -1812,7 +1813,7 @@ asynchronous jobs.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "01bn23xw2n53h9nl99lm3cjnqs8s66bmwkzf6fkpg9rzkykizbyc"))))
+                "15qb3jh5y1z84dp6wddwid4bk3ks05knkxlwv79hb9cdj8m4m7gi"))))
     (build-system cmake-build-system)
     (native-inputs
      (list extra-cmake-modules dbus qttools))
@@ -1821,23 +1822,23 @@ asynchronous jobs.")
            kconfig
            kcoreaddons
            kwindowsystem
+           libcanberra
+           libdbusmenu-qt
            phonon
+           qtdeclarative
            qtbase-5
            qtspeech
-           ;; TODO: Think about adding dbusmenu-qt5 from
-           ;; https://launchpad.net/libdbusmenu-qt
            qtx11extras))
     (arguments
      `(#:phases
        (modify-phases %standard-phases
-         (add-before 'check 'check-setup
-           (lambda _
-             (setenv "HOME" (getcwd))
-             #t))
          (replace 'check
-           (lambda _
-             (setenv "DBUS_FATAL_WARNINGS" "0")
-             (invoke "dbus-launch" "ctest" "."))))))
+           (lambda* (#:key tests? #:allow-other-keys)
+             (when tests?
+               (setenv "HOME" (getcwd))
+               (setenv "DBUS_FATAL_WARNINGS" "0")
+               (invoke "dbus-launch" "ctest"))
+             #t)))))
     (home-page "https://community.kde.org/Frameworks")
     (synopsis "Desktop notifications")
     (description "KNotification is used to notify the user of an event.  It
