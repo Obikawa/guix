@@ -593,7 +593,7 @@ many more.")
 (define-public kdbusaddons
   (package
     (name "kdbusaddons")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -602,27 +602,29 @@ many more.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "1vz2hg5p8wvfk0pi8v25zqzcn8yj7ykakxjyipmadvi02c1h8gic"))
-              (patches (search-patches "kdbusaddons-kinit-file-name.patch"))))
+                "0g609bymfixwaic30y7i0q96anf7pi3galipmjbbfg85ghj9rsa4"))))
     (build-system cmake-build-system)
     (native-inputs
      (list extra-cmake-modules dbus qttools))
     (inputs
-     (list qtbase-5 qtx11extras kinit-bootstrap)) ;; kinit-bootstrap: kinit package which does not depend on kdbusaddons.
+     (list qtbase-5 qtx11extras kinit-bootstrap))
+    ;; kinit-bootstrap: kinit package which does not depend on kdbusaddons.
     (arguments
      `(#:phases
        (modify-phases %standard-phases
-         (add-before
-          'configure 'patch-source
+         (add-before 'configure 'patch-source
           (lambda* (#:key inputs #:allow-other-keys)
             ;; look for the kdeinit5 executable in kinit's store directory,
             ;; instead of the current application's directory:
             (substitute* "src/kdeinitinterface.cpp"
-              (("@SUBSTITUTEME@") (assoc-ref inputs "kinit")))))
+              (("<< QCoreApplication::applicationDirPath..")
+               (string-append
+                "<< QString::fromUtf8(\"" (assoc-ref inputs "kinit") "/bin\")" )))))
          (replace 'check
-           (lambda _
-             (setenv "DBUS_FATAL_WARNINGS" "0")
-             (invoke "dbus-launch" "ctest" "."))))))
+           (lambda* (#:key tests? #:allow-other-keys)
+             (when tests?
+               (setenv "DBUS_FATAL_WARNINGS" "0")
+               (invoke "dbus-launch" "ctest")))))))
     (home-page "https://community.kde.org/Frameworks")
     (synopsis "Convenience classes for DBus")
     (description "KDBusAddons provides convenience classes on top of QtDBus,
