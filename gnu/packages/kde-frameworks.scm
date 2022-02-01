@@ -813,7 +813,7 @@ or user activity.")
   ;; plasma-framework which is tier 3.
   (package
     (name "kirigami")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -822,7 +822,7 @@ or user activity.")
                     "kirigami2-" version ".tar.xz"))
               (sha256
                (base32
-                "0akkyif6n9l7hw4cj6nkf1zwgnd7vqi1gyiqmn588rspgl91zf1w"))))
+                "0r48n11pv3yqsf11phl19cs52ph5ldabrfmq3xmsvxsknm6c4f9b"))))
     (properties `((upstream-name . "kirigami2")))
     (build-system cmake-build-system)
     (native-inputs
