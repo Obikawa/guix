@@ -2691,7 +2691,7 @@ KIO enabled infrastructure.")
 (define-public knewstuff
   (package
     (name "knewstuff")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -2700,7 +2700,7 @@ KIO enabled infrastructure.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "1hpxj4nawh57w8l64gjplb5mk5fpxiffm4x49kg75m637rxy19fq"))))
+                "0q30p7z5zg3p24gp8q83i7my5bg4yfcdwsblmhl230kih8aap2cg"))))
     (build-system cmake-build-system)
     (propagated-inputs
      (list attica kservice kxmlgui))
@@ -2720,6 +2720,7 @@ KIO enabled infrastructure.")
            ki18n
            kiconthemes
            kjobwidgets
+           kpackage
            ktextwidgets
            kwidgetsaddons
            qtbase-5
