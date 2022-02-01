@@ -3799,19 +3799,29 @@ offers abstract functionality to deal with scripts.")
 (define-public kdav
   (package
     (name "kdav")
-    (version "20.04.3")
+    (version "5.90.0")
     (source
      (origin
        (method url-fetch)
-       (uri (string-append "mirror://kde/stable/release-service/" version
-                           "/src/kdav-" version ".tar.xz"))
+       (uri (string-append "mirror://kde/stable/frameworks/"
+                           (version-major+minor version) "/"
+                           name "-" version ".tar.xz"))
        (sha256
-        (base32 "0445gl4xm0h39igkxgb6vmq5iaa04wkgrgbs7nfd0zwngk8xaidn"))))
+        (base32 "0181ray8vigmwlamx4j5dinw10al0g4l965kyx4wjq9k59nxxgbi"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules))
     (inputs
      (list kcoreaddons ki18n kio qtbase-5 qtxmlpatterns))
+    (arguments
+     `(#:phases
+       (modify-phases %standard-phases
+         (replace 'check
+           (lambda* (#:key tests? #:allow-other-keys)
+             (when tests? ;; Seems to require network.
+               (invoke "ctest" "-E"
+                       "(kdav-davcollectionsmultifetchjobtest|kdav-davitemfetchjob)"))
+             #t)))))
     (home-page "https://invent.kde.org/frameworks/kdav")
     (synopsis "DAV protocol implementation with KJobs")
     (description "This is a DAV protocol implementation with KJobs.  Calendars
