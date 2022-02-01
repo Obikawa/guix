@@ -3617,7 +3617,7 @@ technology and using KJS for JavaScript support.")
 (define-public kjs
   (package
     (name "kjs")
-    (version "5.70.0")
+    (version "5.90.0")
     (source
      (origin
        (method url-fetch)
@@ -3626,7 +3626,7 @@ technology and using KJS for JavaScript support.")
              (version-major+minor version) "/portingAids/"
              name "-" version ".tar.xz"))
        (sha256
-        (base32 "0s3n0pdz59p5v967zrxcas3lb94k5bv9vi8058fi0l20nwwlcgh5"))))
+        (base32 "1z5d1ixzvaq6x9x0jhmh5bdrdqpsl1x7mh3s8wnycfxwmln6bawv"))))
     (build-system cmake-build-system)
     (native-inputs
      (list extra-cmake-modules kdoctools perl pkg-config))
