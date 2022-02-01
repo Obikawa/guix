@@ -1102,7 +1102,7 @@ configuration pages, message boxes, and password requests.")
 (define-public kwindowsystem
   (package
     (name "kwindowsystem")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -1111,7 +1111,7 @@ configuration pages, message boxes, and password requests.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "0a68cj0bsl5a9sxfd969khznycrn9p6grp2b08hqacxqdknzs0wh"))))
+                "0fj7a86dk833ld76c3b1s4ri47bhpvjsi6ryfgdv5q7h2fwh6ia5"))))
     (build-system cmake-build-system)
     (native-inputs
      (list extra-cmake-modules
@@ -1138,16 +1138,17 @@ configuration pages, message boxes, and password requests.")
                  (display "[testClientMachine]\n*\n"))) ;; requires network
              #t))
          (replace 'check
-           (lambda _
+           (lambda* (#:key tests? #:allow-other-keys)
              ;; The test suite requires a running window anager
-             (setenv "XDG_RUNTIME_DIR" "/tmp")
-             (system "Xvfb :1 -ac -screen 0 640x480x24 &")
-             (setenv "DISPLAY" ":1")
-             (sleep 5) ;; Give Xvfb a few moments to get on it's feet
-             (system "openbox &")
-             (setenv "CTEST_OUTPUT_ON_FAILURE" "1")
-             (setenv "DBUS_FATAL_WARNINGS" "0")
-             (invoke "dbus-launch" "ctest" "."))))))
+             (when tests?
+               (setenv "XDG_RUNTIME_DIR" "/tmp")
+               (system "Xvfb :1 -ac -screen 0 640x480x24 &")
+               (setenv "DISPLAY" ":1")
+               (sleep 5) ;; Give Xvfb a few moments to get on it's feet
+               (system "openbox &")
+               (setenv "CTEST_OUTPUT_ON_FAILURE" "1")
+               (setenv "DBUS_FATAL_WARNINGS" "0")
+               (invoke "dbus-launch" "ctest")))))))
     (home-page "https://community.kde.org/Frameworks")
     (synopsis "KDE access to the windowing system")
     (description "KWindowSystem provides information about and allows
