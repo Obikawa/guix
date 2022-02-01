@@ -1156,7 +1156,7 @@ lower level classes for interaction with the X Windowing System.")
 (define-public modemmanager-qt
   (package
     (name "modemmanager-qt")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -1165,7 +1165,7 @@ lower level classes for interaction with the X Windowing System.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "0ydq1l823jgp0yrrpqi1zdk5dsg65ydk1x082qwsa9a0vzs0np3x"))))
+                "08nlvg5lwvl3rspi848gp2b2b5pki6sy8c3ww9nn4afy4lk7p609"))))
     (build-system cmake-build-system)
     (native-inputs
      (list extra-cmake-modules dbus pkg-config))
@@ -1178,9 +1178,11 @@ lower level classes for interaction with the X Windowing System.")
      `(#:phases
        (modify-phases %standard-phases
          (replace 'check
-           (lambda _
-             (setenv "DBUS_FATAL_WARNINGS" "0")
-             (invoke "dbus-launch" "ctest" "."))))))
+           (lambda* (#:key tests? #:allow-other-keys)
+             (when tests?
+               (setenv "DBUS_FATAL_WARNINGS" "0")
+               (invoke "dbus-launch" "ctest"))
+             #t)))))
     (home-page "https://community.kde.org/Frameworks")
     (synopsis "Qt wrapper for ModemManager DBus API")
     (description "ModemManagerQt provides access to all ModemManager features
