@@ -1668,7 +1668,7 @@ from DocBook files.")
 (define-public kfilemetadata
   (package
     (name "kfilemetadata")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -1677,25 +1677,21 @@ from DocBook files.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "18n1a5857090a1c1rxzd07sxs652gl6wr3n99sp8rxmvkghn9zsj"))))
+                "18y4bn6hz8xa68m0nxv88a1f3xkkks7c7pbiqb1vkrp9bbh52yax"))))
     (build-system cmake-build-system)
     (arguments
      `(#:phases
        (modify-phases %standard-phases
-         (add-before 'check 'disable-failing-test
-           (lambda _
-             ;; Blacklist a failing test-function. FIXME: Make it pass.
-             ;; UserMetaDataWriterTest fails with getxattr("…/writertest.txt")
-             ;; -> EOPNOTSUPP (Operation not supported)
-             (with-output-to-file "autotests/BLACKLIST"
-               (lambda _
-                 (display "[testMimetype]\n*\n")
-                 (display "[test]\n*\n")))
+         (replace 'check
+           (lambda* (#:key tests? #:allow-other-keys)
+             (when tests?
+               ;; FIXME: Test can't find audio/x-speex mimeinfo
+               ;; (but it can find audio/x-speex+ogg).
+               (invoke "ctest" "-E" "embeddedimagedatatest"))
              #t)))))
     (native-inputs
      `(("extra-cmake-modules" ,extra-cmake-modules)
-       ("pkg-config" ,pkg-config)
-       ("python-2" ,python-2)))
+       ("pkg-config" ,pkg-config)))
     (inputs
      (list attr
            ;; TODO: EPub http://sourceforge.net/projects/ebook-tools
