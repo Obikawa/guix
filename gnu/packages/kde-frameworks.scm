@@ -1993,7 +1993,7 @@ between feed formats.")
 (define-public baloo
   (package
     (name "baloo")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -2002,7 +2002,7 @@ between feed formats.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "1cf5pp9hn3pqypwyzh63ksasap3n7qz6n3y2xgb83ss3fra90pjf"))))
+                "1nnfys8dyiivd2if81qrgrmpprfni77an9l3wff0l5k85ac86i56"))))
     (build-system cmake-build-system)
     (propagated-inputs
      (list kcoreaddons kfilemetadata))
@@ -2029,32 +2029,24 @@ between feed formats.")
     (arguments
      `(#:phases
        (modify-phases %standard-phases
-         (add-before 'check 'check-setup
-           (lambda _
-             (setenv "HOME" (getcwd))
-             ;; make Qt render "offscreen", required for tests
-             (setenv "QT_QPA_PLATFORM" "offscreen")
-             (with-output-to-file "bin/BLACKLIST"
-               (lambda _
-                 ;; Blacklist some failing tests. FIXME: Make them pass.
-                 (display "[testRenameFile]\n*\n")
-                 (display "[testMoveFile]\n*\n")))
-             #t))
          (add-after 'unpack 'remove-failing-test
            (lambda _
              ;; FIXME: kinotifytest broke in 5.70.0 with commit 73183acf00 and
              ;; seems like an oversight.  Reverting the commit makes it pass,
              ;; but causes other problems.  Since just the test file names are
-             ;; broken, disabling it should be safe.  Try enabling for > 5.70.0.
+             ;; broken, disabling it should be safe.  Try enabling for > 5.90.0.
              (substitute* "autotests/unit/file/CMakeLists.txt"
                ;; The test only runs on GNU/Linux, piggy-back on the check.
                (("CMAKE_SYSTEM_NAME MATCHES \"Linux\"" all)
                 (string-append all " AND NOT TRUE")))
              #t))
          (replace 'check
-           (lambda _
-             (setenv "DBUS_FATAL_WARNINGS" "0")
-             (invoke "dbus-launch" "ctest" "."))))))
+           (lambda* (#:key tests? #:allow-other-keys)
+             (when tests?
+               (setenv "DBUS_FATAL_WARNINGS" "0")
+               (setenv "HOME" (getcwd))
+               (invoke "dbus-launch" "ctest"))
+             #t)))))
     (home-page "https://community.kde.org/Frameworks")
     (synopsis "File searching and indexing")
     (description "Baloo provides file searching and indexing.  It does so by
