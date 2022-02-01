@@ -1381,7 +1381,7 @@ system.")
 (define-public sonnet
   (package
     (name "sonnet")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -1390,13 +1390,14 @@ system.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "0b88h5fw1n8zyrg0vq3lj2jbjjyh0mk64lj6ab3643kxzqxbn30w"))))
+                "0d4xxm9vw1rc2mypv4z0yihcn679sab0afxr2kbzq01wr6p759y7"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules pkg-config qttools))
     (inputs
      (list hunspell
            ;; TODO: hspell (for Hebrew), Voikko (for Finish)
+           qtdeclarative
            qtbase-5))
     (home-page "https://community.kde.org/Frameworks")
     (synopsis "Multi-language spell checker")
