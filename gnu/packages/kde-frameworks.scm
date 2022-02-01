@@ -2404,7 +2404,7 @@ engine WebKit via QtWebKit.")
 (define-public kemoticons
   (package
     (name "kemoticons")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -2413,7 +2413,7 @@ engine WebKit via QtWebKit.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "11v1srn3nii4j7cn4f19qvdw96pczwxhanzxlg4a9gf8kmnp5gxr"))))
+                "08mgk56dafj3q9gs69qcx17qfc45s8ifkjrpzg44p8zs0q51q6cb"))))
     (build-system cmake-build-system)
     (propagated-inputs
      (list kservice))
