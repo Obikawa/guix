@@ -719,7 +719,7 @@ interfaces in the areas of colors, fonts, text, images, keyboard input.")
 (define-public kholidays
   (package
     (name "kholidays")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -727,18 +727,8 @@ interfaces in the areas of colors, fonts, text, images, keyboard input.")
                     (version-major+minor version) "/"
                     name "-" version ".tar.xz"))
        (sha256
-        (base32 "1rifx51yk24sk578h08s1bwpqb61rnyyks33zpl82lcdnl1ljp26"))))
+        (base32 "1p1kgy110ijk5a3ix4g9y1i7w0gsnzf82jdkwbdza95vibm82iz8"))))
     (build-system cmake-build-system)
-    (arguments
-     `(#:phases
-       (modify-phases %standard-phases
-         (add-before 'check 'check-setup
-           (lambda _
-             ;; blacklist a failing test function TODO: make it pass
-             (with-output-to-file "autotests/BLACKLIST"
-               (lambda _
-                 (display "[testDefaultRegions]\n*\n")))
-             #t)))))
     (native-inputs
      (list extra-cmake-modules qttools))
     (inputs
