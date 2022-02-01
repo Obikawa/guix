@@ -3446,7 +3446,7 @@ workspace.")
 (define-public kdelibs4support
   (package
     (name "kdelibs4support")
-    (version "5.70.0")
+    (version "5.90.0")
     (source
      (origin
        (method url-fetch)
@@ -3455,7 +3455,7 @@ workspace.")
              (version-major+minor version) "/portingAids/"
              name "-" version ".tar.xz"))
        (sha256
-        (base32 "0imkibjlfc0jshdzr05fz5dy2xmfhvgsfan9b1r35spwsn5qkawx"))))
+        (base32 "0zxc11jbg06qz79ljrd6wl36jp73hafcmbk29d0hcvxnkscg3k29"))))
     (build-system cmake-build-system)
     (native-inputs
      (list dbus
@@ -3464,6 +3464,7 @@ workspace.")
            perl
            perl-uri
            pkg-config
+           qttools
            shared-mime-info
            kjobwidgets ;; required for running the tests
            strace
@@ -3504,7 +3505,6 @@ workspace.")
            networkmanager-qt
            openssl
            qtsvg
-           qttools
            qtx11extras))
     ;; FIXME: Use Guix ca-bundle.crt in etc/xdg/ksslcalist and
     ;; share/kf5/kssl/ca-bundle.crt
@@ -3540,7 +3540,7 @@ workspace.")
                (lambda _
                  (display "[testSmb]\n*\n")))
              ;; kuniqueapptest hangs. FIXME: Make this test pass.
-             (invoke "dbus-launch" "ctest" "."
+             (invoke "dbus-launch" "ctest"
                      "-E" "kstandarddirstest|kuniqueapptest"))))))
     (home-page "https://community.kde.org/Frameworks")
     (synopsis "KDE Frameworks 5 porting aid from KDELibs4")
