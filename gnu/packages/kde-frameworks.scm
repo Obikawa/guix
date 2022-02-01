@@ -3324,7 +3324,7 @@ script engines.")
 (define-public purpose
   (package
     (name "purpose")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -3333,7 +3333,7 @@ script engines.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "1pxlx2hgj42zsisws8f486n8sg0vn5a5mhb85prifwkaw0rqzgah"))))
+                "182196hj3mdy1k7wfgadfxy7m1kbqzk6kksn7yd681h2gpky82l1"))))
     (build-system cmake-build-system)
     (native-inputs
      (list extra-cmake-modules))
@@ -3349,13 +3349,6 @@ script engines.")
            qtdeclarative))
     (arguments
      `(#:tests? #f  ;; seem to require network; don't find QTQuick components
-       #:phases
-       (modify-phases %standard-phases
-         (add-after 'unpack 'dont-use-qt515-logic
-           (lambda _
-             (substitute* "src/externalprocess/purposeprocess_main.cpp"
-               ((" 15") " 16"))
-             #t)))
        #:configure-flags '("-DBUILD_TESTING=OFF"))) ; not run anyway
     (home-page "https://community.kde.org/Frameworks")
     (synopsis "Offers available actions for a specific purpose")
