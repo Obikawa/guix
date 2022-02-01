@@ -3287,7 +3287,7 @@ setUrl, setUserAgent and call.")
 (define-public plasma-framework
   (package
     (name "plasma-framework")
-    (version "5.70.1")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -3296,8 +3296,7 @@ setUrl, setUserAgent and call.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "06cxajsxj62g3c37ssrrcaxb9a12zbyp2kvrjqym329k5vd89272"))
-              (patches (search-patches "plasma-framework-fix-KF5PlasmaMacros.cmake.patch"))))
+                "1msqjnwvb815kii0rjhn1lvsnvq5wr8iprdjzsviw67va6gaz4p1"))))
     (build-system cmake-build-system)
     (propagated-inputs
      (list kpackage kservice))
@@ -3329,6 +3328,8 @@ setUrl, setUserAgent and call.")
        ("kwidgetsaddons" ,kwidgetsaddons)
        ("kwindowsystem" ,kwindowsystem)
        ("kxmlgui" ,kxmlgui)
+       ;; XXX: "undefined reference to `glGetString'" errors occur without libglvnd,
+       ("libglvnd" ,libglvnd)
        ("phonon" ,phonon)
        ("qtbase" ,qtbase-5)
        ("qtdeclarative" ,qtdeclarative)
@@ -3337,14 +3338,17 @@ setUrl, setUserAgent and call.")
        ("qtx11extras" ,qtx11extras)
        ("solid" ,solid)))
     (arguments
-     `(#:tests? #f ; FIXME: 9/15 tests fail.
-       #:phases
+     `(#:phases
        (modify-phases %standard-phases
-         (add-before 'check 'check-setup
-           (lambda _
-             (setenv "HOME" (getcwd))
-             ;; make Qt render "offscreen", required for tests
-             (setenv "QT_QPA_PLATFORM" "offscreen")
+         (replace 'check
+           (lambda* (#:key tests? #:allow-other-keys)
+             (when tests?
+               (setenv "HOME" (getcwd))
+               (setenv "QT_QPA_PLATFORM" "offscreen") ;; These tests fail
+               (invoke "ctest" "-E" (string-append "(plasma-dialogstatetest"
+                                                   "|plasma-iconitemtest"
+                                                   "|plasma-themetest"
+                                                   "|dialognativetest)")))
              #t)))))
     (home-page "https://community.kde.org/Frameworks")
     (synopsis "Libraries, components and tools of Plasma workspaces")
