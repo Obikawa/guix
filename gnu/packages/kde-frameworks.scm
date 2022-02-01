@@ -2845,7 +2845,7 @@ widgets with a user-interface defined in terms of actions.")
 (define-public kpeople
   (package
     (name "kpeople")
-    (version "5.70.0")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -2854,7 +2854,7 @@ widgets with a user-interface defined in terms of actions.")
                     name "-" version ".tar.xz"))
               (sha256
                (base32
-                "1dhvly19pj9lx78g7mc89scibzmra1vhv4zz33222zidkbrf9ryl"))))
+                "1632k365bn9n3n8babq620v0px2hmapk8fprx28xpfp27zakhfgw"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules))
