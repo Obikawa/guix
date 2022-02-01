@@ -2997,7 +2997,7 @@ types or handled by application specific code.")
 (define-public ktexteditor
   (package
     (name "ktexteditor")
-    (version "5.70.1")
+    (version "5.90.0")
     (source (origin
               (method url-fetch)
               (uri (string-append
@@ -3006,7 +3006,7 @@ types or handled by application specific code.")
                     "ktexteditor-" version ".tar.xz"))
               (sha256
                (base32
-                "0k10yj1ia1w1mznj4g5nvp65p226zcvgwxc85ycn2w8lbkknidf7"))))
+                "1g1dky9bgr2zjr0rw9c730shz588ykyw7qw3sgf0dr3sh8aq222n"))))
     (build-system cmake-build-system)
     (propagated-inputs
      (list kparts))
@@ -3042,19 +3042,18 @@ types or handled by application specific code.")
            solid
            sonnet))
     (arguments
-     `(#:tests? #f ; FIXME: 2/54 tests fail: Cannot find fontdirectory qtbase/lib/font
-       #:phases
+     `(#:phases
        (modify-phases %standard-phases
          (add-after 'unpack 'setup
            (lambda* (#:key inputs #:allow-other-keys)
              (setenv "XDG_DATA_DIRS" ; FIXME build phase doesn't find parts.desktop
                      (string-append (assoc-ref inputs "kparts") "/share"))
              #t))
-         (add-before 'check 'check-setup
-           (lambda _
-             (setenv "HOME" (getcwd))
-             ;; make Qt render "offscreen", required for tests
-             (setenv "QT_QPA_PLATFORM" "offscreen")
+         (replace 'check
+           (lambda* (#:key tests? #:allow-other-keys)
+             (when tests? ;; Maybe locale issues with tests?
+               (setenv "QT_QPA_PLATFORM" "offscreen")
+               (invoke "ctest" "-E" "(kateview_test|movingrange_test)"))
              #t))
          (add-after 'install 'add-symlinks
            ;; Some package(s) (e.g. plasma-sdk) refer to these service types
