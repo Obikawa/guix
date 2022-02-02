@@ -111,14 +111,14 @@ manager which re-parents a Client window to a window decoration frame.")
 (define-public ksshaskpass
   (package
     (name "ksshaskpass")
-    (version "5.19.5")
+    (version "5.23.5")
     (source (origin
               (method url-fetch)
               (uri (string-append "mirror://kde/stable/plasma/" version
                                   "/ksshaskpass-" version ".tar.xz"))
               (sha256
                (base32
-                "1k2va2v9051f71w78dn3gihk642iyy5yzrkcfnp97fag8g6dpisi"))))
+                "0p8aka60mc8p96v3bx954jy99n9lf0a4b09sig307clwinfr23if"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules kdoctools))
