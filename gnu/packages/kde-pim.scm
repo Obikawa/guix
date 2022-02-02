@@ -848,14 +848,14 @@ cryptography to the contents of the clipboard.")
 (define-public kidentitymanagement
   (package
     (name "kidentitymanagement")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/kidentitymanagement-" version ".tar.xz"))
        (sha256
-        (base32 "0flp9p9hlr1zfgvsy5i1nq55p7bvnhqxkxbif1lyw0cq6iblxhgr"))))
+        (base32 "00fwjax3kfvr8jsy04hp1jyihvskvprbg83z2avhcy6lvr7g25kk"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules))
