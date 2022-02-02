@@ -88,14 +88,14 @@ the Plasma Desktop.  Breeze is the default theme for the KDE Plasma desktop.")
 (define-public kdecoration
   (package
     (name "kdecoration")
-    (version "5.19.5")
+    (version "5.23.5")
     (source (origin
               (method url-fetch)
               (uri (string-append "mirror://kde/stable/plasma/" version
                                   "/kdecoration-" version ".tar.xz"))
               (sha256
                (base32
-                "0pn8n7zyb0adzjnn92vmbcf7pmpss60k9k1rk5llamj016xzfgnf"))))
+                "1kqj8l95wy46kfsw3f1crxwba9zwdlbgi7345mamhyks74wj1628"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules))
