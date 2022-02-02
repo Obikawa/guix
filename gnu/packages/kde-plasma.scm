@@ -5,7 +5,7 @@
 ;;; Copyright © 2017, 2019, 2020 Hartmut Goebel <h.goebel@crazy-compilers.com>
 ;;; Copyright © 2019 Tobias Geerinckx-Rice <me@tobias.gr>
 ;;; Copyright © 2020 Zheng Junjie <873216071@qq.com>
-;;; Copyright © 2021 Brendan Tildesley <mail@brendan.scot>
+;;; Copyright © 2022 Brendan Tildesley <mail@brendan.scot>
 ;;;
 ;;; This file is part of GNU Guix.
 ;;;
@@ -42,14 +42,14 @@
 (define-public breeze
   (package
     (name "breeze")
-    (version "5.19.5")
+    (version "5.23.5")
     (source (origin
               (method url-fetch)
               (uri (string-append "mirror://kde/stable/plasma/" version "/"
                                   name "-" version ".tar.xz"))
               (sha256
                (base32
-                "0dpk1w7zcafrzf46j060i1qb0fwqpsflkfzr6gcar81llmjnc4b1"))))
+                "1pyw7rhzkbd9kwsm8l7iz867jhwlbmkarc5iihg0bkbcg1ds18ic"))))
     (build-system qt-build-system)
     ;; TODO: Warning at /gnu/store/…-kpackage-5.34.0/…/KF5PackageMacros.cmake:
     ;;   warnings during generation of metainfo for org.kde.breezedark.desktop:
