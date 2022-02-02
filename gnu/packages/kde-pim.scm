@@ -1141,32 +1141,38 @@ dealing with email.")
 (define-public kmailimporter
   (package
     (name "kmailimporter")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/mailimporter-" version ".tar.xz"))
        (sha256
-        (base32 "1929pw0shdzi0yvjnqhak680hjjibg8f8hqy3svyxxhiqbhfjm26"))))
+        (base32 "1ng8w4byq4iiwfzh4acl2glndlr7r9hr62qpj10kpn4fi0qblakb"))))
     (properties `((upstream-name . "mailimporter")))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules))
     (inputs
      (list akonadi
+           akonadi-contacts
            akonadi-mime
+           grantlee
+           grantleetheme
            boost
            karchive
            kcompletion
            kconfig
            kconfigwidgets
+           kcontacts
            kcoreaddons
            kdbusaddons
            ki18n
+           kimap
            kio
            kitemmodels
            kmime
+           kpimcommon
            kxmlgui
            libkdepim
            qtbase-5))
