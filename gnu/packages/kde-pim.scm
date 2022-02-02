@@ -497,14 +497,14 @@ calendar data.")
 (define-public kblog
   (package
     (name "kblog")
-    (version "20.04.1")
+    (version "20.04.3")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/kblog-" version ".tar.xz"))
        (sha256
-        (base32 "0pi3axs58wsz5vq6vyisz73s24q739zplwrblyvkcm16nll4mvhk"))))
+        (base32 "1d5r9ivc1xmhkrz780xga87p84h7dnxjl981qap16gy37sxahcjr"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules))
