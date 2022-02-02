@@ -929,14 +929,14 @@ protocol for querying and modifying directory services running over TCP/IP.")
 (define-public kleopatra
   (package
     (name "kleopatra")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/kleopatra-" version ".tar.xz"))
        (sha256
-        (base32 "1m50nzb2m27fkb8z3k34cv4zi2akr0fx8zn7lk5swhg49sgrip6n"))))
+        (base32 "1b2nq823gq1v20dnh3hm298fva7cmbn9hh0kmbq22kh98kv8chhh"))))
     (build-system qt-build-system)
     (native-inputs
      (list dbus extra-cmake-modules gnupg ;; TODO: Remove after gpgme uses fixed path
@@ -971,7 +971,7 @@ protocol for querying and modifying directory services running over TCP/IP.")
          (replace 'check
            (lambda* (#:key tests? #:allow-other-keys)
              (when tests?
-               (invoke "dbus-launch" "ctest" "."))
+               (invoke "dbus-launch" "ctest"))
              #t)))))
     (home-page "https://kde.org/applications/utilities/org.kde.kleopatra")
     (synopsis "Certificate Manager and Unified Crypto GUI")
