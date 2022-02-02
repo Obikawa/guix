@@ -455,14 +455,14 @@ CalDAV server.")
 (define-public kalarmcal
   (package
     (name "kalarmcal")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/kalarmcal-" version ".tar.xz"))
        (sha256
-        (base32 "0g0bm4zzzcpl2pqqf609349zagwrgj6a4ibxpgg4zf21aacdq8bi"))))
+        (base32 "15l893iv4smlppk7k682m9hwrph84p5chx5mgxixjxl28c1blcc8"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules))
