@@ -1443,14 +1443,14 @@ Features:
 (define-public kontactinterface
   (package
     (name "kontactinterface")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/kontactinterface-" version ".tar.xz"))
        (sha256
-        (base32 "0s1qm1wjkvbb1film94r7g88d8vgh26bm0hm6gpyqv5bazw5qx3j"))))
+        (base32 "1qvjm27v797hcdqbr6jwdkwn3vpsy3f1i92slrwks03zj498ydlj"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules))
