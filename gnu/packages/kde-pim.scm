@@ -1372,14 +1372,14 @@ information in non-ASCII character sets.")
 (define-public knotes
   (package
     (name "knotes")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/knotes-" version ".tar.xz"))
        (sha256
-        (base32 "13h4n7fb5p6g1f5kmw6pblpd76j904psm30s3a5d3kykni57dijx"))))
+        (base32 "0f8ra6nkgndgkfnw194y5976kkrm7qdj1w7l27znwalzaydnxvjg"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules libxslt))
@@ -1408,7 +1408,6 @@ information in non-ASCII character sets.")
            kimap
            kitemmodels
            kitemviews
-           kmime
            kmime
            knewstuff
            knotifications
