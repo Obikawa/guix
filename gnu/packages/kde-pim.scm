@@ -1485,14 +1485,14 @@ application \"Parts\" to be embedded as a Kontact component (or plugin).")
 (define-public korganizer
   (package
     (name "korganizer")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/korganizer-" version ".tar.xz"))
        (sha256
-        (base32 "04lz3ldrr0lpy9zpsg9ja1i9gxzlcjpqcwn3g7l4jjdky4frcr2r"))))
+        (base32 "1kablp0x65jmdz5n3y19rgplcvvmq8vxz0ljw7lkrwr3pvvhyv3q"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules dbus qttools kdoctools))
@@ -1504,6 +1504,8 @@ application \"Parts\" to be embedded as a Kontact component (or plugin).")
            akonadi-notes
            akonadi-search
            boost
+           grantlee
+           grantleetheme
            kcalendarcore
            kcalendarsupport
            kcalutils
@@ -1516,7 +1518,6 @@ application \"Parts\" to be embedded as a Kontact component (or plugin).")
            kcoreaddons
            kcrash
            kdbusaddons
-           kdepim-apps-libs
            keventviews
            kholidays
            kiconthemes
@@ -1559,11 +1560,11 @@ application \"Parts\" to be embedded as a Kontact component (or plugin).")
          (replace 'check
            (lambda* (#:key tests? #:allow-other-keys)
              (when tests?
-               (invoke "dbus-launch" "ctest" "."))
+               (invoke "dbus-launch" "ctest"))
              #t)))))
     (home-page "https://kontact.kde.org/components/korganizer.html")
     (synopsis "Organizational assistant, providing calendars and other similar
-functionality to help you organize your life.")
+functionality to help you organize your life")
     (description "KOrganizer is the calendar and scheduling component of
 Kontact.  It provides management of events and tasks, alarm notification, web
 export, network transparent handling of data, group scheduling, import and
