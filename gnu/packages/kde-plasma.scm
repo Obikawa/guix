@@ -29,6 +29,7 @@
   #:use-module (guix gexp)
   #:use-module (guix build-system cmake)
   #:use-module (guix build-system qt)
+  #:use-module (gnu packages admin)
   #:use-module (gnu packages compression)
   #:use-module (gnu packages freedesktop)
   #:use-module (gnu packages glib)
@@ -253,56 +254,53 @@ basic needs and easy to configure for those who want special setups.")
 (define-public libksysguard
   (package
     (name "libksysguard")
-    (version "5.19.5")
+    (version "5.23.5")
     (source
      (origin
        (method url-fetch)
-       (uri (string-append "mirror://kde//stable/plasma/" version
+       (uri (string-append "mirror://kde/stable/plasma/" version
                            "/libksysguard-" version ".tar.xz"))
        (sha256
-        (base32 "1kd0h3p8bf9k5pqp0frhr81pa0yyrpkckg9zznirk9p1v88v7bfq"))))
+        (base32 "1gy1grkkz7vwglby52vv4gr8zbzsv8rbvwbp6rqvvhmqg7ascc1h"))))
     (native-inputs
-     (list extra-cmake-modules pkg-config))
+     (list extra-cmake-modules pkg-config qttools))
     (inputs
-     `(("kconfigwidgets" ,kconfigwidgets)
-       ("kiconthemes" ,kiconthemes)
-       ("kwindowsystem" ,kwindowsystem)
-       ("ki18n" ,ki18n)
-       ("kauth" ,kauth)
-       ("kcompletion" ,kcompletion)
-       ("kconfig" ,kconfig)
-       ("kcoreaddons" ,kcoreaddons)
-       ("kdeclarative" ,kdeclarative)
-       ("kglobalaccel" ,kglobalaccel)
-       ("kio" ,kio)
-       ("knewstuff" ,knewstuff)
-       ("kwidgetsaddons" ,kwidgetsaddons)
-       ("kservice" ,kservice)
-       ("qtbase" ,qtbase-5)
-       ("qtdeclarative" ,qtdeclarative)
-       ("qtscript" ,qtscript)
-       ("qtwebkit" ,qtwebkit)
-       ("qtx11extras" ,qtx11extras)
-       ("plasma" ,plasma-framework)
-       ("zlib" ,zlib)))
+     (list kauth
+           kcompletion
+           kconfig
+           kconfigwidgets
+           kcoreaddons
+           kdeclarative
+           kglobalaccel
+           ki18n
+           kiconthemes
+           kio
+           knewstuff
+           kservice
+           kwidgetsaddons
+           kwindowsystem
+           libnl
+           libcap
+           libpcap
+           `(,lm-sensors "lib")
+           plasma-framework
+           qtbase-5
+           qtdeclarative
+           qtscript
+           qtwebchannel
+           qtwebengine
+           qtwebkit
+           qtx11extras
+           zlib))
     (build-system qt-build-system)
     (arguments
-     (list #:configure-flags
-           #~`(,(string-append "-DKDE_INSTALL_DATADIR="
-                               #$output "/share"))
-           #:phases
+     (list #:phases
            #~(modify-phases %standard-phases
-               (add-before 'configure 'patch-cmakelists
-                 (lambda _
-                   ;; TODO: Verify: This should no longer be necessary, since
-                   ;; KF5AuthConfig.cmake.in contains this already.
-                   (substitute* "processcore/CMakeLists.txt"
-                     (("KAUTH_HELPER_INSTALL_DIR")
-                      "KDE_INSTALL_LIBEXECDIR"))))
                (replace 'check
-                 (lambda _
-                   ;; TODO: Fix this failing test-case
-                   (invoke "ctest" "-E" "processtest"))))))
+                 (lambda* (#:key tests? #:allow-other-keys)
+                   (when tests?
+                     ;; TODO: Fix this failing test-case
+                     (invoke "ctest" "-E" "processtest")))))))
     (home-page "https://userbase.kde.org/KSysGuard")
     (synopsis "Network enabled task and system monitoring")
     (description "KSysGuard can obtain information on system load and
