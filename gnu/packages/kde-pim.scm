@@ -531,14 +531,14 @@ one of the APIs mentioned above.")
 (define-public kcalendarsupport
   (package
     (name "kcalendarsupport")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/calendarsupport-" version ".tar.xz"))
        (sha256
-        (base32 "1yv3hs7qw481cxw4kzbx5l8vv18bgzm1b0vj3zrlqqxwl5ac6xvy"))))
+        (base32 "021rr06ln7l0v2xjzsij4r71jwpy1w1r761bjad0ywprwkdc93bm"))))
     (properties `((upstream-name . "calendarsupport")))
     (build-system qt-build-system)
     (native-inputs
@@ -547,12 +547,12 @@ one of the APIs mentioned above.")
      (list akonadi
            akonadi-calendar
            akonadi-mime
+           akonadi-notes
            boost
            kcalendarcore
            kcalutils
            kcompletion
            kdbusaddons
-           kdepim-apps-libs
            kguiaddons
            kholidays
            ki18n
