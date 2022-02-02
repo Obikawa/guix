@@ -1186,14 +1186,14 @@ e-mail client programs into KMail and KDE PIM.")
 (define-public kmailtransport
   (package
     (name "kmailtransport")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/kmailtransport-" version ".tar.xz"))
        (sha256
-        (base32 "1swqlgzxzlqffm119sbhszy9lr93m8lzwygr0q4raa660b6yiavm"))))
+        (base32 "0rs6qihzy8q2n204zkhakgnjxwqy9pz9i0kv1j3amw2xv3f51rvw"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules kdoctools))
@@ -1215,7 +1215,8 @@ e-mail client programs into KMail and KDE PIM.")
            ktextwidgets
            kwallet
            libkgapi
-           qtbase-5))
+           qtbase-5
+           qtkeychain))
     (arguments
      `(#:tests? #f)) ;; TODO - 3/3 tests fail, require drkonqi
     (home-page "https://api.kde.org/stable/kdepimlibs-apidocs/")
