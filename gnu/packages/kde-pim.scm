@@ -799,14 +799,14 @@ package.")
 (define-public kgpg
   (package
     (name "kgpg")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/kgpg-" version ".tar.xz"))
        (sha256
-        (base32 "03d3gsbara7ga2cyrhafkw11qq9cj804h9vpvxl4wd2a9c90snkh"))))
+        (base32 "1f193fyn1azwhm7b8gd5ffyb11acg1269mh1d2ly60ax83qjs48c"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules gnupg ;; TODO: Remove after gpgme uses fixed path
@@ -816,6 +816,8 @@ package.")
            akonadi-contacts
            boost
            gpgme
+           grantlee
+           grantleetheme
            karchive
            kcodecs
            kcontacts
