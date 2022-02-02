@@ -225,21 +225,22 @@ call it if it is not associated to a terminal.")
 (define-public libkscreen
   (package
     (name "libkscreen")
-    (version "5.19.5")
+    (version "5.23.5")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/plasma/" version "/"
                            name "-" version ".tar.xz"))
        (sha256
-        (base32 "0rf1pm0yyc069f4n5s9ipdx4glzfr9zvv5cbrmn4q9i4v6z1qd8i"))))
+        (base32 "08wgg96clp685fl5lflrfd4kmf5c2p5ms7n1q2izvg0n6qr37m1i"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules
            ;; For testing.
            dbus))
     (inputs
-     (list kwayland libxrandr qtbase-5 qtx11extras))
+     (list kwayland libxrandr plasma-wayland-protocols
+           qtbase-5 qtwayland wayland qtx11extras))
     (arguments
      '(#:tests? #f)) ; FIXME: 55% tests passed, 5 tests failed out of 11
     (home-page "https://community.kde.org/Solid/Projects/ScreenManagement")
