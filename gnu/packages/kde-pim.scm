@@ -1651,14 +1651,14 @@ Virtual Contact File}) files to the KPeople contact management library.")
 (define-public libgravatar
   (package
     (name "libgravatar")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/libgravatar-" version ".tar.xz"))
        (sha256
-        (base32 "0981ci2kr20v4fk11h57rqya0brgslfazpgq1yk5yqiwyqqm49r2"))))
+        (base32 "0xj3v0cknkvr8ac5iipxpz1azr0hk42zgaaip5ivn7qjfhp0zvv0"))))
     (build-system qt-build-system)
     (native-inputs
      `(("extra-cmake-modules" ,extra-cmake-modules)))
