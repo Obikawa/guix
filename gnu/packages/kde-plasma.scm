@@ -161,14 +161,14 @@ call it if it is not associated to a terminal.")
 (define-public kscreenlocker
   (package
     (name "kscreenlocker")
-    (version "5.19.5")
+    (version "5.23.5")
     (source (origin
               (method url-fetch)
               (uri (string-append "mirror://kde/stable/plasma/" version
                                   "/kscreenlocker-" version ".tar.xz"))
               (sha256
                (base32
-                "1fd5sqaqx9kj3kr0bgxpllhcm5arf8bc9pkpd9yk9c8xjy0j0fxi"))))
+                "07vhwvcyz9ynjzh44zny1f6di2knzy3fkiji3bhrki8p3zc9vjpm"))))
     (build-system qt-build-system)
     (arguments
      `(#:tests? #f ;; TODO: make tests pass
@@ -186,35 +186,36 @@ call it if it is not associated to a terminal.")
              (if tests?
                  (begin
                    (setenv "CTEST_OUTPUT_ON_FAILURE" "1")
-                   (invoke "dbus-launch" "ctest" ".")))
+                   (invoke "dbus-launch" "ctest")))
              #t)))))
     (native-inputs
      (list extra-cmake-modules pkg-config
            ;; For tests.
            dbus xorg-server-for-tests))
     (inputs
-     `(("kcmutils" ,kcmutils)
-       ("kcrash" ,kcrash)
-       ("kdeclarative" ,kdeclarative)
-       ("kglobalaccel" ,kglobalaccel)
-       ("ki18n" ,ki18n)
-       ("kidletime" ,kidletime)
-       ("knotifications" ,knotifications)
-       ("ktextwidgets" ,ktextwidgets)
-       ("kwayland" ,kwayland)
-       ("kwindowsystem" ,kwindowsystem)
-       ("kxmlgui" ,kxmlgui)
-       ("libseccomp" ,libseccomp) ;for sandboxing the look'n'feel package
-       ("libxcursor" ,libxcursor) ;missing in CMakeList.txt
-       ("libxi" ,libxi)           ;XInput, required for grabbing XInput2 devices
-       ("linux-pam" ,linux-pam)
-       ("logind" ,elogind)        ;optional loginctl support
-       ("qtbase" ,qtbase-5)
-       ("qtdeclarative" ,qtdeclarative)
-       ("qtx11extras" ,qtx11extras)
-       ("solid" ,solid)
-       ("wayland" ,wayland)
-       ("xcb-util-keysyms" ,xcb-util-keysyms)))
+     (list kcmutils
+           kcrash
+           kdeclarative
+           kglobalaccel
+           ki18n
+           kidletime
+           knotifications
+           ktextwidgets
+           kwayland
+           kwindowsystem
+           kxmlgui
+           layer-shell-qt
+           libseccomp ;for sandboxing the look'n'feel package
+           libxcursor ;missing in CMakeList.txt
+           libxi ;XInput, required for grabbing XInput2 devices
+           linux-pam
+           elogind ;optional loginctl support
+           qtbase-5
+           qtdeclarative
+           qtx11extras
+           solid
+           wayland
+           xcb-util-keysyms))
     (home-page "https://invent.kde.org/plasma/kscreenlocker")
     (synopsis "Screen locking library")
     (description
