@@ -117,14 +117,14 @@ programs.")
 (define-public akonadi-calendar
   (package
     (name "akonadi-calendar")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/akonadi-calendar-" version ".tar.xz"))
        (sha256
-        (base32 "1mq76qyd3jcngb2yfanpn7qvklzllza399fxwii0mqppp1vmnb2b"))))
+        (base32 "001ndvgqn6x70s7gdya1f1vr080mfkypam3k6z0i2ivlpymc3wly"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules))
@@ -133,6 +133,8 @@ programs.")
            akonadi-contacts
            akonadi-mime
            boost
+           grantlee
+           grantleetheme
            kcalendarcore
            kcalutils
            kcodecs
