@@ -44,14 +44,14 @@
 (define-public akonadi
   (package
     (name "akonadi")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/akonadi-" version ".tar.xz"))
        (sha256
-        (base32 "0kkn7lh3akkk9cdi8qdk9kqzs1cgv916mkl440x4ykqd1v8brzqb"))
+        (base32 "1i1q8zda3hl564w02478wyqv35wj8npkqayy7b13shkq9b9j3nj8"))
        (patches (search-patches
                  "akonadi-paths.patch"
                  "akonadi-timestamps.patch"
@@ -89,9 +89,7 @@
        (modify-phases (@ (guix build qt-build-system) %standard-phases)
          (add-before 'configure 'add-definitions
            (lambda* (#:key outputs inputs #:allow-other-keys)
-             (let ((out   (assoc-ref outputs "out"))
-                   (mysql (assoc-ref inputs "mysql"))
-                   (pgsql (assoc-ref inputs "postgresql")))
+             (let ((out   (assoc-ref outputs "out")))
                (with-output-to-file "CMakeLists.txt.new"
                  (lambda _
                    (display
