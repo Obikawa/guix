@@ -162,21 +162,24 @@ collection and item views.")
 (define-public akonadi-contacts
   (package
     (name "akonadi-contacts")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/akonadi-contacts-" version ".tar.xz"))
        (sha256
-        (base32 "0igggarnl99s5pl73dgrpha4lf7vnr000iy69vcwmqs5lxb7cyli"))))
+        (base32 "1aq81569kz529n66dl5jjzamy6kxw0xk5bcmjfvb3wpxznhiigqm"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules))
     (inputs
      (list akonadi
            boost
+           grantlee
+           grantleetheme
            kauth
+           kcmutils
            kcodecs
            kcompletion
            kconfigwidgets
@@ -193,6 +196,7 @@ collection and item views.")
            ktextwidgets
            kwidgetsaddons
            kxmlgui
+           libkleo
            prison
            kio
            qtbase-5
