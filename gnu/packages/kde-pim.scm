@@ -399,14 +399,14 @@ Akonadi PIM data server.  It uses Xapian for indexing and querying.")
 (define-public kaddressbook
   (package
     (name "kaddressbook")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/kaddressbook-" version ".tar.xz"))
        (sha256
-        (base32 "1vpdhdj87ai2sxjn2jk3mh6bzfr1n3yzydnkgv7nc8v1m2fdawap"))))
+        (base32 "04ac5z9603lxylc6x55chnc0w59mx3z92nyvfnvjvp1ga77si36b"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules))
@@ -425,7 +425,6 @@ Akonadi PIM data server.  It uses Xapian for indexing and querying.")
            kcontacts
            kcrash
            kdbusaddons
-           kdepim-apps-libs
            kdoctools
            ki18n
            kiconthemes
