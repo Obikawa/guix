@@ -269,14 +269,14 @@ with emails through Akonadi easier.")
 (define-public akonadi-notes
   (package
     (name "akonadi-notes")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/akonadi-notes-" version ".tar.xz"))
        (sha256
-        (base32 "04y293kjrmjjcbb7fkjl7hl4vrks4cjjxnvc6ibzyv81rn6cdhh2"))))
+        (base32 "1s3bxnqsjnlgsnia0nvqyc3m1ppzanzna9598lgwbmz053rgn7ck"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules))
