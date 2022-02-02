@@ -1864,14 +1864,14 @@ and allows one to view/extract message formatted text in Rich Text Format.")
 (define-public libkgapi
   (package
     (name "libkgapi")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/libkgapi-" version ".tar.xz"))
        (sha256
-        (base32 "0nvd5fqrvyb7c3g7rf1lxbbv38q9sqnhd6irgx7awwgw92inxky4"))))
+        (base32 "0n6x0vdirv5qbi9qmd8956i307dz0lp80bw5cqxgk4gr4f8hzi8w"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules qttools))
