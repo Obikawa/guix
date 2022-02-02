@@ -1588,14 +1588,14 @@ Virtual Contact File}) files to the KPeople contact management library.")
 (define-public kpimcommon
   (package
     (name "kpimcommon")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/pimcommon-" version ".tar.xz"))
        (sha256
-        (base32 "15lfqv5w4iwyjlvf4idykpkjgppl0ic59r4dw95qkbbjkps0nr7j"))))
+        (base32 "1pnhjhnjx98wdc3dg71qgjjj3dsncl56d86cagkk2spicv901p69"))))
     (properties `((upstream-name . "pimcommon")))
     (build-system qt-build-system)
     (native-inputs
@@ -1605,9 +1605,13 @@ Virtual Contact File}) files to the KPeople contact management library.")
            akonadi
            akonadi-contacts
            akonadi-mime
+           akonadi-search
            boost
            grantlee
+           grantleetheme
            ;; TODO: ("kaccounts" ,kaccounts)
+           kcalendarcore
+           kcmutils
            kcodecs
            kconfig
            kconfigwidgets
@@ -1622,10 +1626,10 @@ Virtual Contact File}) files to the KPeople contact management library.")
            kitemmodels
            kitemviews
            kjobwidgets
+           kldap
            kmime
            knewstuff
            kpimtextedit
-           kservice
            ktextwidgets
            kwallet
            kwidgetsaddons
