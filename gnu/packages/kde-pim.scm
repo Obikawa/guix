@@ -918,24 +918,24 @@ easier to do so.")
 (define-public kldap
   (package
     (name "kldap")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/kldap-" version ".tar.xz"))
        (sha256
-        (base32 "0whlp586ycsx0qf0nr81avwscpq62w5js46z7vayy0dxkhrhfayr"))))
+        (base32 "1xda42f1q5ih3hdhmcbdz0fx2nchirlwips3gq0jb6lfzi5dbqpl"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules kdoctools))
     (inputs
-     (list ki18n kio kwidgetsaddons qtbase-5))
+     (list ki18n kio kwidgetsaddons qtbase-5 qtkeychain))
     (propagated-inputs
      (list cyrus-sasl openldap))
     (home-page "https://api.kde.org/stable/kdepimlibs-apidocs/")
     (synopsis "Library for accessing LDAP")
-    (description " This is a library for accessing LDAP with a convenient Qt
+    (description "This is a library for accessing LDAP with a convenient Qt
 style C++ API.  LDAP (Lightweight Directory Access Protocol) is an application
 protocol for querying and modifying directory services running over TCP/IP.")
     (license license:lgpl2.0+)))
