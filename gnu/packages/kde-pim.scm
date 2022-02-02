@@ -1911,14 +1911,14 @@ KDE using certificate-based crypto.")
 (define-public libksieve
   (package
     (name "libksieve")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/libksieve-" version ".tar.xz"))
        (sha256
-        (base32 "04k2nkwg5vlgbr5wpvsq02wi54ljsy4ka7y3ns5x3d2gb06wp03c"))
+        (base32 "03aaqqb5g9iv49crrf7zbmsri8jjszn5wfvmcw559swalmmyzb4i"))
        (patches (search-patches "libksieve-Fix-missing-link-libraries.patch"))))
     (build-system qt-build-system)
     (native-inputs
@@ -1957,11 +1957,6 @@ KDE using certificate-based crypto.")
                  "src/ksieveui/editor/webengine/autotests/CMakeLists.txt"
                (("^\\s*(add_test|ecm_mark_as_test)\\W" line)
                 (string-append "# " line)))
-             ;; FIXME: This test fails due to time zone problems.
-             (substitute*
-                 "src/ksieveui/autocreatescripts/autotests/CMakeLists.txt"
-               ((".*sieveeditorgraphicalmodewidgettest\\.cpp.*")
-                ""))
              #t)))))
     (home-page "https://invent.kde.org/pim/libksieve")
     (synopsis "KDE Sieve library")
