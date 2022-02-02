@@ -1243,14 +1243,14 @@ using a Qt/KMime C++ API.")
 (define-public kmessagelib
   (package
     (name "kmessagelib")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/messagelib-" version ".tar.xz"))
        (sha256
-        (base32 "03vq4962bhps2j9c9i52majlbkmvg2gmr197igv8xamja1vs8hk1"))))
+        (base32 "0ln473gdwsscjpsh50h2cbazxbc8qy1mmll9lsfngfw1qq49dwsp"))))
     (properties `((upstream-name . "messagelib")))
     (build-system qt-build-system)
     (native-inputs
@@ -1273,7 +1273,7 @@ using a Qt/KMime C++ API.")
            kconfigwidgets
            kcontacts
            kdbusaddons
-           kdepim-apps-libs
+           kguiaddons
            ki18n
            kiconthemes
            kidentitymanagement
@@ -1313,11 +1313,11 @@ using a Qt/KMime C++ API.")
                   (add-after 'set-paths 'extend-CPLUS_INCLUDE_PATH
                     (lambda* (#:key inputs #:allow-other-keys)
                       ;; FIXME: One of the compilation steps fail to find
-                      ;; <Libkdepim/MultiplyingLine> without this hack.
+                      ;; <QPrinter> without this hack.
                       (setenv "CPLUS_INCLUDE_PATH"
-                              (string-append
-                               (search-input-directory inputs "include/KF5")
-                               ":" (or (getenv "CPLUS_INCLUDE_PATH") ""))))))))
+                              (string-append (assoc-ref inputs "qtbase")
+                                             "/include/qt5/QtPrintSupport:"
+                                             (or (getenv "CPLUS_INCLUDE_PATH") ""))))))))
     (home-page "https://invent.kde.org/pim/messagelib")
     (synopsis "KDE PIM messaging libraries")
     (description "This package provides several libraries for messages,
