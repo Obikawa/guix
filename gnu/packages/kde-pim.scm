@@ -1336,14 +1336,14 @@ kwebengineviewer.")
 (define-public kmime
   (package
     (name "kmime")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/kmime-" version ".tar.xz"))
        (sha256
-        (base32 "1dkdxfr1ry10qyql5sp1ai4li11f0ncf9hipg27j59y70mlyrl2r"))))
+        (base32 "0qxb0gf4pqfa0540fsbnf24nh9qwiamwl65q7vaanb80b211qp2g"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules))
