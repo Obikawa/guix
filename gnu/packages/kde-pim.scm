@@ -887,14 +887,14 @@ cryptography to the contents of the clipboard.")
 (define-public kimap
   (package
     (name "kimap")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/kimap-" version ".tar.xz"))
        (sha256
-        (base32 "1x22wfzqp92mn1fy2xl89k9yjfk2vgcva0fd30i9rrqj4aw2rsma"))))
+        (base32 "0sdas8knk6wa8hhgc3w62famdpq6pcxfhl4vmpw0r3aqskaci4q3"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules))
