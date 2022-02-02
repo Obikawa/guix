@@ -294,14 +294,14 @@ wrapping notes into KMime::Message objects.")
 (define-public akonadi-search
   (package
     (name "akonadi-search")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/akonadi-search-" version ".tar.xz"))
        (sha256
-        (base32 "1h5p44y244gzf7ndzw7afrvq9c76ybp8ddvg82p3lzjh02rrvd50"))))
+        (base32 "1hp2x8y59azl59znrqhrjn4n1bs2iqnkdsldv1f2k1ima6z5f4qy"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules
@@ -338,7 +338,8 @@ wrapping notes into KMime::Message objects.")
                   (replace 'check
                     (lambda* (#:key tests? #:allow-other-keys)
                       (when tests?
-                        (invoke "dbus-launch" "ctest")))))))
+                        (invoke "dbus-launch" "ctest" "-E"
+                                "akonadi-sqlite-collectionindexingjobtest")))))))
     (home-page "https://api.kde.org/kdepim/akonadi/html/index.html")
     (synopsis "Akonadi search library")
     (description "This package provides a library used to search in the
