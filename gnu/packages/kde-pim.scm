@@ -1070,14 +1070,14 @@ manager from KDE.")
 (define-public kmailcommon
   (package
     (name "kmailcommon")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/mailcommon-" version ".tar.xz"))
        (sha256
-        (base32 "0q1k57zx1l7bnzrk1hadjxjn6r4yzz833mgsvaai9sd8qg022x2l"))))
+        (base32 "01kirl4lk1xq7y474438jv0av3ccg18krlchllcigd9c0vcp67qj"))))
     (properties `((upstream-name . "mailcommon")))
     (build-system qt-build-system)
     (native-inputs
@@ -1088,6 +1088,8 @@ manager from KDE.")
            akonadi-mime
            boost
            gpgme
+           grantlee
+           grantleetheme
            karchive
            kcodecs
            kcompletion
@@ -1096,6 +1098,7 @@ manager from KDE.")
            kcontacts
            kdbusaddons
            kdesignerplugin
+           kguiaddons
            ki18n
            kiconthemes
            kidentitymanagement
@@ -1123,7 +1126,7 @@ manager from KDE.")
            qgpgme
            qtbase-5))
     (arguments
-     `(#:tests? #f))  ;; TODO: 4/56 tests fail, even with "offscreen" and dbus
+     `(#:tests? #f))  ;; TODO: 12/62 tests fail
     (home-page "https://invent.kde.org/pim/mailcommon")
     (synopsis "KDE email utility library")
     (description "The mail common library provides utility functions for
