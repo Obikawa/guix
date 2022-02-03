@@ -988,7 +988,7 @@ Python, PHP, and Perl.")
 (define-public marble-qt
   (package
     (name "marble-qt")
-    (version "21.08.3")
+    (version "21.12.2")
     (source
      (origin
        (method git-fetch)
@@ -997,7 +997,7 @@ Python, PHP, and Perl.")
              (commit (string-append "v" version))))
        (file-name (git-file-name name version))
        (sha256
-        (base32 "15gqym45z0gjzdc4ypfj0fki96c3dad4ygsi6lfr8yvwsx8swrb6"))))
+        (base32 "0r3z9k900dm75r2gqhlpphvg71g0f8if500h941hxkdwy1pwhi40"))))
     (build-system qt-build-system)
     (arguments
      ;; FIXME: libmarblewidget-qt5.so.28 not found.  Also enable the
