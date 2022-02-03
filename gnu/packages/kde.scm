@@ -214,7 +214,7 @@ browser for easy news reading.")
     (license license:gpl2+)))
 
 (define-public kdenlive
-  (let ((version "21.08.3"))
+  (let ((version "21.12.2"))
     (package
       (name "kdenlive")
       (version version)
@@ -226,7 +226,7 @@ browser for easy news reading.")
                (commit (string-append "v" version))))
          (file-name (string-append name "-" version "-checkout"))
          (sha256
-          (base32 "0lpspak5djkbn2xbmmbxls258310g45n3a08sghkjl08bx6ilvc9"))))
+          (base32 "1ff2l1ijxrcsyjixz68iqlr9z1gsknm4gpbyj0mqmn62sk78l7pc"))))
       (build-system qt-build-system)
       (native-inputs
        (list extra-cmake-modules pkg-config qttools))
