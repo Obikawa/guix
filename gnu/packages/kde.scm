@@ -80,6 +80,7 @@
   #:use-module (gnu packages perl)
   #:use-module (gnu packages photo)
   #:use-module (gnu packages pkg-config)
+  #:use-module (gnu packages polkit)
   #:use-module (gnu packages protobuf)
   #:use-module (gnu packages pulseaudio)
   #:use-module (gnu packages python)
@@ -635,16 +636,15 @@ cards.")
 (define-public kpmcore
   (package
     (name "kpmcore")
-    (version "4.1.0")
+    (version "21.12.2")
     (source (origin
               (method url-fetch)
               (uri (string-append
-                    "mirror://kde/stable/kpmcore"
-                    "/" version "/src/"
-                    name "-" version ".tar.xz"))
+                    "mirror://kde/stable/release-service/" version
+                    "/src/" name "-" version ".tar.xz"))
               (sha256
                (base32
-                "0jsig7algmab9h0fb09my0axjqzw83zgscamhzl8931lribs6idm"))))
+                "1iyirvf04br0r8vclcpx0qrlm8wgqm9ww6xds3h9qjyqj1w8ng41"))))
     (build-system cmake-build-system)
     (native-inputs
      (list extra-cmake-modules pkg-config))
@@ -653,9 +653,18 @@ cards.")
            kcoreaddons
            ki18n
            kwidgetsaddons
+           polkit-qt
            qtbase-5
            qca
            `(,util-linux "lib")))
+    (arguments
+     `(#:phases
+       (modify-phases %standard-phases
+         (add-after 'unpack 'fix-cmake-install-directories
+           (lambda _
+             (substitute* "src/util/CMakeLists.txt"
+               (("DESTINATION \\$\\{POLKITQT-1_POLICY_FILES_INSTALL_DIR\\}")
+                "DESTINATION share/polkit-1/actions")))))))
     (home-page "https://community.kde.org/Frameworks")
     (synopsis "Library for managing partitions")
     (description "Library for managing partitions.")
