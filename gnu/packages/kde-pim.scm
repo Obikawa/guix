@@ -622,50 +622,6 @@ data")
 functions for accessing calendar data using the kcalcore API.")
     (license  license:lgpl2.0+)))
 
-(define-public kdepim-apps-libs
-  (package
-    (name "kdepim-apps-libs")
-    (version "20.04.1")
-    (source
-     (origin
-       (method url-fetch)
-       (uri (string-append "mirror://kde/stable/release-service/" version
-                           "/src/kdepim-apps-libs-" version ".tar.xz"))
-       (sha256
-        (base32 "0m9qrfjs97anh9h6ibggx23ddlm1zkxjap2iyf3gf672ip01fvci"))))
-    (build-system qt-build-system)
-    (native-inputs
-     (list extra-cmake-modules))
-    (inputs
-     (list akonadi
-           akonadi-contacts
-           boost
-           gpgme
-           grantlee
-           grantleetheme
-           kconfig
-           kconfigwidgets
-           kcontacts
-           kcoreaddons
-           ki18n
-           kimap
-           kio
-           kitemmodels
-           kmime
-           kpimcommon
-           kservice
-           kwidgetsaddons
-           libkleo
-           prison
-           qgpgme
-           qtbase-5))
-    (home-page "https://invent.kde.org/pim/kdepim-apps-libs")
-    (synopsis "KDE PIM mail related libraries and data files")
-    (description "This package provides mail related libraries and data files
-for KDE PIM.")
-    (license ;; GPL for programs, LGPL for libraries
-     (list license:gpl2+ license:lgpl2.0+))))
-
 (define-public kdepim-runtime
   (package
     (name "kdepim-runtime")
