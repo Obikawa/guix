@@ -1044,14 +1044,14 @@ creating routes by drag and drop and more.")
 (define-public okular
   (package
     (name "okular")
-    (version "20.12.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/" name "-" version ".tar.xz"))
        (sha256
-        (base32 "0gpm7n47yijsjg4yba561j5pbvd98hgvr93w1kvzk851nb87m89c"))))
+        (base32 "1k0bwyhk73gshc7f0j6mply2m9ykfd07mhkxwnzj874sby5rxhv9"))))
     (build-system qt-build-system)
     ;; The tests fail because they can't find the proper mimetype plugins:
     ;; "org.kde.okular.core: No plugin for mimetype '"image/jpeg"'."
