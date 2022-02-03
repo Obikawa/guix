@@ -669,14 +669,14 @@ for KDE PIM.")
 (define-public kdepim-runtime
   (package
     (name "kdepim-runtime")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/kdepim-runtime-" version ".tar.xz"))
        (sha256
-        (base32 "1in4x4wvgclkni72cfkw9jx35d0qd0jmfwybm3ksx5qx5sbki9gg"))))
+        (base32 "0y1hgab16h9ypqh9isabbb4km2907vzdydfkd1m5b63vfbambz0j"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules dbus kdoctools libxslt shared-mime-info))
@@ -688,9 +688,12 @@ for KDE PIM.")
            akonadi-notes
            boost
            cyrus-sasl
+           grantlee
+           grantleetheme
            kalarmcal
            kcalendarcore
            kcalutils
+           kcmutils
            kcodecs
            kconfig
            kconfigwidgets
@@ -702,6 +705,7 @@ for KDE PIM.")
            kio
            kitemmodels
            kmailtransport
+           kldap
            kmbox
            kmime
            knotifications
@@ -712,11 +716,13 @@ for KDE PIM.")
            ktextwidgets
            kwallet
            kwindowsystem
+           libkdepim
            libkgapi
            ;; TODO: libkolab
            qca
            qtbase-5
            qtdeclarative
+           qtkeychain
            qtnetworkauth
            qtspeech
            qtwebchannel
@@ -725,8 +731,7 @@ for KDE PIM.")
     (arguments
       ;; TODO: 5/45 tests fail for quite different reasons, even with
       ;; "offscreen" and dbus
-     `(#:tests? #f
-       #:phases (modify-phases %standard-phases
+     `(#:phases (modify-phases %standard-phases
                   (add-after 'set-paths 'extend-CPLUS_INCLUDE_PATH
                     (lambda* (#:key inputs #:allow-other-keys)
                       ;; FIXME: <Akonadi/KMime/SpecialMailCollections> is not
@@ -734,8 +739,18 @@ for KDE PIM.")
                       ;; this hack.
                       (setenv "CPLUS_INCLUDE_PATH"
                               (string-append
-                               (search-input-directory inputs "include/KF5")
-                               ":" (or (getenv "CPLUS_INCLUDE_PATH") ""))))))))
+                               (assoc-ref inputs "akonadi-mime") "/include/KF5:"
+                               (or (getenv "CPLUS_INCLUDE_PATH") "")))))
+                  (replace 'check
+                    (lambda* (#:key tests? #:allow-other-keys)
+                      (when tests?
+                        ;; FIXME: Atleast some appear to require network.
+                        (invoke "dbus-launch" "ctest" "-E" "\
+(akonadi-sqlite-synctest|akonadi-sqlite-pop3test|storecompacttest\
+|akonadi-sqlite-ewstest|ewsmoveitemrequest_ut|ewsdeleteitemrequest_ut\
+|ewsgetitemrequest_ut|ewsunsubscriberequest_ut|ewssettings_ut\
+|templatemethodstest|akonadi-sqlite-serverbusytest|ewsattachment_ut)"))
+                      #t)))))
     (home-page "https://invent.kde.org/pim/kdepim-runtime")
     (synopsis "Runtime components for Akonadi KDE")
     (description "This package contains Akonadi agents written using KDE
