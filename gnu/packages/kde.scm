@@ -59,6 +59,7 @@
   #:use-module (gnu packages ebook)
   #:use-module (gnu packages flex)
   #:use-module (gnu packages fontutils)
+  #:use-module (gnu packages freedesktop)
   #:use-module (gnu packages geo)
   #:use-module (gnu packages gettext)
   #:use-module (gnu packages ghostscript)
@@ -697,7 +698,7 @@ different notification systems.")
 (define-public kdeconnect
   (package
     (name "kdeconnect")
-    (version "20.04.2")
+    (version "21.12.2")
     (source
       (origin
         (method url-fetch)
@@ -706,7 +707,7 @@ different notification systems.")
                             version ".tar.xz"))
         (sha256
          (base32
-          "0yq3afbbcc9gmlcachvh3xz3gdj57092fpagp36l5knw8gr0d9ip"))))
+          "0crw0navhdsix0rpsya4vhffj35vlascpcflrs04vyws3v8xr026"))))
     (build-system qt-build-system)
     (arguments
      `(#:configure-flags '("-DBUILD_TESTING=ON"
@@ -720,11 +721,11 @@ different notification systems.")
                 "<KF5/kcmutils_version.h>")))))
        #:tests? #f)) ; tests fail hard in our build environment
     (native-inputs
-     `(("extra-cmake-modules" ,extra-cmake-modules)
-       ("kdoctools" ,kdoctools)
-       ("libxtst" ,libxtst)
-       ("pkg-config" ,pkg-config)
-       ("python" ,python-wrapper)))
+     (list extra-cmake-modules
+           kdoctools
+           libxtst
+           pkg-config
+           python-wrapper))
     (inputs
      (list kcmutils
            kconfigwidgets
@@ -734,19 +735,23 @@ different notification systems.")
            kio
            kirigami
            knotifications
+           kpackage
            kpeople
            kpeoplevcard
            kwayland
            libfakekey
            pulseaudio-qt
            qca
+           qqc2-desktop-style
            qtbase-5
            qtdeclarative
            qtgraphicaleffects
            qtmultimedia
            qtquickcontrols
            qtquickcontrols2
-           qtx11extras))
+           qtx11extras
+           qtwayland
+           wayland))
     (home-page "https://community.kde.org/KDEConnect")
     (synopsis "Enable your devices to communicate with each other")
     (description "KDE Connect is a project that enables all your devices to
