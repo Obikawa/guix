@@ -146,14 +146,14 @@ This package contains GUI widgets for baloo.")
 (define-public akregator
   (package
     (name "akregator")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/akregator-" version ".tar.xz"))
        (sha256
-        (base32 "1711yhwsdq9iyc3wm3a4xmz81p73hvvc0h58sasc89ifpry50k2p"))))
+        (base32 "1srsm25qvbww0hl7r878n32b71g0p222zxyys7chzrg8izrh12b8"))))
     (build-system qt-build-system)
     (arguments
      `(#:phases
