@@ -180,14 +180,14 @@ This package is part of the KDE networking module.")
 (define-public konversation
   (package
     (name "konversation")
-    (version "1.7.7")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
-       (uri (string-append "mirror://kde/stable/konversation/" version
+       (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/konversation-" version ".tar.xz"))
        (sha256
-        (base32 "19qqq9s8k0cl71ib33xn07f26j5ji2g4336jk65im6452cf1dv27"))))
+        (base32 "0lpkah6z12c4f77z6r5z31q5np3xwyb3y6xnsv1iq1rdzj0daxch"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules kdoctools))
@@ -206,6 +206,7 @@ This package is part of the KDE networking module.")
            kidletime
            kio
            kitemviews
+           knewstuff
            knotifications
            knotifyconfig
            kparts
