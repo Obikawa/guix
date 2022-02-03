@@ -516,7 +516,7 @@ expression library, that is used in Krita.")
            libheif
            libmypaint
            libpng
-           libraw-0.18
+           libraw
            libtiff
            libwebp
            libx11
