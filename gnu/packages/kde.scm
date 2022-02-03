@@ -297,68 +297,66 @@ projects.")
 (define-public kdevelop
   (package
     (name "kdevelop")
-    (version "5.6.1")
+    (version "21.12.2")
     (source
       (origin
         (method url-fetch)
-        (uri (string-append "mirror://kde/stable/kdevelop"
-                            "/" version "/src/kdevelop-"
-                            version ".tar.xz"))
+        (uri (string-append "mirror://kde/stable/release-service/" version
+                            "/src/kdevelop-" version ".tar.xz"))
         (sha256
-         (base32 "02ip5r67hjfpywkm3mz86n6wbqcr7996ifzfd2fyzsvm4998hi4y"))))
+         (base32 "13kgkxvbjcb60ckapqrcr4m0y5kyag948xx6gwrvzhrhn46ynfgz"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules pkg-config shared-mime-info qttools))
-    (inputs
-     `(("boost" ,boost)
-       ("clang" ,clang)
-       ("grantlee" ,grantlee)
-       ("karchive" ,karchive)
-       ("kcmutils" ,kcmutils)
-       ("kcrash" ,kcrash)
-       ("kdeclarative" ,kdeclarative)
-       ("kdoctools" ,kdoctools)
-       ("kguiaddons" ,kguiaddons)
-       ("ki18n" ,ki18n)
-       ("kiconthemes" ,kiconthemes)
-       ("kio" ,kio)  ;; not checked as requirement
-       ("kitemmodels" ,kitemmodels)
-       ("kitemviews" ,kitemviews)
-       ("kjobwidgets" ,kjobwidgets)
-       ("knotifications" ,knotifications)
-       ("knotifyconfig" ,knotifyconfig)
-       ("kparts" ,kparts)
-       ("kservice" ,kservice)
-       ("ktexteditor" ,ktexteditor)
-       ("kwindowsystem" ,kwindowsystem)
-       ("kxmlgui" ,kxmlgui)
-       ("libkomparediff2" ,libkomparediff2)
-       ("oxygen-icons" ,oxygen-icons)
-       ("qtbase" ,qtbase-5)
-       ("qtdeclarative" ,qtdeclarative)
-       ("qtquickcontrols" ,qtquickcontrols)  ;; not checked as requirement
-       ("qtquickcontrols2" ,qtquickcontrols2)  ;; not checked as requirement
-       ("qtwebkit" ,qtwebkit)
-       ("threadweaver" ,threadweaver)
+    (inputs (list boost
+                  clang
+                  grantlee
+                  karchive
+                  kcmutils
+                  kcrash
+                  kdeclarative
+                  kdoctools
+                  kguiaddons
+                  ki18n
+                  kiconthemes
+                  kio ;; not checked as requirement
+                  kitemmodels
+                  kitemviews
+                  kjobwidgets
+                  knotifications
+                  knotifyconfig
+                  kparts
+                  kservice
+                  ksyntaxhighlighting
+                  ktexteditor
+                  kwindowsystem
+                  kxmlgui
+                  libkomparediff2
+                  oxygen-icons
+                  qtbase-5
+                  qtdeclarative
+                  qtquickcontrols ;; not checked as requirement
+                  qtquickcontrols2 ;; not checked as requirement
+                  qtwebkit
+                  threadweaver
 
-       ;; recommendes
-       ("astyle" ,astyle)
-       ("kdevelop-pg-qt" ,kdevelop-pg-qt)
-       ("libksysguard" ,libksysguard)
+                  ;; recommendes
+                  astyle
+                  kdevelop-pg-qt
+                  libksysguard
 
-       ;; optional
-       ("apr" ,apr)            ; required for subversion support
-       ("apr-util" ,apr-util)  ; required for subversion support
-       ("attica" ,attica)
-       ("kconfigwidgets" ,kconfigwidgets)
-       ("knewstuff" ,knewstuff)
-       ("krunner" ,krunner)
-       ;; TODO: OktetaGui, OktetaKastenControllers
-       ("plasma" ,plasma-framework)
-       ;; TODO: purpose
-       ("sonnet" ,sonnet)
-       ("subversion" ,subversion)))
-
+                  ;; optional
+                  apr ; required for subversion support
+                  apr-util ; required for subversion support
+                  attica
+                  kconfigwidgets
+                  knewstuff
+                  krunner
+                  ;; TODO: OktetaGui, OktetaKastenControllers
+                  plasma-framework
+                  ;; TODO: purpose
+                  sonnet
+                  subversion))
        ;; run-time packages - TODO
        ;; ClazyStandalone
        ;; Cppcheck
