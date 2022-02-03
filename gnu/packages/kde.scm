@@ -908,14 +908,14 @@ unmount drives and view them in a file manager.")
 (define-public kcachegrind
   (package
     (name "kcachegrind")
-    (version "20.04.1")
+    (version "21.12.2")
     (source (origin
               (method url-fetch)
               (uri (string-append "mirror://kde/stable/release-service/" version
                                   "/src/kcachegrind-" version ".tar.xz"))
               (sha256
                (base32
-                "0fx17s6fj1pxl1mgfrqhchk8sihkbji1x8y3nhb1r0971wzd1nsc"))))
+                "1fg7fn8a3bjbjr6bi298gqr4mr838v96bz9773pd7rnhffvvip8z"))))
     (build-system cmake-build-system)
     (native-inputs
      (list extra-cmake-modules perl python qttools kdoctools))
