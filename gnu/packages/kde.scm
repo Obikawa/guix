@@ -844,7 +844,7 @@ to perform data analysis.")
 (define-public kqtquickcharts
   (package
     (name "kqtquickcharts")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
       (origin
         (method url-fetch)
@@ -852,7 +852,7 @@ to perform data analysis.")
                             version "/src/kqtquickcharts-" version ".tar.xz"))
         (sha256
          (base32
-          "1wxp35mf9zlpgzi4msdl86b2krdq2ipqw371gyx23r7j84vdyxi3"))))
+          "1sjm1vaksvp73866w09xadd1d0lakh00fwiic498siws4dvhhpif"))))
     (build-system cmake-build-system)
     (native-inputs
      (list extra-cmake-modules))
