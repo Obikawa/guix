@@ -875,14 +875,14 @@ charts.")
 (define-public kdf
   (package
     (name "kdf")
-    (version "20.12.1")
+    (version "21.12.2")
     (source (origin
               (method url-fetch)
               (uri (string-append "mirror://kde/stable/release-service/"
                                   version "/src/kdf-" version ".tar.xz"))
               (sha256
                (base32
-                "0ba67hs4vlb3qyvdzhnpmf8p62df12s8aqw4hzf9vnxff3qix5k1"))))
+                "1fs8bab6q7imfpqqgasvr98k57nm68ignfch2i76rdcywhx3q268"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules kdoctools))
