@@ -1178,14 +1178,14 @@ picture metadata as EXIF/IPTC and XMP.")
 (define-public zeroconf-ioslave
   (package
     (name "zeroconf-ioslave")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/zeroconf-ioslave-" version ".tar.xz"))
        (sha256
-        (base32 "1qck5jyc4psslpibhki8sz8aj0hsnx8z791vzyn10lmdzn71vx8c"))))
+        (base32 "0b59npqhmf3yvp9x0jm29bwzlyl0vm9l56jlsgwgiq7pwis5njwd"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules))
