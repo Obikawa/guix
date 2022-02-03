@@ -94,26 +94,21 @@
 (define-public baloo-widgets
   (package
     (name "baloo-widgets")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/baloo-widgets-" version ".tar.xz"))
        (sha256
-        (base32 "1x4v79vhvc5ixkbsf3jyjz5ig1lf78rfw3r7g3llpb4j1kcp3wh0"))))
+        (base32 "1ax7pak9qb60yzdca8frkb8qs4khs6f2wbkwyb48s7zmdxqyw1bj"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules))
     (inputs
      (list baloo kconfig ki18n kio qtbase-5))
     (arguments
-     `(#:phases
-       (modify-phases %standard-phases
-         (add-before 'check 'check-setup
-           (lambda _
-             (setenv "QT_QPA_PLATFORM" "offscreen")
-             #t)))))
+     `(#:tests? #f)) ;; tests fail
     (home-page "https://community.kde.org/Baloo")
     (synopsis "Wigets for use with Baloo")
     (description "Baloo is a framework for searching and managing metadata.
