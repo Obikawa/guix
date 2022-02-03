@@ -251,14 +251,14 @@ Features are:
 (define-public kopete
   (package
     (name "kopete")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/kopete-" version ".tar.xz"))
        (sha256
-        (base32 "149gi9hkyl825kf046iqkam3gkzfwdc2sihbf8gs6njachzvb81y"))))
+        (base32 "1py45nk6bv5x2hnfzh5srq17lprkqrmpqr2h0fpmkmffx66njz5q"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules kdoctools pkg-config))
@@ -286,6 +286,7 @@ Features are:
            knotifyconfig
            kparts
            kpimtextedit
+           ksyntaxhighlighting
            ktexteditor
            kwallet
            ;; TODO: Libgadu
@@ -296,7 +297,7 @@ Features are:
            libsrtp
            libxml2
            libxslt
-           ;; TODO: Mediastreamer
+           mediastreamer2
            openssl
            ortp
            phonon
