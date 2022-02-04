@@ -96,14 +96,14 @@ The main features of Dolphin are:
 (define-public dolphin-plugins
   (package
     (name "dolphin-plugins")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/dolphin-plugins-" version ".tar.xz"))
        (sha256
-        (base32 "12g44s6g7ma6avp15l45l42qyzbglswvahm2wji79zdls5vjnz7r"))))
+        (base32 "1mrsampq1zq5rri1kx77dz0afz4a6s8pvb1255q0pl7imgxhiaqc"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules))
@@ -112,6 +112,7 @@ The main features of Dolphin are:
            ki18n
            kio
            ktexteditor
+           ksyntaxhighlighting
            kxmlgui
            oxygen-icons ;; default icon set
            qtbase-5))
