@@ -223,19 +223,19 @@ its own database.  You can build and play your own playlist.")
 (define-public ffmpegthumbs
   (package
     (name "ffmpegthumbs")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/ffmpegthumbs-" version ".tar.xz"))
        (sha256
-        (base32 "17l50z33a1h5zkrrfkb261yi2hms66qj36l1mndq7mvs97y2ggmc"))))
+        (base32 "17cyrimlnf1npffmxinnj3q5ynqg3agx35b55iqnw3xixrz4snzr"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules pkg-config))
     (inputs
-     (list ffmpeg kconfig ki18n kio qtbase-5))
+     (list ffmpeg kconfig ki18n kio taglib qtbase-5))
     (home-page "https://kde.org/applications/multimedia/org.kde.ffmpegthumbs")
     (synopsis "Video thumbnail generator for KDE using ffmpeg")
     (description "
