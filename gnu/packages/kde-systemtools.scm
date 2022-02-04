@@ -125,14 +125,14 @@ Dolphin with the version control systems: Bzr, Git, Mercurial, Subversion.")
 (define-public khelpcenter
   (package
     (name "khelpcenter")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/khelpcenter-" version ".tar.xz"))
        (sha256
-        (base32 "0wxzjragvjcfc7c4qja8wzpshhaywficj7f7wkmppzybcsxwn9qb"))))
+        (base32 "09ddkc7kiayx852mpgdmv04l19vrrc0yrf30hnyzkci58kbavvcq"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules kdoctools))
