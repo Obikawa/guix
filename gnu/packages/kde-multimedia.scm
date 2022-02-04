@@ -304,7 +304,7 @@ This package is part of the KDE multimedia module.")
 (define-public kid3
   (package
     (name "kid3")
-    (version "3.9.0")
+    (version "3.9.1")
     (source
      (origin
        (method git-fetch)
@@ -313,7 +313,7 @@ This package is part of the KDE multimedia module.")
              (commit (string-append "v" version))))
        (file-name (git-file-name name version))
        (sha256
-        (base32 "02r3cnwr05mcxjawzip3jl1lfijvzfbbafq3saipjjjp4kiq9bk4"))))
+        (base32 "1rq0742rm3y5ps7878qd7xhhiizy6d6ls6hdjqa6z5sq077s5lz9"))))
     (build-system qt-build-system)
     (arguments
      (list
