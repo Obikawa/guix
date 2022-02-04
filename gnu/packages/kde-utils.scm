@@ -181,14 +181,14 @@ Kate's features include:
 (define-public kmag
   (package
     (name "kmag")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
       (method url-fetch)
       (uri (string-append "mirror://kde/stable/release-service/" version
                           "/src/kmag-" version ".tar.xz"))
       (sha256
-       (base32 "18lk8i2r90gvw8q5j179xgpniih92mwk06krk7w4jv98yinqf6m5"))))
+       (base32 "03kzahsr80wnbx6ky112ka3zm01pnc5h85l28a4186617swx344l"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules kdoctools))
