@@ -571,14 +571,14 @@ Features:
 (define-public sweeper
   (package
     (name "sweeper")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/sweeper-" version ".tar.xz"))
        (sha256
-        (base32 "1az3c2khnh51bbmqpamj4p26d3a0ff4l5rd3vcrylg94mk7wgh59"))))
+        (base32 "07rqshzjjzqgmm5z0fn1hjd09prcwlnyilp3s61nl5fciby6m8fh"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules kdoctools))
