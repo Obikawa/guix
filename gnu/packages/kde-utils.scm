@@ -114,14 +114,14 @@ well as CD-ROM images.")
 (define-public kate
   (package
     (name "kate")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/kate-" version ".tar.xz"))
        (sha256
-        (base32 "0nrby307syrqlxrf9lwdzc9c15ifw47418qwszqwg345ma2pww7i"))))
+        (base32 "0r59rfyrbs50w9brl4rrq1wdfmrr3sz7plw2pqlc5xpzngrdlhs1"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules kdoctools))
@@ -140,6 +140,7 @@ well as CD-ROM images.")
            kjobwidgets
            kparts
            ktexteditor
+           ksyntaxhighlighting
            kwallet
            plasma-framework
            kwindowsystem
