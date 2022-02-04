@@ -463,15 +463,14 @@ unnecessary network operations.")
 (define-public libktorrent
   (package
     (name "libktorrent")
-    (version "2.1.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
-       (uri (string-append "mirror://kde//stable/ktorrent/"
-                           (package-version ktorrent)
-                           "/libktorrent-" version ".tar.xz"))
+       (uri (string-append "mirror://kde/stable/release-service/"
+                           version "/src/" name "-" version ".tar.xz"))
        (sha256
-        (base32 "0051zh8bb4p9wmcfn5ql987brhsaiw9880xdck7b5dm1a05mri2w"))))
+        (base32 "06ak3bsy5x6a0r3l9hbfih9m41y3l357rpd42x8qp08djbs11xbf"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules))
