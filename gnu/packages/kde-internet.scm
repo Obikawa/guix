@@ -438,7 +438,7 @@ a full-featured client for BitTorrent.")
        (uri (string-append "mirror://kde/stable/release-service/"
                            version "/src/" name "-" version ".tar.xz"))
        (sha256
-        (base32 "0lhlxxg2il435sz3j0sa8x4ydr0fz7idvzp27qqjgrjsxfqn1gbf"))))
+        (base32 "06ak3bsy5x6a0r3l9hbfih9m41y3l357rpd42x8qp08djbs11xbf"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules))
