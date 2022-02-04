@@ -3,6 +3,7 @@
 ;;; Copyright © 2020 Timotej Lazar <timotej.lazar@araneo.si>
 ;;; Copyright © 2021 Efraim Flashner <efraim@flashner.co.il>
 ;;; Copyright © 2022 Vinicius Monego <monego@posteo.net>
+;;; Copyright © 2022 Brendan Tildesley <mail@brendan.scot>
 ;;;
 ;;; This file is part of GNU Guix.
 ;;;
@@ -55,14 +56,14 @@
 (define-public audiocd-kio
   (package
     (name "audiocd-kio")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/audiocd-kio-" version ".tar.xz"))
        (sha256
-        (base32 "0qlnxxbayqhz25jbvzis27jw2zbw1pmacp8rv7v5wa7zfqn3kmyk"))))
+        (base32 "07nk060vkyn94ihs9v054zhsckfwpn8z911gy3hnyf1wdmnpfh2n"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules kdoctools))
