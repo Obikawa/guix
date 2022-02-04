@@ -398,15 +398,14 @@ either be created or generated from a image.")
 (define-public okteta
   (package
     (name "okteta")
-    (version "17.12.3")
+    (version "0.26.6")
     (source
      (origin
        (method url-fetch)
-       ;; TODO: Why is this not in "stable" anymore
-       (uri (string-append "mirror://kde/Attic/applications/" version
+       (uri (string-append "mirror://kde/stable/okteta/" version
                            "/src/okteta-" version ".tar.xz"))
        (sha256
-        (base32 "03wsv83l1cay2dpcsksad124wzan7kh8zxdw1h0yicn398kdbck4"))))
+        (base32 "0k0lw2z5iii6z7rg7ijjm8kc9248n1i92p2v3bglcgjhamdwssf5"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules kdoctools qttools shared-mime-info))
@@ -429,6 +428,7 @@ either be created or generated from a image.")
            oxygen-icons ;; default icon set
            qca
            qtbase-5
+           qtdeclarative
            qtscript))
     (arguments
      `(#:phases
