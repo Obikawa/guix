@@ -21,6 +21,7 @@
 (define-module (gnu packages kde-internet)
   #:use-module (guix build-system qt)
   #:use-module (guix download)
+  #:use-module (guix gexp)
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module (guix packages)
   #:use-module (guix utils)
@@ -47,6 +48,7 @@
   #:use-module (gnu packages linphone)
   #:use-module (gnu packages tls)
   #:use-module (gnu packages video)
+  #:use-module (gnu packages vnc)
   #:use-module (gnu packages web)
   #:use-module (gnu packages xiph)
   #:use-module (gnu packages xml))
@@ -328,14 +330,14 @@ This package is part of the KDE networking module.")
 (define-public krdc
   (package
     (name "krdc")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/krdc-" version ".tar.xz"))
        (sha256
-        (base32 "1hp23k3nsrcxpv2qiynjgm71zn3l6ds00cpd4frc68szgiblrw9r"))))
+        (base32 "005i3a7l9aq63nxsivj28kzjy2zdl759snwm56cgwq9rgc6sc003"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules kdoctools))
@@ -350,15 +352,16 @@ This package is part of the KDE networking module.")
            kiconthemes
            knotifications
            knotifyconfig
-           knotifyconfig
            kwallet
            kwidgetsaddons
            kwindowsystem
            kxmlgui
            libssh
-           ;; TODO: libvnc{server,client} - is not tigervnc-{server,client}
+           libvnc
            oxygen-icons ; default icon set
            qtbase-5))
+    (arguments ;; FIXEME: libvnc can't be found for some reason.
+     (list #:configure-flags #~(list "-DWITH_VNC=NO")))
     (home-page "https://kde.org/applications/internet/org.kde.krdc")
     (synopsis "Remote desktop client")
     (description "KRDC is a client application that allows you to view or even
