@@ -283,14 +283,14 @@ This package is part of the KDE networking module.")
 (define-public ksystemlog
   (package
     (name "ksystemlog")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/ksystemlog-" version ".tar.xz"))
        (sha256
-        (base32 "1826h89ynvlxdwzyqil2d79cvynglww6fax7qp41wxasgarxhsni"))))
+        (base32 "0cvx13859bm4kfz75iia3chzi5pbbv70lkmspvjpa6cpsn05zy53"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules kdoctools))
