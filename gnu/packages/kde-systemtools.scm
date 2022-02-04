@@ -26,6 +26,7 @@
   #:use-module (guix utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages compression)
+  #:use-module (gnu packages freedesktop)
   #:use-module (gnu packages kde)
   #:use-module (gnu packages kde-frameworks)
   #:use-module (gnu packages linux)
@@ -228,14 +229,14 @@ This package is part of the KDE base applications module.")
 (define-public krfb
   (package
     (name "krfb")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/krfb-" version ".tar.xz"))
        (sha256
-        (base32 "092ijn88jpmgk2zwz37vzf35jisl234mc3krc9jl7bd955akx51k"))))
+        (base32 "1989q0mig516hz0lbq2m8p85x8ikpyrhj36cvq4c32sd2nasxkvc"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules pkg-config kdoctools))
@@ -249,6 +250,7 @@ This package is part of the KDE base applications module.")
            ki18n
            knotifications
            kwallet
+           kwayland
            kwidgetsaddons
            kwindowsystem
            kxmlgui
@@ -257,8 +259,11 @@ This package is part of the KDE base applications module.")
            libxtst
            oxygen-icons ;; default icon set
            pipewire-0.3
+           plasma-wayland-protocols
            qtbase-5
+           qtwayland
            qtx11extras
+           wayland
            xcb-util-image
            zlib))
     (home-page "https://kde.org/applications/internet/org.kde.krfb")
