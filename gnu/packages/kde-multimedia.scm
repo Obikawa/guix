@@ -94,14 +94,14 @@ This package is part of the KDE multimedia module.")
 (define-public dragon
   (package
     (name "dragon")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/dragon-" version ".tar.xz"))
        (sha256
-        (base32 "1sssg20a1vpwk816lp5jgwahilaswb9f3hgfqvc73il4g11ky1xj"))))
+        (base32 "07zn4ishffh9g8hvkpfgm7j9cimw3plcabzk9p157nhgxr62z4sb"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules kdoctools))
@@ -122,8 +122,20 @@ This package is part of the KDE multimedia module.")
            oxygen-icons ; default icon set
            phonon
            phonon-backend-gstreamer
+           gst-plugins-base
+           gst-plugins-good
            qtbase-5
            solid))
+    (arguments
+     `(#:phases
+       (modify-phases %standard-phases
+         (add-after 'qt-wrap 'gst-wrap
+           (lambda* (#:key inputs outputs #:allow-other-keys)
+             (let ((out             (assoc-ref outputs "out"))
+                   (gst-plugin-path (getenv "GST_PLUGIN_SYSTEM_PATH")))
+               (wrap-program (string-append out "/bin/dragon")
+                 `("GST_PLUGIN_SYSTEM_PATH" ":" prefix (,gst-plugin-path)))
+               #t))))))
     (home-page "https://kde.org/applications/multimedia/org.kde.dragonplayer")
     (synopsis "Simple video player")
     (description "Dragon Player is a multimedia player where the focus is on
