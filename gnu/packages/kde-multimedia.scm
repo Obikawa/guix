@@ -361,14 +361,14 @@ variety of formats.")
 (define-public k3b
   (package
     (name "k3b")
-    (version "20.04.2")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                            "/src/k3b-" version ".tar.xz"))
        (sha256
-        (base32 "15wm987hz6rfs9ds9l1gbs6gdsardj1ywvk6zmpvj2i2190y4b3q"))))
+        (base32 "0rjg3zs85gw62r3z3msp438jnf0ghc6y577br59ig19m10x33rz9"))))
     (build-system qt-build-system)
     (arguments
      `(#:phases
