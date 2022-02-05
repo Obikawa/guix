@@ -659,14 +659,14 @@ Some features:
 (define-public kwave
   (package
     (name "kwave")
-    (version "20.04.1")
+    (version "21.12.2")
     (source
      (origin
        (method url-fetch)
        (uri (string-append "mirror://kde/stable/release-service/" version
                           "/src/kwave-" version ".tar.xz"))
        (sha256
-        (base32 "0ysa873pc2gip95cxr8yv7ifd9qql5zg6h67i9n9q3iqa6v58iyw"))))
+        (base32 "01bjsm3aj7m1mq3nr6iwmcxswq8sxdxhhdyc5zlgffifpym53dc5"))))
     (build-system qt-build-system)
     (native-inputs
      (list extra-cmake-modules librsvg pkg-config kdoctools))
