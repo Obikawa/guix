@@ -537,11 +537,7 @@ autoloading of subtitle files for use while playing video.")
            qtquickcontrols2 ; not listed as dependency
            qtx11extras))
     (arguments
-     (list #:tests? #f ; test program gets built, but is not found
-           #:configure-flags
-           #~(list (string-append "-DCMAKE_CXX_FLAGS=-I"
-                                  #$(this-package-input "gst-plugins-base")
-                                  "/include/gstreamer-1.0"))))
+     (list #:tests? #f)) ; test program gets built, but is not found
     (home-page "https://kde.org/applications/multimedia/org.kde.kamoso")
     (synopsis "Take pictures and videos out of your webcam")
     (description "Kamoso is a simple and friendly program to use your
