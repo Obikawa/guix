@@ -93,7 +93,7 @@
            qtbase-5
            qtnetworkauth
            sonnet))
-    (home-page "https://kde.org/applications/internet/org.kde.choqok")
+    (home-page "https://apps.kde.org/choqok/")
     (synopsis "Micro-Blogging Client")
     (description "Choqok is a fast, efficient and simple to use micro-blogging
 client for KDE.  It currently supports the twitter.com and identi.ca
@@ -221,7 +221,7 @@ This package is part of the KDE networking module.")
            qca
            solid
            sonnet))
-    (home-page "https://kde.org/applications/internet/org.kde.konversations")
+    (home-page "https://konversation.kde.org/")
     (synopsis "Graphical Internet Relay Chat (IRC) client for KDE")
     (description "Konversation is a graphical Internet Relay Chat client (IRC)
 with KDE support.
@@ -311,7 +311,7 @@ Features are:
            ;; TODO: Xmms
            zlib))
     ;; TODO: enable video support
-    (home-page "https://kde.org/applications/internet/org.kde.kopete")
+    (home-page "https://apps.kde.org/kopete/")
     (synopsis "Instant messaging and chat application")
     (description "Kopete is an instant messenger supporting Jabber/XMPP ,AIM,
 ICQ, Gadu-Gadu, Novell GroupWise Messenger, and more.  It is designed to be a
@@ -362,7 +362,7 @@ This package is part of the KDE networking module.")
            qtbase-5))
     (arguments ;; FIXEME: libvnc can't be found for some reason.
      (list #:configure-flags #~(list "-DWITH_VNC=NO")))
-    (home-page "https://kde.org/applications/internet/org.kde.krdc")
+    (home-page "https://apps.kde.org/krdc/")
     (synopsis "Remote desktop client")
     (description "KRDC is a client application that allows you to view or even
 control the desktop session on another machine that is running a compatible
@@ -419,7 +419,7 @@ This package is part of the KDE networking module.")
            solid
            syndication
            taglib))
-    (home-page "https://kde.org/applications/internet/org.kde.ktorrent")
+    (home-page "https://apps.kde.org/ktorrent/")
     (synopsis "BitTorrent client")
     (description "KTorrent is a BitTorrent application by KDE which allows you
 to download files using the BitTorrent protocol.  It enables you to run

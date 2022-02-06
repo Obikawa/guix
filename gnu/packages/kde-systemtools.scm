@@ -78,7 +78,7 @@
            solid))
     (arguments
      `(#:tests? #f)) ;; TODO: 4/15 tests fail even with offscreen
-    (home-page "https://kde.org/applications/system/org.kde.dolphin")
+    (home-page "https://apps.kde.org/dolphin/")
     (synopsis "File manager for KDE")
     (description "Dolphin is a file manager for KDE focusing on usability.
 The main features of Dolphin are:
@@ -169,7 +169,7 @@ Dolphin with the version control systems: Bzr, Git, Mercurial, Subversion.")
                (wrap-program (string-append out "/bin/khelpcenter")
                  `("XDG_DATA_DIRS" suffix
                    (,(string-append (assoc-ref inputs "khtml") "/share"))))))))))
-    (home-page "https://kde.org/applications/system/org.kde.Help")
+    (home-page "https://apps.kde.org/help/")
     (synopsis "KDE documentation viewer")
     (description "KHelpCenter uses meta data files which describe the
 documentation available in the system.  Each document is represented by a meta
@@ -276,7 +276,7 @@ This package is part of the KDE base applications module.")
            wayland
            xcb-util-image
            zlib))
-    (home-page "https://kde.org/applications/internet/org.kde.krfb")
+    (home-page "https://apps.kde.org/krfb/")
     (synopsis "Desktop Sharing utility")
     (description "KDE Desktop Sharing is a server application that allows you
 to share your current session with a user on another machine.  The desktop
@@ -319,7 +319,7 @@ This package is part of the KDE networking module.")
            kxmlgui
            oxygen-icons ;; default icon set
            qtbase-5))
-    (home-page "https://kde.org/applications/system/org.kde.ksystemlog")
+    (home-page "https://apps.kde.org/ksystemlog/")
     (synopsis "System log viewer")
     (description "This program is developed for being used by beginner users,
 which don't know how to find information about their Linux system, and how the
@@ -365,7 +365,7 @@ This package is part of the KDE administration module.")
            qtbase-5
            qtsvg
            qtx11extras))
-    (home-page "https://www.kde.org/applications/system/yakuake/")
+    (home-page "https://apps.kde.org/yakuake/")
     (synopsis "Quad-style terminal emulator for KDE")
     (description "Yakuake is a drop-down terminal emulator based on KDE Konsole
 technology.  Features include:
