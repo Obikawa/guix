@@ -396,7 +396,6 @@ This package is part of the KDE networking module.")
            kcoreaddons
            kcrash
            kdbusaddons
-           kdewebkit
            kdnssd
            ki18n
            kiconthemes
