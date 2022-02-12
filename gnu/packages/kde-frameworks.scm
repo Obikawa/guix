@@ -1112,6 +1112,43 @@ dates and times, or MIME types, as well as platform-aware dialogs for
 configuration pages, message boxes, and password requests.")
     (license (list license:gpl2+ license:lgpl2.1+))))
 
+(define-public kwin
+  (package
+    (name "kwin")
+    (version "5.24.0")
+    (source (origin
+              (method url-fetch)
+              (uri (string-append
+                    "mirror://kde/stable/plasma/"
+                    (version-major+minor version) "/"
+                    name "-" version ".tar.xz"))
+              (sha256
+               (base32
+                "0mgaha8p2898af1mmkl74zs6wp02yjv14xb7y1c8m0zahblm2a9b"))))
+    (build-system cmake-build-system)
+    (native-inputs
+     (list extra-cmake-modules
+           pkg-config
+		   krunner
+           qttools
+           xorg-server-for-tests)) ; for the tests
+    (inputs
+     (list kscreenlocker xcb-util-cursor plasma-framework
+	 kcmutils kwayland breeze pipewire))
+    (home-page "https://kde.org/plasma-desktop/'")
+    (synopsis "An easy to use, but flexible, composited Window Manager")
+    (description "KWindowSystem provides information about and allows
+interaction with the windowing system.  It provides a high level API, which
+is windowing system independent and has platform specific
+implementations.  This API is inspired by X11 and thus not all functionality
+is available on all windowing systems.
+
+In addition to the high level API, this framework also provides several
+lower level classes for interaction with the X Windowing System.")
+    ;; Some source files mention lgpl2.0+, but the included license is
+    ;; the lgpl2.1. Some source files are under non-copyleft licenses.
+    (license license:lgpl2.1+)))
+
 (define-public kwindowsystem
   (package
     (name "kwindowsystem")
