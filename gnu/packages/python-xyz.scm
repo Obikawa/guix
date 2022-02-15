@@ -1717,6 +1717,26 @@ version identifier.")
 (define-public python2-semantic-version
   (package-with-python2 python-semantic-version))
 
+(define-public python-serial
+  (package
+    (name "python-serial")
+    (version "0.0.97")
+    (source (origin
+              (method url-fetch)
+              (uri (pypi-uri "serial" version))
+              (sha256
+               (base32
+                "0j7qjif5d9mxbdwcyyhr7fpcvjq7x16ar9n3mk95xgyx4yhm08al"))))
+    (build-system python-build-system)
+    (propagated-inputs (list python-future python-iso8601 python-pyyaml))
+    (home-page "https://bitbucket.com/davebelais/serial.git")
+    (synopsis
+     "Framework for serializing/deserializing JSON/YAML/XML")
+    (description
+     "This package provides a framework for serializing/deserializing JSON/YAML/XML
+into python class instances and vice versa")
+    (license license:expat)))
+
 (define-public python-serpent
   (package
     (name "python-serpent")
