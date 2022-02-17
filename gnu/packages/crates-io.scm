@@ -39729,8 +39729,37 @@ under its new name.")
         ("rust-nix" ,rust-nix-0.8)
         ("rust-winapi" ,rust-winapi-0.2))))))
 
+(define-public rust-os-str-bytes-6
+  (package
+    (name "rust-os-str-bytes")
+    (version "6.0.0")
+    (source
+      (origin
+        (method url-fetch)
+        (uri (crate-uri "os_str_bytes" version))
+        (file-name (string-append name "-" version ".tar.gz"))
+        (sha256
+          (base32 "0r5z5xds2wzzqlqjaw96dpjsz5nqyzc1rflm4mh09aa32qyl88lf"))))
+    (build-system cargo-build-system)
+    (arguments
+      `(#:skip-build?
+        #t
+        #:cargo-inputs
+        (("rust-memchr" ,rust-memchr-2)
+         ("rust-print-bytes" ,rust-print-bytes-0.5)
+         ("rust-uniquote" ,rust-uniquote-3))))
+    (home-page
+     "https://github.com/dylni/os_str_bytes")
+    (synopsis
+     "Traits for converting between byte sequences and platform-native strings")
+    (description
+     "This package provides a traits for converting between byte sequences and
+platform-native strings.")
+    (license (list license:expat license:asl2.0))))
+
 (define-public rust-os-str-bytes-2
   (package
+    (inherit rust-os-str-bytes-6)
     (name "rust-os-str-bytes")
     (version "2.4.0")
     (source
@@ -39743,15 +39772,7 @@ under its new name.")
         (base32
          "11agh8n3x2l4sr3sxvx6byc1j3ryb1g6flb1ywn0qhq7xv1y3cmg"))))
     (build-system cargo-build-system)
-    (arguments `(#:skip-build? #t))
-    (home-page
-     "https://github.com/dylni/os_str_bytes")
-    (synopsis
-     "Traits for converting between byte sequences and platform-native strings")
-    (description
-     "This package provides a traits for converting between byte sequences and
-platform-native strings.")
-    (license (list license:expat license:asl2.0))))
+    (arguments `(#:skip-build? #t))))
 
 (define-public rust-ouroboros-macro-0.14
   (package
