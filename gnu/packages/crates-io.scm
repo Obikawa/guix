@@ -13395,7 +13395,7 @@ in @code{no_std}.  Alloc support is optional.")
       `(#:skip-build?
         #t
         #:cargo-inputs
-        (("rust-libc" ,rust-libc-0.2) ("rust-mach" ,rust-mach-0.1))))
+        (("rust-libc" ,rust-libc-0.2) ("rust-mach" ,rust-mach-0.3))))
     (home-page "https://github.com/dcuddeback/core-foundation-sys")
     (synopsis "FFI bindings for CoreFoundation")
     (description "FFI bindings for CoreFoundation")
@@ -29602,7 +29602,7 @@ enum like Option/Result.")
         ("rust-waker-fn" ,rust-waker-fn-1))
        #:cargo-development-inputs
        (("rust-env-logger" ,rust-env-logger-0.8)
-        ("rust-indicatif" ,rust-indicatif-0.15)
+        ("rust-indicatif" ,rust-indicatif-0.16)
         ("rust-structopt" ,rust-structopt-0.3)
         ("rust-test-case" ,rust-test-case-1)
         ("rust-tracing-subscriber" ,rust-tracing-subscriber-0.2))))
@@ -57491,7 +57491,7 @@ control on the fields.")
           (base32 "0hv0q1mw1r1brk7v3g4a80j162p7g1dri4bdidykrakzfqjd4ypn"))))
     (build-system cargo-build-system)
     (arguments
-      `(#:skip-build? #t #:cargo-inputs (("rust-ndarray" ,rust-ndarray-0.14))))
+      `(#:skip-build? #t #:cargo-inputs (("rust-ndarray" ,rust-ndarray-0.15))))
     (home-page "https://github.com/mgeisler/smawk")
     (synopsis "Functions for finding row-minima in a totally monotone matrix.")
     (description
