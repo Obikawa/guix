@@ -38676,10 +38676,10 @@ mathematics.")
      `(#:cargo-inputs
        (("rust-num-traits" , rust-num-traits-0.2))))))
 
-(define-public rust-number-prefix-0.3
+(define-public rust-number-prefix-0.4
   (package
     (name "rust-number-prefix")
-    (version "0.3.0")
+    (version "0.4.0")
     (source
       (origin
         (method url-fetch)
@@ -38688,7 +38688,7 @@ mathematics.")
          (string-append name "-" version ".tar.gz"))
         (sha256
          (base32
-          "0slm4mqmpgs6hvz22ycny9lvyvl9ivs80a1lncslp7lszz02zc0p"))))
+          "1wvh13wvlajqxkb1filsfzbrnq0vrmrw298v2j3sy82z1rm282w3"))))
     (build-system cargo-build-system)
     (home-page "https://github.com/ogham/rust-number-prefix")
     (synopsis "Format numeric prefixes: kilo, giga, kibi")
