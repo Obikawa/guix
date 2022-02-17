@@ -67935,6 +67935,25 @@ whitespace from a string.")
     (license (list license:asl2.0
                    license:expat))))
 
+(define-public rust-uniquote-3
+  (package
+    (name "rust-uniquote")
+    (version "3.0.0")
+    (source
+      (origin
+        (method url-fetch)
+        (uri (crate-uri "uniquote" version))
+        (file-name (string-append name "-" version ".tar.gz"))
+        (sha256
+          (base32 "0gqwq3kbzdsj5qsc8jfm5v4qwzgnp4rrfvdpm71ch1593h22y664"))))
+    (build-system cargo-build-system)
+    (arguments `(#:skip-build? #t))
+    (home-page "https://github.com/dylni/uniquote")
+    (synopsis "Quote strings for clear display in output
+")
+    (description "Quote strings for clear display in output")
+    (license (list license:expat license:asl2.0))))
+
 (define-public rust-universal-hash-0.4
   (package
     (name "rust-universal-hash")
