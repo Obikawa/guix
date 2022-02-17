@@ -12,7 +12,7 @@
 ;;; Copyright © 2021, 2022 Zheng Junjie <873216071@qq.com>
 ;;; Copyright © 2021 Alexandru-Sergiu Marton <brown121407@posteo.ro>
 ;;; Copyright © 2021 Maxim Cournoyer <maxim.cournoyer@gmail.com>
-;;; Copyright © 2021 Petr Hodina <phodina@protonmail.com>
+;;; Copyright © 2021, 2022 Petr Hodina <phodina@protonmail.com>
 ;;; Copyright © 2021 jgart <jgart@dismail.de>
 ;;; Copyright © 2021 Nicolas Graves <ngraves@ngraves.fr>
 ;;; Copyright © 2022 Aleksandr Vityazev <avityazev@posteo.org>
@@ -355,6 +355,48 @@ Features include:
 @item fast, written in Rust.
 @end enumerate\n")
     (license license:gpl3)))
+
+(define-public espflash
+  (package
+    (name "espflash")
+    (version "1.2.0")
+    (source
+      (origin
+        (method url-fetch)
+        (uri (crate-uri "espflash" version))
+        (file-name (string-append name "-" version ".tar.gz"))
+        (sha256
+          (base32 "173gjwc46zsm05hl74l9vrq40kygjbcsx3hnl8cfmr3ik1ca6g8q"))))
+    (build-system cargo-build-system)
+    (arguments
+      `(#:cargo-inputs
+        (("rust-binread" ,rust-binread-2)
+         ("rust-bytemuck" ,rust-bytemuck-1)
+         ("rust-clap" ,rust-clap-3)
+         ("rust-crossterm" ,rust-crossterm-0.22)
+         ("rust-csv" ,rust-csv-1)
+         ("rust-dialoguer" ,rust-dialoguer-0.9)
+         ("rust-directories-next" ,rust-directories-next-2)
+         ("rust-flate2" ,rust-flate2-1)
+         ("rust-indicatif" ,rust-indicatif-0.16)
+         ("rust-md5" ,rust-md5-0.7)
+         ("rust-miette" ,rust-miette-3)
+         ("rust-regex" ,rust-regex-1)
+         ("rust-serde" ,rust-serde-1)
+         ("rust-serde-hex" ,rust-serde-hex-0.1)
+         ("rust-serde-plain" ,rust-serde-plain-1)
+         ("rust-serialport" ,rust-serialport-4)
+         ("rust-sha2" ,rust-sha2-0.10)
+         ("rust-slip-codec" ,rust-slip-codec-0.3)
+         ("rust-strum" ,rust-strum-0.23)
+         ("rust-strum-macros" ,rust-strum-macros-0.23)
+         ("rust-thiserror" ,rust-thiserror-1)
+         ("rust-toml" ,rust-toml-0.5)
+         ("rust-xmas-elf" ,rust-xmas-elf-0.8))))
+    (home-page "https://github.com/esp-rs/espflash")
+    (synopsis "ESP8266 and ESP32 serial flasher")
+    (description "ESP8266 and ESP32 serial flasher")
+    (license license:gpl2)))
 
 (define-public exa
   (package
