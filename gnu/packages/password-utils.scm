@@ -33,6 +33,7 @@
 ;;; Copyright © 2021 Xinglu Chen <public@yoctocell.xyz>
 ;;; Copyright © 2020 Hartmut Goebel <h.goebel@crazy-compilers.com>
 ;;; Copyright © 2021 David Dashyan <mail@davie.li>
+;;; Copyright © 2022 Petr Hodina <phodina@protonmail.com>
 ;;;
 ;;; This file is part of GNU Guix.
 ;;;
@@ -58,6 +59,7 @@
   #:use-module (guix download)
   #:use-module (guix git-download)
   #:use-module (guix packages)
+  #:use-module (guix utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages aidc)
@@ -91,6 +93,7 @@
   #:use-module (gnu packages python)
   #:use-module (gnu packages python-web)
   #:use-module (gnu packages python-xyz)
+  #:use-module (gnu packages rdesktop)
   #:use-module (gnu packages readline)
   #:use-module (gnu packages ruby)
   #:use-module (gnu packages security-token)
@@ -1171,6 +1174,34 @@ binaries.  All of these utils are designed to execute only one specific
 function.  Since they all work with @code{STDIN} and @code{STDOUT} you can
 group them into chains.")
     (license license:expat)))
+
+(define-public hydra
+  (package
+    (name "hydra")
+    (version "9.2")
+    (source (origin
+              (method git-fetch)
+              (uri (git-reference
+                    (url "https://salsa.debian.org/pkg-security-team/hydra")
+                    (commit (string-append "upstream/" version))))
+              (file-name (git-file-name name version))
+              (sha256
+               (base32
+                "19mnqmm9pwdjs75qsf5zbxb33v4d4ziy414cnl08cbyl13ysdm85"))))
+    (build-system gnu-build-system)
+    (arguments
+     `(#:tests? #f ; no test suite
+       #:make-flags
+       (list (string-append "CC="
+                            ,(cc-for-target)))))
+    (native-inputs (list pkg-config))
+    (inputs (list freerdp gtk+ openssl zlib))
+    (home-page "https://salsa.debian.org/pkg-security-team/hydra")
+    (synopsis "Tool to gain unauthorized access from remote to a system")
+    (description
+     "This package provides a tool to gain unauthorized
+access from remote to a system.  This tool is only for LEGAL purposes!")
+    (license license:agpl3+)))
 
 (define-public bruteforce-luks
   (package
