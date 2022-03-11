@@ -15,6 +15,7 @@
 ;;; Copyright © 2020, 2021 Pierre Langlois <pierre.langlois@gmx.com>
 ;;; Copyright © 2021 Vincent Legoll <vincent.legoll@gmail.com>
 ;;; Copyright © 2021 Brice Waegeneire <brice@waegenei.re>
+;;; Copyright © 2022 Petr Hodina <phodina@protonmail.com>
 ;;;
 ;;; This file is part of GNU Guix.
 ;;;
@@ -492,6 +493,18 @@ menu to select one of the installed operating systems.")
 tree binary files.  These are board description files used by Linux and BSD.")
     (license license:gpl2+)))
 
+(define %u-boot-pinephonepro-adc-rockchip-saradc-patch
+  (search-patch "u-boot-pinephonepro-adc-rockchip-saradc.patch"))
+
+(define %u-boot-pinephonepro-device-enablement-patch
+  (search-patch "u-boot-pinephonepro-device-enablement.patch"))
+
+(define %u-boot-pinephonepro-hack-do-not-honor-patch
+  (search-patch "u-boot-pinephonepro-hack-do-not-honor.patch"))
+
+(define %u-boot-pinephonepro-rk8xx-poweroff-support-patch
+  (search-patch "u-boot-pinephonepro-rk8xx-poweroff-support.patch"))
+
 (define %u-boot-rockchip-inno-usb-patch
   ;; Fix regression in 2020.10 causing freezes on boot with USB boot enabled.
   ;; See https://gitlab.manjaro.org/manjaro-arm/packages/core/uboot-rockpro64/-/issues/4
@@ -521,6 +534,10 @@ tree binary files.  These are board description files used by Linux and BSD.")
     (source (origin
 	      (patches
                (list %u-boot-rockchip-inno-usb-patch
+                     %u-boot-pinephonepro-adc-rockchip-saradc-patch
+                     %u-boot-pinephonepro-device-enablement-patch
+                     %u-boot-pinephonepro-hack-do-not-honor-patch
+                     %u-boot-pinephonepro-rk8xx-poweroff-support-patch
                      %u-boot-allow-disabling-openssl-patch
                      %u-boot-sifive-prevent-relocating-initrd-fdt
                      %u-boot-rk3399-enable-emmc-phy-patch))
@@ -1011,6 +1028,9 @@ to Novena upstream, does not load u-boot.img from the first partition.")
       (native-inputs
        `(("firmware" ,arm-trusted-firmware-rk3399)
          ,@(package-native-inputs base))))))
+
+(define-public u-boot-pinephone-pro-rk3399
+  (make-u-boot-package "pinephone-pro-rk3399" "aarch64-linux-gnu"))
 
 (define-public vboot-utils
   (package

@@ -1866,6 +1866,11 @@ dist_patch_DATA =						\
   %D%/packages/patches/twinkle-bcg729.patch			\
   %D%/packages/patches/u-boot-allow-disabling-openssl.patch	\
   %D%/packages/patches/u-boot-nintendo-nes-serial.patch		\
+  %D%/packages/patches/u-boot-pinephonepro-adc-rockchip-saradc.patch \
+  %D%/packages/patches/u-boot-pinephonepro-device-enablement.patch \
+  %D%/packages/patches/u-boot-pinephonepro-hack-do-not-honor.patch \
+  %D%/packages/patches/u-boot-pinephonepro-mtd-spi-nor-ids.patch \
+  %D%/packages/patches/u-boot-pinephonepro-rk8xx-poweroff-support.patch \
   %D%/packages/patches/u-boot-rockchip-inno-usb.patch		\
   %D%/packages/patches/u-boot-sifive-prevent-reloc-initrd-fdt.patch	\
   %D%/packages/patches/u-boot-riscv64-fix-extlinux.patch	\
