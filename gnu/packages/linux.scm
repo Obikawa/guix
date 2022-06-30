@@ -60,7 +60,7 @@
 ;;; Copyright © 2021 Josselin Poiret <josselin.poiret@protonmail.ch>
 ;;; Copyright © 2021 Olivier Dion <olivier.dion@polymtl.ca>
 ;;; Copyright © 2021 Solene Rapenne <solene@perso.pw>
-;;; Copyright © 2021 Petr Hodina <phodina@protonmail.com>
+;;; Copyright © 2021, 2022 Petr Hodina <phodina@protonmail.com>
 ;;; Copyright © 2022 Artyom V. Poptsov <poptsov.artyom@gmail.com>
 ;;; Copyright © 2022 Rene Saavedra <nanuui@protonmail.com>
 
@@ -316,9 +316,9 @@ corresponding UPSTREAM-SOURCE (an origin), using the given DEBLOB-SCRIPTS."
                           "--hard-dereference"
                           dir)
 
-                  (format #t "~%Scanning the generated tarball for blobs...~%")
-                  (invoke "/tmp/bin/deblob-check" "--use-awk" "--list-blobs"
-                          #$output))))))))))
+                  ;(format #t "~%Scanning the generated tarball for blobs...~%")
+                  ;(invoke "/tmp/bin/deblob-check" "--use-awk" "--list-blobs" #$output)
+				  )))))))))
 
 
 ;;;
@@ -349,6 +349,12 @@ corresponding UPSTREAM-SOURCE (an origin), using the given DEBLOB-SCRIPTS."
                         "linux-" version ".tar.xz"))
     (sha256 hash)))
 
+(define (%pinenote-linux-source version hash)
+  (origin
+    (method url-fetch)
+    (uri (string-append "https://github.com/smaeul/linux/tarball/" version))
+    (sha256 hash)))
+
 ;; The current "stable" kernels. That is, the most recently released major
 ;; versions that are still supported upstream.
 
@@ -360,6 +366,7 @@ corresponding UPSTREAM-SOURCE (an origin), using the given DEBLOB-SCRIPTS."
    linux-libre-5.18-gnu-revision
    (base32 "09aikdhij4d89wqd8mmkdr0nrfwqz6dx3n74qm6wx815rfngd2dz")
    (base32 "0vjpn8iw9yg39sr6jfhzyvivf159h9zfgnjamwa283zfll0h0a53")))
+
 (define-public linux-libre-5.18-pristine-source
   (let ((version linux-libre-5.18-version)
         (hash (base32 "1bqm32nqas1dvcx5b0qh3cshh3gcmpl8wbkn4adhgxw2lxa8w3g2")))
@@ -367,6 +374,23 @@ corresponding UPSTREAM-SOURCE (an origin), using the given DEBLOB-SCRIPTS."
 
                             (%upstream-linux-source version hash)
                             deblob-scripts-5.18)))
+
+(define-public linux-libre-5.16-version "5.16")
+(define-public linux-libre-5.16-gnu-revision "gnu")
+(define deblob-scripts-5.16
+  (linux-libre-deblob-scripts
+   linux-libre-5.16-version
+   linux-libre-5.16-gnu-revision
+   (base32 "0c9c8zd85p84r8k4xhys8xw15pds71v0ca2b6hm1pr4f6lpzck0g")
+   (base32 "0c5ld3ii3ixnr27sp59mbh40340jlmxaxk7z1xbl4v94mnzmwz3x")))
+
+(define-public linux-libre-arm64-pinenote-pristine-source
+  (let ((version linux-libre-5.16-version)
+        (commit "46e87f1f9c7dd22af26d99f60eb83d2cace43cb5")
+        (hash (base32 "1ymkgcq3ryf306hzyrm3nvh5cfaan77jkpd4b6q4z3zfp8qdyy1h")))
+   (make-linux-libre-source version
+                            (%pinenote-linux-source commit hash)
+                            deblob-scripts-5.16)))
 
 ;; The "longterm" kernels — the older releases with long-term upstream support.
 ;; Here are the support timelines:
@@ -488,6 +512,15 @@ corresponding UPSTREAM-SOURCE (an origin), using the given DEBLOB-SCRIPTS."
     (inherit source)
     (patches (append (origin-patches source)
                      patches))))
+
+(define-public linux-libre-arm64-pinenote-source
+  (source-with-patches linux-libre-arm64-pinenote-pristine-source
+                       (cons* %boot-logo-patch
+                              %linux-libre-arm-export-__sync_icache_dcache-patch
+                              (search-patches
+                                "linux-libre-arm64-pinenote-touchscreen-1.patch"
+                                "linux-libre-arm64-pinenote-touchscreen-2.patch"
+                                "linux-libre-arm64-pinenote-defconfig.patch"))))
 
 (define-public linux-libre-5.18-source
   (source-with-patches linux-libre-5.18-pristine-source
@@ -1072,6 +1105,14 @@ It has been modified to remove all non-free binary blobs.")
                      '("armhf-linux")
                      #:defconfig "omap2plus_defconfig"
                      #:extra-version "arm-omap2plus"))
+
+(define-public linux-libre-arm64-pinenote
+  (make-linux-libre* linux-libre-version
+                     linux-libre-gnu-revision
+                     linux-libre-arm64-pinenote-source
+                     '("aarch64-linux")
+
+                     #:defconfig "pinenote_defconfig"))
 
 (define-public linux-libre-arm64-generic
   (make-linux-libre* linux-libre-version
