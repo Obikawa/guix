@@ -52798,7 +52798,7 @@ computation (experimental)")
 cipher.")
     (license (list license:expat license:asl2.0))))
 
-(define-public rust-safe-arch-0.5
+(define-public rust-safe-arch-0.6
   (package
     (name "rust-safe-arch")
     (version "0.6.0")
