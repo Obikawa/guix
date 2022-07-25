@@ -1376,9 +1376,7 @@ feel.")
     (native-inputs
      (list bison dbus extra-cmake-modules flex qttools))
     (inputs
-     `(("qtbase" ,qtbase-5)
-       ("qtdeclarative" ,qtdeclarative)
-       ("udev" ,eudev)))
+     (list qtbase-5 qtdeclarative eudev))
     ;; TODO: Add runtime-only dependency MediaPlayerInfo
     (home-page "https://community.kde.org/Frameworks")
     (synopsis "Desktop hardware abstraction")
