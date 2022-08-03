@@ -45309,14 +45309,14 @@ losslessly as possible.")
 (define-public rust-proc-macro-crate-1
   (package
     (name "rust-proc-macro-crate")
-    (version "1.0.0")
+    (version "1.2.0")
     (source
      (origin
        (method url-fetch)
        (uri (crate-uri "proc-macro-crate" version))
        (file-name (string-append name "-" version ".tar.gz"))
        (sha256
-        (base32 "14pzgkpnlzq6y7yc749h2lwd1mv44min4iszjk2znmi1yqfvvza1"))))
+        (base32 "1j36pf7pknyap8vjkd8vhw5jxvrmba5xj02shlakkwi3ikxhpm96"))))
     (build-system cargo-build-system)
     (arguments
      `(#:cargo-inputs
