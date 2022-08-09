@@ -734,6 +734,7 @@
     (arguments
      `(#:skip-build?
        #t
+       #:features '("v2_58")
        #:cargo-inputs
        (("rust-bitflags" ,rust-bitflags-1)
         ("rust-futures-channel" ,rust-futures-channel-0.3)
@@ -954,6 +955,7 @@
     (arguments
      `(#:skip-build?
        #t
+       #:features '("v2_58")
        #:cargo-inputs
        (("rust-bitflags" ,rust-bitflags-1)
         ("rust-futures-channel" ,rust-futures-channel-0.3)
@@ -1124,6 +1126,7 @@
     (arguments
      `(#:skip-build?
        #t
+       #:features '("v2_58")
        #:cargo-inputs
        (("rust-libc" ,rust-libc-0.2)
         ("rust-system-deps" ,rust-system-deps-3))
@@ -1269,6 +1272,7 @@
     (build-system cargo-build-system)
     (arguments
      `(#:tests? #f                      ;requires running server
+       #:features '("v3_22")
        #:cargo-inputs
        (("rust-atk" ,rust-atk-0.14)
         ("rust-bitflags" ,rust-bitflags-1)
@@ -1369,6 +1373,7 @@
     (build-system cargo-build-system)
     (arguments
      `(#:tests? #f                      ;missing files
+       #:features '("v3_22")
        #:cargo-inputs
        (("rust-atk-sys" ,rust-atk-sys-0.14)
         ("rust-cairo-sys-rs" ,rust-cairo-sys-rs-0.14)

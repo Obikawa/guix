@@ -72750,7 +72750,8 @@ to XDG Base Directory specification.")
           (base32 "1kr8ik92ckz12s9my66a7grip84n87xgkannpchi5hsmqw6d0bh3"))))
     (build-system cargo-build-system)
     (arguments
-      `(#:cargo-inputs
+      `(#:features '("wayland")
+        #:cargo-inputs
         (("rust-libc" ,rust-libc-0.2)
          ("rust-memmap" ,rust-memmap-0.7)
          ("rust-xcb" ,rust-xcb-0.9))
