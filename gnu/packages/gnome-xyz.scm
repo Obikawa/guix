@@ -302,6 +302,32 @@ and products.  Plots is designed to integrate well with the GNOME desktop and
 takes advantage of modern hardware using OpenGL.")
     (license license:gpl3+)))
 
+(define-public gnome-shell-extension-readingstrip
+  (package
+    (name "gnome-shell-extension-readingstrip")
+    (version "33")
+    (source (origin
+              (method git-fetch)
+              (uri (git-reference
+                    (url
+                     "https://github.com/lupantano/readingstrip")
+                    (commit (string-append "v" version))))
+              (sha256
+               (base32
+                "0qm77s280nbf4gqnfzpwp8a7jf7lliz6fxbsd3lasvrr11pgsk87"))
+              (file-name (git-file-name name version))))
+    (build-system copy-build-system)
+    (arguments
+     `(#:install-plan
+       '(("." ,(string-append "share/gnome-shell/extensions/"
+                              "readingstrip@.gmail.com")))))
+    (synopsis "Reading guide for computer")
+    (description "This extension integrates Ubuntu AppIndicators
+and KStatusNotifierItems (KDE's successor of the systray) into
+GNOME Shell.")
+    (home-page "https://extensions.gnome.org/extension/4419/reading-strip/")
+    (license license:gpl3+)))
+
 (define-public gnome-shell-extension-appindicator
   (package
     (name "gnome-shell-extension-appindicator")
