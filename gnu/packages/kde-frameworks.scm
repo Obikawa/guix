@@ -537,7 +537,7 @@ Internet).")
      (list dbus extra-cmake-modules inetutils qttools-5
            xorg-server-for-tests))
     (inputs
-     (list qtbase-5 qtdeclarative))
+     (list qtbase-5 qtdeclarative-5))
     (arguments
      `(#:phases
        (modify-phases %standard-phases
