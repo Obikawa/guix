@@ -328,7 +328,7 @@ basic needs and easy to configure for those who want special setups.")
        (sha256
         (base32 "1mrrrxjvqmrnkjwafvqrd2hlvl9gr9y4hn7dv0gf70lp5bl06i89"))))
     (native-inputs
-     (list extra-cmake-modules pkg-config qttools))
+     (list extra-cmake-modules pkg-config qttools-5))
     (inputs
      (list kauth
            kcompletion
