@@ -481,7 +481,7 @@ wayland-server API.")
            plasma-framework
            plasma-wayland-protocols
            qtbase-5
-           qtdeclarative
+           qtdeclarative-5
            qtwayland
            qtx11extras
            wayland
