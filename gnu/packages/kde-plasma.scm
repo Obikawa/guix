@@ -214,7 +214,7 @@ call it if it is not associated to a terminal.")
     (inputs
      (list libxkbcommon
            qtbase-5
-           qtdeclarative
+           qtdeclarative-5
            qtwayland
            wayland
            wayland-protocols))
@@ -890,7 +890,7 @@ adding, modifying and removing contacts.")
            plasma-wayland-protocols
            prison
            qtbase-5
-           qtdeclarative
+           qtdeclarative-5
            qtwayland
            qtx11extras
            wayland
