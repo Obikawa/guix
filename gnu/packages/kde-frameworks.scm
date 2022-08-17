@@ -1490,7 +1490,7 @@ system.")
     (inputs
      (list hunspell
            ;; TODO: hspell (for Hebrew), Voikko (for Finish)
-           qtdeclarative
+           qtdeclarative-5
            qtbase-5))
     (home-page "https://community.kde.org/Frameworks")
     (synopsis "Multi-language spell checker")
@@ -1949,7 +1949,7 @@ asynchronous jobs.")
            libcanberra
            libdbusmenu-qt
            phonon
-           qtdeclarative
+           qtdeclarative-5
            qtbase-5
            qtspeech
            qtx11extras))
@@ -2593,7 +2593,7 @@ emoticons coming from different providers.")
            kwindowsystem
            qtbase-5
            qtx11extras
-           qtdeclarative
+           qtdeclarative-5
            xcb-util-keysyms))
     (home-page "https://community.kde.org/Frameworks")
     (synopsis "Global desktop keyboard shortcuts")
