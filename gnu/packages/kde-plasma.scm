@@ -1020,6 +1020,7 @@ license:lgpl3))))
            libsm
            libxft
            libxkbcommon
+           libxkbfile
            libxrender
            libxtst
            networkmanager-qt
