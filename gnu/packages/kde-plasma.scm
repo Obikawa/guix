@@ -1028,7 +1028,7 @@ license:lgpl3))))
            plasma-wayland-protocols
            prison
            qtbase-5
-           qtdeclarative
+           qtdeclarative-5
            qtwayland
            qtx11extras
            wayland
