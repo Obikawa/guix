@@ -961,7 +961,7 @@ license:lgpl3))))
      (list extra-cmake-modules
            kdoctools
            pkg-config
-           qtsvg
+           qtsvg-5
            qttools))
     (inputs
      (list ;kplasma
