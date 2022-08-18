@@ -1035,7 +1035,7 @@ license:lgpl3))))
            wayland-protocols
            xcb-util
            xcb-util-image
-           xkbcomp))
+           xkeyboard-config))
     (arguments
      (list #:phases
            #~(modify-phases %standard-phases
