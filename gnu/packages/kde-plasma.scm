@@ -1034,7 +1034,8 @@ license:lgpl3))))
            wayland
            wayland-protocols
            xcb-util
-           xcb-util-image))
+           xcb-util-image
+           xkbcomp))
     (arguments
      (list #:phases
            #~(modify-phases %standard-phases
