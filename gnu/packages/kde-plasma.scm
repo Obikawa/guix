@@ -439,7 +439,7 @@ wayland-server API.")
            dbus
            kdoctools
            pkg-config
-           qttools
+           qttools-5
            xorg-server-for-tests))
     (inputs
      (list breeze
