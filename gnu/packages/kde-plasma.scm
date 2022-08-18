@@ -828,7 +828,7 @@ adding, modifying and removing contacts.")
     (native-inputs
      (list extra-cmake-modules
            pkg-config
-           qtsvg
+           qtsvg-5
            qttools))
     (inputs
      (list ;kplasma
