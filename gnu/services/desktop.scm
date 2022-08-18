@@ -1453,9 +1453,8 @@ with the administrator's password."
    (extensions
     (list ;; (service-extension polkit-service-type
           ;;                    plasma-polkit-settings)
-          ;; (service-extension profile-service-type
-          ;;                    (compose list plasma-workspace))
-     ))
+          (service-extension profile-service-type
+                             (compose list plasma-workspace))))
    (default-value (plasma-desktop-configuration))
    (description "Run Plasma desktop environment.")))
 
