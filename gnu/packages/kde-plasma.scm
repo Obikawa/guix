@@ -947,7 +947,7 @@ license:lgpl3))))
 (define-public plasma-desktop
   (package
     (name "plasma-desktop")
-    (version "5.24.3")
+    (version "5.24.2")
     (source (origin
               (method url-fetch)
               (uri (string-append
