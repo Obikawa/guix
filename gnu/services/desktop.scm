@@ -1453,8 +1453,8 @@ with the administrator's password."
   (service-type
    (name 'plasma-desktop)
    (extensions
-    (list ;; (service-extension polkit-service-type
-          ;;                    plasma-polkit-settings)
+    (list (service-extension polkit-service-type
+                             plasma-polkit-settings)
           (service-extension profile-service-type
                              (compose list plasma-workspace))))
    (default-value (plasma-desktop-configuration))
